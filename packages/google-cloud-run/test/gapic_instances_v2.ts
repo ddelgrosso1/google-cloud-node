@@ -21,7 +21,7 @@ import * as assert from 'assert';
 import * as sinon from 'sinon';
 import {SinonStub} from 'sinon';
 import {describe, it} from 'mocha';
-import * as jobsModule from '../src';
+import * as instancesModule from '../src';
 
 import {PassThrough} from 'stream';
 
@@ -115,16 +115,16 @@ function stubAsyncIterationCall<ResponseType>(responses?: ResponseType[], error?
     return sinon.stub().returns(asyncIterable);
 }
 
-describe('v2.JobsClient', () => {
+describe('v2.InstancesClient', () => {
     describe('Common methods', () => {
         it('has apiEndpoint', () => {
-            const client = new jobsModule.v2.JobsClient();
+            const client = new instancesModule.v2.InstancesClient();
             const apiEndpoint = client.apiEndpoint;
             assert.strictEqual(apiEndpoint, 'run.googleapis.com');
         });
 
         it('has universeDomain', () => {
-            const client = new jobsModule.v2.JobsClient();
+            const client = new instancesModule.v2.InstancesClient();
             const universeDomain = client.universeDomain;
             assert.strictEqual(universeDomain, "googleapis.com");
         });
@@ -132,7 +132,7 @@ describe('v2.JobsClient', () => {
         if (typeof process === 'object' && typeof process.emitWarning === 'function') {
             it('throws DeprecationWarning if static servicePath is used', () => {
                 const stub = sinon.stub(process, 'emitWarning');
-                const servicePath = jobsModule.v2.JobsClient.servicePath;
+                const servicePath = instancesModule.v2.InstancesClient.servicePath;
                 assert.strictEqual(servicePath, 'run.googleapis.com');
                 assert(stub.called);
                 stub.restore();
@@ -140,20 +140,20 @@ describe('v2.JobsClient', () => {
 
             it('throws DeprecationWarning if static apiEndpoint is used', () => {
                 const stub = sinon.stub(process, 'emitWarning');
-                const apiEndpoint = jobsModule.v2.JobsClient.apiEndpoint;
+                const apiEndpoint = instancesModule.v2.InstancesClient.apiEndpoint;
                 assert.strictEqual(apiEndpoint, 'run.googleapis.com');
                 assert(stub.called);
                 stub.restore();
             });
         }
         it('sets apiEndpoint according to universe domain camelCase', () => {
-            const client = new jobsModule.v2.JobsClient({universeDomain: 'example.com'});
+            const client = new instancesModule.v2.InstancesClient({universeDomain: 'example.com'});
             const servicePath = client.apiEndpoint;
             assert.strictEqual(servicePath, 'run.example.com');
         });
 
         it('sets apiEndpoint according to universe domain snakeCase', () => {
-            const client = new jobsModule.v2.JobsClient({universe_domain: 'example.com'});
+            const client = new instancesModule.v2.InstancesClient({universe_domain: 'example.com'});
             const servicePath = client.apiEndpoint;
             assert.strictEqual(servicePath, 'run.example.com');
         });
@@ -163,7 +163,7 @@ describe('v2.JobsClient', () => {
                 it('sets apiEndpoint from environment variable', () => {
                     const saved = process.env['GOOGLE_CLOUD_UNIVERSE_DOMAIN'];
                     process.env['GOOGLE_CLOUD_UNIVERSE_DOMAIN'] = 'example.com';
-                    const client = new jobsModule.v2.JobsClient();
+                    const client = new instancesModule.v2.InstancesClient();
                     const servicePath = client.apiEndpoint;
                     assert.strictEqual(servicePath, 'run.example.com');
                     if (saved) {
@@ -176,7 +176,7 @@ describe('v2.JobsClient', () => {
                 it('value configured in code has priority over environment variable', () => {
                     const saved = process.env['GOOGLE_CLOUD_UNIVERSE_DOMAIN'];
                     process.env['GOOGLE_CLOUD_UNIVERSE_DOMAIN'] = 'example.com';
-                    const client = new jobsModule.v2.JobsClient({universeDomain: 'configured.example.com'});
+                    const client = new instancesModule.v2.InstancesClient({universeDomain: 'configured.example.com'});
                     const servicePath = client.apiEndpoint;
                     assert.strictEqual(servicePath, 'run.configured.example.com');
                     if (saved) {
@@ -188,55 +188,55 @@ describe('v2.JobsClient', () => {
             });
         }
         it('does not allow setting both universeDomain and universe_domain', () => {
-            assert.throws(() => { new jobsModule.v2.JobsClient({universe_domain: 'example.com', universeDomain: 'example.net'}); });
+            assert.throws(() => { new instancesModule.v2.InstancesClient({universe_domain: 'example.com', universeDomain: 'example.net'}); });
         });
 
         it('has port', () => {
-            const port = jobsModule.v2.JobsClient.port;
+            const port = instancesModule.v2.InstancesClient.port;
             assert(port);
             assert(typeof port === 'number');
         });
 
         it('should create a client with no option', () => {
-            const client = new jobsModule.v2.JobsClient();
+            const client = new instancesModule.v2.InstancesClient();
             assert(client);
         });
 
         it('should create a client with gRPC fallback', () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 fallback: true,
             });
             assert(client);
         });
 
         it('has initialize method and supports deferred initialization', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
-            assert.strictEqual(client.jobsStub, undefined);
+            assert.strictEqual(client.instancesStub, undefined);
             await client.initialize();
-            assert(client.jobsStub);
+            assert(client.instancesStub);
         });
 
         it('has close method for the initialized client', done => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             client.initialize().catch(err => {throw err});
-            assert(client.jobsStub);
+            assert(client.instancesStub);
             client.close().then(() => {
                 done();
             }).catch(err => {throw err});
         });
 
         it('has close method for the non-initialized client', done => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
-            assert.strictEqual(client.jobsStub, undefined);
+            assert.strictEqual(client.instancesStub, undefined);
             client.close().then(() => {
                 done();
             }).catch(err => {throw err});
@@ -244,7 +244,7 @@ describe('v2.JobsClient', () => {
 
         it('has getProjectId method', async () => {
             const fakeProjectId = 'fake-project-id';
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -256,7 +256,7 @@ describe('v2.JobsClient', () => {
 
         it('has getProjectId method with callback', async () => {
             const fakeProjectId = 'fake-project-id';
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -275,53 +275,53 @@ describe('v2.JobsClient', () => {
         });
     });
 
-    describe('getJob', () => {
-        it('invokes getJob without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+    describe('getInstance', () => {
+        it('invokes getInstance without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.GetJobRequest()
+              new protos.google.cloud.run.v2.GetInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}/**
             request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedResponse = generateSampleMessage(
-              new protos.google.cloud.run.v2.Job()
+              new protos.google.cloud.run.v2.Instance()
             );
-            client.innerApiCalls.getJob = stubSimpleCall(expectedResponse);
-            const [response] = await client.getJob(request);
+            client.innerApiCalls.getInstance = stubSimpleCall(expectedResponse);
+            const [response] = await client.getInstance(request);
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.getJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.getInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.getJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.getInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes getJob without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes getInstance without error using callback', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.GetJobRequest()
+              new protos.google.cloud.run.v2.GetInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}/**
             request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedResponse = generateSampleMessage(
-              new protos.google.cloud.run.v2.Job()
+              new protos.google.cloud.run.v2.Instance()
             );
-            client.innerApiCalls.getJob = stubSimpleCallWithCallback(expectedResponse);
+            client.innerApiCalls.getInstance = stubSimpleCallWithCallback(expectedResponse);
             const promise = new Promise((resolve, reject) => {
-                 client.getJob(
+                 client.getInstance(
                     request,
-                    (err?: Error|null, result?: protos.google.cloud.run.v2.IJob|null) => {
+                    (err?: Error|null, result?: protos.google.cloud.run.v2.IInstance|null) => {
                         if (err) {
                             reject(err);
                         } else {
@@ -331,387 +331,63 @@ describe('v2.JobsClient', () => {
             });
             const response = await promise;
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.getJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.getInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.getJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.getInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes getJob with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes getInstance with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.GetJobRequest()
+              new protos.google.cloud.run.v2.GetInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}/**
             request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.innerApiCalls.getJob = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.getJob(request), expectedError);
-            const actualRequest = (client.innerApiCalls.getJob as SinonStub)
+            client.innerApiCalls.getInstance = stubSimpleCall(undefined, expectedError);
+            await assert.rejects(client.getInstance(request), expectedError);
+            const actualRequest = (client.innerApiCalls.getInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.getJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.getInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes getJob with closed client', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes getInstance with closed client', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.GetJobRequest()
+              new protos.google.cloud.run.v2.GetInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}/**
             request.name = 'projects/value/locations/value/value';
             const expectedError = new Error('The client has already been closed.');
             client.close().catch(err => {throw err});
-            await assert.rejects(client.getJob(request), expectedError);
+            await assert.rejects(client.getInstance(request), expectedError);
         });
     });
 
-    describe('getIamPolicy', () => {
-        it('invokes getIamPolicy without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+    describe('createInstance', () => {
+        it('invokes createInstance without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.iam.v1.GetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.GetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedResponse = generateSampleMessage(
-              new protos.google.iam.v1.Policy()
-            );
-            client.innerApiCalls.getIamPolicy = stubSimpleCall(expectedResponse);
-            const [response] = await client.getIamPolicy(request);
-            assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.getIamPolicy as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.getIamPolicy as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes getIamPolicy without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.GetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.GetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedResponse = generateSampleMessage(
-              new protos.google.iam.v1.Policy()
-            );
-            client.innerApiCalls.getIamPolicy = stubSimpleCallWithCallback(expectedResponse);
-            const promise = new Promise((resolve, reject) => {
-                 client.getIamPolicy(
-                    request,
-                    (err?: Error|null, result?: protos.google.iam.v1.IPolicy|null) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(result);
-                        }
-                    });
-            });
-            const response = await promise;
-            assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.getIamPolicy as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.getIamPolicy as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes getIamPolicy with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.GetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.GetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedError = new Error('expected');
-            client.innerApiCalls.getIamPolicy = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.getIamPolicy(request), expectedError);
-            const actualRequest = (client.innerApiCalls.getIamPolicy as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.getIamPolicy as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes getIamPolicy with closed client', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.GetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.GetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedError = new Error('The client has already been closed.');
-            client.close().catch(err => {throw err});
-            await assert.rejects(client.getIamPolicy(request), expectedError);
-        });
-    });
-
-    describe('setIamPolicy', () => {
-        it('invokes setIamPolicy without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.SetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.SetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedResponse = generateSampleMessage(
-              new protos.google.iam.v1.Policy()
-            );
-            client.innerApiCalls.setIamPolicy = stubSimpleCall(expectedResponse);
-            const [response] = await client.setIamPolicy(request);
-            assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.setIamPolicy as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.setIamPolicy as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes setIamPolicy without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.SetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.SetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedResponse = generateSampleMessage(
-              new protos.google.iam.v1.Policy()
-            );
-            client.innerApiCalls.setIamPolicy = stubSimpleCallWithCallback(expectedResponse);
-            const promise = new Promise((resolve, reject) => {
-                 client.setIamPolicy(
-                    request,
-                    (err?: Error|null, result?: protos.google.iam.v1.IPolicy|null) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(result);
-                        }
-                    });
-            });
-            const response = await promise;
-            assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.setIamPolicy as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.setIamPolicy as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes setIamPolicy with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.SetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.SetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedError = new Error('expected');
-            client.innerApiCalls.setIamPolicy = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.setIamPolicy(request), expectedError);
-            const actualRequest = (client.innerApiCalls.setIamPolicy as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.setIamPolicy as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes setIamPolicy with closed client', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.SetIamPolicyRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.SetIamPolicyRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedError = new Error('The client has already been closed.');
-            client.close().catch(err => {throw err});
-            await assert.rejects(client.setIamPolicy(request), expectedError);
-        });
-    });
-
-    describe('testIamPermissions', () => {
-        it('invokes testIamPermissions without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.TestIamPermissionsRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.TestIamPermissionsRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedResponse = generateSampleMessage(
-              new protos.google.iam.v1.TestIamPermissionsResponse()
-            );
-            client.innerApiCalls.testIamPermissions = stubSimpleCall(expectedResponse);
-            const [response] = await client.testIamPermissions(request);
-            assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.testIamPermissions as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.testIamPermissions as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes testIamPermissions without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.TestIamPermissionsRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.TestIamPermissionsRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedResponse = generateSampleMessage(
-              new protos.google.iam.v1.TestIamPermissionsResponse()
-            );
-            client.innerApiCalls.testIamPermissions = stubSimpleCallWithCallback(expectedResponse);
-            const promise = new Promise((resolve, reject) => {
-                 client.testIamPermissions(
-                    request,
-                    (err?: Error|null, result?: protos.google.iam.v1.ITestIamPermissionsResponse|null) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(result);
-                        }
-                    });
-            });
-            const response = await promise;
-            assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.testIamPermissions as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.testIamPermissions as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes testIamPermissions with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.TestIamPermissionsRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.TestIamPermissionsRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedHeaderRequestParams = `resource=${defaultValue1 ?? '' }`;
-            const expectedError = new Error('expected');
-            client.innerApiCalls.testIamPermissions = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.testIamPermissions(request), expectedError);
-            const actualRequest = (client.innerApiCalls.testIamPermissions as SinonStub)
-                .getCall(0).args[0];
-            assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.testIamPermissions as SinonStub)
-                .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
-            assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
-        });
-
-        it('invokes testIamPermissions with closed client', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.iam.v1.TestIamPermissionsRequest()
-            );
-            const defaultValue1 =
-              getTypeDefaultValue('.google.iam.v1.TestIamPermissionsRequest', ['resource']);
-            request.resource = defaultValue1;
-            const expectedError = new Error('The client has already been closed.');
-            client.close().catch(err => {throw err});
-            await assert.rejects(client.testIamPermissions(request), expectedError);
-        });
-    });
-
-    describe('createJob', () => {
-        it('invokes createJob without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
-              credentials: {client_email: 'bogus', private_key: 'bogus'},
-              projectId: 'bogus',
-            });
-            await client.initialize();
-            const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.CreateJobRequest()
+              new protos.google.cloud.run.v2.CreateInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
@@ -719,26 +395,26 @@ describe('v2.JobsClient', () => {
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.createJob = stubLongRunningCall(expectedResponse);
-            const [operation] = await client.createJob(request);
+            client.innerApiCalls.createInstance = stubLongRunningCall(expectedResponse);
+            const [operation] = await client.createInstance(request);
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.createJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.createJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes createJob without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes createInstance without error using callback', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.CreateJobRequest()
+              new protos.google.cloud.run.v2.CreateInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
@@ -746,12 +422,12 @@ describe('v2.JobsClient', () => {
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.createJob = stubLongRunningCallWithCallback(expectedResponse);
+            client.innerApiCalls.createInstance = stubLongRunningCallWithCallback(expectedResponse);
             const promise = new Promise((resolve, reject) => {
-                 client.createJob(
+                 client.createInstance(
                     request,
                     (err?: Error|null,
-                     result?: LROperation<protos.google.cloud.run.v2.IJob, protos.google.cloud.run.v2.IJob>|null
+                     result?: LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>|null
                     ) => {
                         if (err) {
                             reject(err);
@@ -760,66 +436,66 @@ describe('v2.JobsClient', () => {
                         }
                     });
             });
-            const operation = await promise as LROperation<protos.google.cloud.run.v2.IJob, protos.google.cloud.run.v2.IJob>;
+            const operation = await promise as LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>;
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.createJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.createJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes createJob with call error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes createInstance with call error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.CreateJobRequest()
+              new protos.google.cloud.run.v2.CreateInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.innerApiCalls.createJob = stubLongRunningCall(undefined, expectedError);
-            await assert.rejects(client.createJob(request), expectedError);
-            const actualRequest = (client.innerApiCalls.createJob as SinonStub)
+            client.innerApiCalls.createInstance = stubLongRunningCall(undefined, expectedError);
+            await assert.rejects(client.createInstance(request), expectedError);
+            const actualRequest = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.createJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes createJob with LRO error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes createInstance with LRO error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.CreateJobRequest()
+              new protos.google.cloud.run.v2.CreateInstanceRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.innerApiCalls.createJob = stubLongRunningCall(undefined, undefined, expectedError);
-            const [operation] = await client.createJob(request);
+            client.innerApiCalls.createInstance = stubLongRunningCall(undefined, undefined, expectedError);
+            const [operation] = await client.createInstance(request);
             await assert.rejects(operation.promise(), expectedError);
-            const actualRequest = (client.innerApiCalls.createJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.createJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.createInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes checkCreateJobProgress without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkCreateInstanceProgress without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -832,14 +508,14 @@ describe('v2.JobsClient', () => {
             expectedResponse.metadata = {type_url: 'url', value: Buffer.from('')}
 
             client.operationsClient.getOperation = stubSimpleCall(expectedResponse);
-            const decodedOperation = await client.checkCreateJobProgress(expectedResponse.name);
+            const decodedOperation = await client.checkCreateInstanceProgress(expectedResponse.name);
             assert.deepStrictEqual(decodedOperation.name, expectedResponse.name);
             assert(decodedOperation.metadata);
             assert((client.operationsClient.getOperation as SinonStub).getCall(0));
         });
 
-        it('invokes checkCreateJobProgress with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkCreateInstanceProgress with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -847,63 +523,61 @@ describe('v2.JobsClient', () => {
             const expectedError = new Error('expected');
 
             client.operationsClient.getOperation = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.checkCreateJobProgress(''), expectedError);
+            await assert.rejects(client.checkCreateInstanceProgress(''), expectedError);
             assert((client.operationsClient.getOperation as SinonStub)
                 .getCall(0));
         });
     });
 
-    describe('updateJob', () => {
-        it('invokes updateJob without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+    describe('deleteInstance', () => {
+        it('invokes deleteInstance without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.UpdateJobRequest()
+              new protos.google.cloud.run.v2.DeleteInstanceRequest()
             );
-            request.job = {};
             // path template: projects/*/locations/{location=*}/**
-            request.job.name = 'projects/value/locations/value/value';
+            request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.updateJob = stubLongRunningCall(expectedResponse);
-            const [operation] = await client.updateJob(request);
+            client.innerApiCalls.deleteInstance = stubLongRunningCall(expectedResponse);
+            const [operation] = await client.deleteInstance(request);
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.updateJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.updateJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes updateJob without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes deleteInstance without error using callback', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.UpdateJobRequest()
+              new protos.google.cloud.run.v2.DeleteInstanceRequest()
             );
-            request.job = {};
             // path template: projects/*/locations/{location=*}/**
-            request.job.name = 'projects/value/locations/value/value';
+            request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.updateJob = stubLongRunningCallWithCallback(expectedResponse);
+            client.innerApiCalls.deleteInstance = stubLongRunningCallWithCallback(expectedResponse);
             const promise = new Promise((resolve, reject) => {
-                 client.updateJob(
+                 client.deleteInstance(
                     request,
                     (err?: Error|null,
-                     result?: LROperation<protos.google.cloud.run.v2.IJob, protos.google.cloud.run.v2.IJob>|null
+                     result?: LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>|null
                     ) => {
                         if (err) {
                             reject(err);
@@ -912,68 +586,66 @@ describe('v2.JobsClient', () => {
                         }
                     });
             });
-            const operation = await promise as LROperation<protos.google.cloud.run.v2.IJob, protos.google.cloud.run.v2.IJob>;
+            const operation = await promise as LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>;
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.updateJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.updateJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes updateJob with call error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes deleteInstance with call error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.UpdateJobRequest()
+              new protos.google.cloud.run.v2.DeleteInstanceRequest()
             );
-            request.job = {};
             // path template: projects/*/locations/{location=*}/**
-            request.job.name = 'projects/value/locations/value/value';
+            request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.innerApiCalls.updateJob = stubLongRunningCall(undefined, expectedError);
-            await assert.rejects(client.updateJob(request), expectedError);
-            const actualRequest = (client.innerApiCalls.updateJob as SinonStub)
+            client.innerApiCalls.deleteInstance = stubLongRunningCall(undefined, expectedError);
+            await assert.rejects(client.deleteInstance(request), expectedError);
+            const actualRequest = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.updateJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes updateJob with LRO error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes deleteInstance with LRO error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.UpdateJobRequest()
+              new protos.google.cloud.run.v2.DeleteInstanceRequest()
             );
-            request.job = {};
             // path template: projects/*/locations/{location=*}/**
-            request.job.name = 'projects/value/locations/value/value';
+            request.name = 'projects/value/locations/value/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.innerApiCalls.updateJob = stubLongRunningCall(undefined, undefined, expectedError);
-            const [operation] = await client.updateJob(request);
+            client.innerApiCalls.deleteInstance = stubLongRunningCall(undefined, undefined, expectedError);
+            const [operation] = await client.deleteInstance(request);
             await assert.rejects(operation.promise(), expectedError);
-            const actualRequest = (client.innerApiCalls.updateJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.updateJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.deleteInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes checkUpdateJobProgress without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkDeleteInstanceProgress without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -986,14 +658,14 @@ describe('v2.JobsClient', () => {
             expectedResponse.metadata = {type_url: 'url', value: Buffer.from('')}
 
             client.operationsClient.getOperation = stubSimpleCall(expectedResponse);
-            const decodedOperation = await client.checkUpdateJobProgress(expectedResponse.name);
+            const decodedOperation = await client.checkDeleteInstanceProgress(expectedResponse.name);
             assert.deepStrictEqual(decodedOperation.name, expectedResponse.name);
             assert(decodedOperation.metadata);
             assert((client.operationsClient.getOperation as SinonStub).getCall(0));
         });
 
-        it('invokes checkUpdateJobProgress with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkDeleteInstanceProgress with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1001,61 +673,63 @@ describe('v2.JobsClient', () => {
             const expectedError = new Error('expected');
 
             client.operationsClient.getOperation = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.checkUpdateJobProgress(''), expectedError);
+            await assert.rejects(client.checkDeleteInstanceProgress(''), expectedError);
             assert((client.operationsClient.getOperation as SinonStub)
                 .getCall(0));
         });
     });
 
-    describe('deleteJob', () => {
-        it('invokes deleteJob without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+    describe('stopInstance', () => {
+        it('invokes stopInstance without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.DeleteJobRequest()
+              new protos.google.cloud.run.v2.StopInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StopInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.deleteJob = stubLongRunningCall(expectedResponse);
-            const [operation] = await client.deleteJob(request);
+            client.innerApiCalls.stopInstance = stubLongRunningCall(expectedResponse);
+            const [operation] = await client.stopInstance(request);
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes deleteJob without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes stopInstance without error using callback', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.DeleteJobRequest()
+              new protos.google.cloud.run.v2.StopInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StopInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.deleteJob = stubLongRunningCallWithCallback(expectedResponse);
+            client.innerApiCalls.stopInstance = stubLongRunningCallWithCallback(expectedResponse);
             const promise = new Promise((resolve, reject) => {
-                 client.deleteJob(
+                 client.stopInstance(
                     request,
                     (err?: Error|null,
-                     result?: LROperation<protos.google.cloud.run.v2.IJob, protos.google.cloud.run.v2.IJob>|null
+                     result?: LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>|null
                     ) => {
                         if (err) {
                             reject(err);
@@ -1064,66 +738,68 @@ describe('v2.JobsClient', () => {
                         }
                     });
             });
-            const operation = await promise as LROperation<protos.google.cloud.run.v2.IJob, protos.google.cloud.run.v2.IJob>;
+            const operation = await promise as LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>;
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes deleteJob with call error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes stopInstance with call error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.DeleteJobRequest()
+              new protos.google.cloud.run.v2.StopInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StopInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedError = new Error('expected');
-            client.innerApiCalls.deleteJob = stubLongRunningCall(undefined, expectedError);
-            await assert.rejects(client.deleteJob(request), expectedError);
-            const actualRequest = (client.innerApiCalls.deleteJob as SinonStub)
+            client.innerApiCalls.stopInstance = stubLongRunningCall(undefined, expectedError);
+            await assert.rejects(client.stopInstance(request), expectedError);
+            const actualRequest = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes deleteJob with LRO error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes stopInstance with LRO error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.DeleteJobRequest()
+              new protos.google.cloud.run.v2.StopInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StopInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedError = new Error('expected');
-            client.innerApiCalls.deleteJob = stubLongRunningCall(undefined, undefined, expectedError);
-            const [operation] = await client.deleteJob(request);
+            client.innerApiCalls.stopInstance = stubLongRunningCall(undefined, undefined, expectedError);
+            const [operation] = await client.stopInstance(request);
             await assert.rejects(operation.promise(), expectedError);
-            const actualRequest = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.deleteJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.stopInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes checkDeleteJobProgress without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkStopInstanceProgress without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1136,14 +812,14 @@ describe('v2.JobsClient', () => {
             expectedResponse.metadata = {type_url: 'url', value: Buffer.from('')}
 
             client.operationsClient.getOperation = stubSimpleCall(expectedResponse);
-            const decodedOperation = await client.checkDeleteJobProgress(expectedResponse.name);
+            const decodedOperation = await client.checkStopInstanceProgress(expectedResponse.name);
             assert.deepStrictEqual(decodedOperation.name, expectedResponse.name);
             assert(decodedOperation.metadata);
             assert((client.operationsClient.getOperation as SinonStub).getCall(0));
         });
 
-        it('invokes checkDeleteJobProgress with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkStopInstanceProgress with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1151,61 +827,63 @@ describe('v2.JobsClient', () => {
             const expectedError = new Error('expected');
 
             client.operationsClient.getOperation = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.checkDeleteJobProgress(''), expectedError);
+            await assert.rejects(client.checkStopInstanceProgress(''), expectedError);
             assert((client.operationsClient.getOperation as SinonStub)
                 .getCall(0));
         });
     });
 
-    describe('runJob', () => {
-        it('invokes runJob without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+    describe('startInstance', () => {
+        it('invokes startInstance without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.RunJobRequest()
+              new protos.google.cloud.run.v2.StartInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StartInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.runJob = stubLongRunningCall(expectedResponse);
-            const [operation] = await client.runJob(request);
+            client.innerApiCalls.startInstance = stubLongRunningCall(expectedResponse);
+            const [operation] = await client.startInstance(request);
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.runJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.runJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes runJob without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes startInstance without error using callback', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.RunJobRequest()
+              new protos.google.cloud.run.v2.StartInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StartInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedResponse = generateSampleMessage(
               new protos.google.longrunning.Operation()
             );
-            client.innerApiCalls.runJob = stubLongRunningCallWithCallback(expectedResponse);
+            client.innerApiCalls.startInstance = stubLongRunningCallWithCallback(expectedResponse);
             const promise = new Promise((resolve, reject) => {
-                 client.runJob(
+                 client.startInstance(
                     request,
                     (err?: Error|null,
-                     result?: LROperation<protos.google.cloud.run.v2.IExecution, protos.google.cloud.run.v2.IExecution>|null
+                     result?: LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>|null
                     ) => {
                         if (err) {
                             reject(err);
@@ -1214,66 +892,68 @@ describe('v2.JobsClient', () => {
                         }
                     });
             });
-            const operation = await promise as LROperation<protos.google.cloud.run.v2.IExecution, protos.google.cloud.run.v2.IExecution>;
+            const operation = await promise as LROperation<protos.google.cloud.run.v2.IInstance, protos.google.cloud.run.v2.IInstance>;
             const [response] = await operation.promise();
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.runJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.runJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes runJob with call error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes startInstance with call error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.RunJobRequest()
+              new protos.google.cloud.run.v2.StartInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StartInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedError = new Error('expected');
-            client.innerApiCalls.runJob = stubLongRunningCall(undefined, expectedError);
-            await assert.rejects(client.runJob(request), expectedError);
-            const actualRequest = (client.innerApiCalls.runJob as SinonStub)
+            client.innerApiCalls.startInstance = stubLongRunningCall(undefined, expectedError);
+            await assert.rejects(client.startInstance(request), expectedError);
+            const actualRequest = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.runJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes runJob with LRO error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes startInstance with LRO error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.RunJobRequest()
+              new protos.google.cloud.run.v2.StartInstanceRequest()
             );
-            // path template: projects/*/locations/{location=*}/**
-            request.name = 'projects/value/locations/value/value';
-            const expectedHeaderRequestParams = 'location=value';
+            const defaultValue1 =
+              getTypeDefaultValue('.google.cloud.run.v2.StartInstanceRequest', ['name']);
+            request.name = defaultValue1;
+            const expectedHeaderRequestParams = `name=${defaultValue1 ?? '' }`;
             const expectedError = new Error('expected');
-            client.innerApiCalls.runJob = stubLongRunningCall(undefined, undefined, expectedError);
-            const [operation] = await client.runJob(request);
+            client.innerApiCalls.startInstance = stubLongRunningCall(undefined, undefined, expectedError);
+            const [operation] = await client.startInstance(request);
             await assert.rejects(operation.promise(), expectedError);
-            const actualRequest = (client.innerApiCalls.runJob as SinonStub)
+            const actualRequest = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.runJob as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.startInstance as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes checkRunJobProgress without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkStartInstanceProgress without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1286,14 +966,14 @@ describe('v2.JobsClient', () => {
             expectedResponse.metadata = {type_url: 'url', value: Buffer.from('')}
 
             client.operationsClient.getOperation = stubSimpleCall(expectedResponse);
-            const decodedOperation = await client.checkRunJobProgress(expectedResponse.name);
+            const decodedOperation = await client.checkStartInstanceProgress(expectedResponse.name);
             assert.deepStrictEqual(decodedOperation.name, expectedResponse.name);
             assert(decodedOperation.metadata);
             assert((client.operationsClient.getOperation as SinonStub).getCall(0));
         });
 
-        it('invokes checkRunJobProgress with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes checkStartInstanceProgress with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1301,61 +981,61 @@ describe('v2.JobsClient', () => {
             const expectedError = new Error('expected');
 
             client.operationsClient.getOperation = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.checkRunJobProgress(''), expectedError);
+            await assert.rejects(client.checkStartInstanceProgress(''), expectedError);
             assert((client.operationsClient.getOperation as SinonStub)
                 .getCall(0));
         });
     });
 
-    describe('listJobs', () => {
-        it('invokes listJobs without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+    describe('listInstances', () => {
+        it('invokes listInstances without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';const expectedResponse = [
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
             ];
-            client.innerApiCalls.listJobs = stubSimpleCall(expectedResponse);
-            const [response] = await client.listJobs(request);
+            client.innerApiCalls.listInstances = stubSimpleCall(expectedResponse);
+            const [response] = await client.listInstances(request);
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.listJobs as SinonStub)
+            const actualRequest = (client.innerApiCalls.listInstances as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.listJobs as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.listInstances as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes listJobs without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes listInstances without error using callback', async () => {
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';const expectedResponse = [
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
             ];
-            client.innerApiCalls.listJobs = stubSimpleCallWithCallback(expectedResponse);
+            client.innerApiCalls.listInstances = stubSimpleCallWithCallback(expectedResponse);
             const promise = new Promise((resolve, reject) => {
-                 client.listJobs(
+                 client.listInstances(
                     request,
-                    (err?: Error|null, result?: protos.google.cloud.run.v2.IJob[]|null) => {
+                    (err?: Error|null, result?: protos.google.cloud.run.v2.IInstance[]|null) => {
                         if (err) {
                             reject(err);
                         } else {
@@ -1365,59 +1045,59 @@ describe('v2.JobsClient', () => {
             });
             const response = await promise;
             assert.deepStrictEqual(response, expectedResponse);
-            const actualRequest = (client.innerApiCalls.listJobs as SinonStub)
+            const actualRequest = (client.innerApiCalls.listInstances as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.listJobs as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.listInstances as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes listJobs with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes listInstances with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.innerApiCalls.listJobs = stubSimpleCall(undefined, expectedError);
-            await assert.rejects(client.listJobs(request), expectedError);
-            const actualRequest = (client.innerApiCalls.listJobs as SinonStub)
+            client.innerApiCalls.listInstances = stubSimpleCall(undefined, expectedError);
+            await assert.rejects(client.listInstances(request), expectedError);
+            const actualRequest = (client.innerApiCalls.listInstances as SinonStub)
                 .getCall(0).args[0];
             assert.deepStrictEqual(actualRequest, request);
-            const actualHeaderRequestParams = (client.innerApiCalls.listJobs as SinonStub)
+            const actualHeaderRequestParams = (client.innerApiCalls.listInstances as SinonStub)
                 .getCall(0).args[1].otherArgs.headers['x-goog-request-params'];
             assert(actualHeaderRequestParams.includes(expectedHeaderRequestParams));
         });
 
-        it('invokes listJobsStream without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes listInstancesStream without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedResponse = [
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
             ];
-            client.descriptors.page.listJobs.createStream = stubPageStreamingCall(expectedResponse);
-            const stream = client.listJobsStream(request);
+            client.descriptors.page.listInstances.createStream = stubPageStreamingCall(expectedResponse);
+            const stream = client.listInstancesStream(request);
             const promise = new Promise((resolve, reject) => {
-                const responses: protos.google.cloud.run.v2.Job[] = [];
-                stream.on('data', (response: protos.google.cloud.run.v2.Job) => {
+                const responses: protos.google.cloud.run.v2.Instance[] = [];
+                stream.on('data', (response: protos.google.cloud.run.v2.Instance) => {
                     responses.push(response);
                 });
                 stream.on('end', () => {
@@ -1429,34 +1109,34 @@ describe('v2.JobsClient', () => {
             });
             const responses = await promise;
             assert.deepStrictEqual(responses, expectedResponse);
-            assert((client.descriptors.page.listJobs.createStream as SinonStub)
-                .getCall(0).calledWith(client.innerApiCalls.listJobs, request));
+            assert((client.descriptors.page.listInstances.createStream as SinonStub)
+                .getCall(0).calledWith(client.innerApiCalls.listInstances, request));
             assert(
-                (client.descriptors.page.listJobs.createStream as SinonStub)
+                (client.descriptors.page.listInstances.createStream as SinonStub)
                     .getCall(0).args[2].otherArgs.headers['x-goog-request-params'].includes(
                         expectedHeaderRequestParams
                     )
             );
         });
 
-        it('invokes listJobsStream with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('invokes listInstancesStream with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.descriptors.page.listJobs.createStream = stubPageStreamingCall(undefined, expectedError);
-            const stream = client.listJobsStream(request);
+            client.descriptors.page.listInstances.createStream = stubPageStreamingCall(undefined, expectedError);
+            const stream = client.listInstancesStream(request);
             const promise = new Promise((resolve, reject) => {
-                const responses: protos.google.cloud.run.v2.Job[] = [];
-                stream.on('data', (response: protos.google.cloud.run.v2.Job) => {
+                const responses: protos.google.cloud.run.v2.Instance[] = [];
+                stream.on('data', (response: protos.google.cloud.run.v2.Instance) => {
                     responses.push(response);
                 });
                 stream.on('end', () => {
@@ -1467,77 +1147,77 @@ describe('v2.JobsClient', () => {
                 });
             });
             await assert.rejects(promise, expectedError);
-            assert((client.descriptors.page.listJobs.createStream as SinonStub)
-                .getCall(0).calledWith(client.innerApiCalls.listJobs, request));
+            assert((client.descriptors.page.listInstances.createStream as SinonStub)
+                .getCall(0).calledWith(client.innerApiCalls.listInstances, request));
             assert(
-                (client.descriptors.page.listJobs.createStream as SinonStub)
+                (client.descriptors.page.listInstances.createStream as SinonStub)
                     .getCall(0).args[2].otherArgs.headers['x-goog-request-params'].includes(
                          expectedHeaderRequestParams
                     ) 
             );
         });
 
-        it('uses async iteration with listJobs without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('uses async iteration with listInstances without error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedResponse = [
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
-              generateSampleMessage(new protos.google.cloud.run.v2.Job()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
+              generateSampleMessage(new protos.google.cloud.run.v2.Instance()),
             ];
-            client.descriptors.page.listJobs.asyncIterate = stubAsyncIterationCall(expectedResponse);
-            const responses: protos.google.cloud.run.v2.IJob[] = [];
-            const iterable = client.listJobsAsync(request);
+            client.descriptors.page.listInstances.asyncIterate = stubAsyncIterationCall(expectedResponse);
+            const responses: protos.google.cloud.run.v2.IInstance[] = [];
+            const iterable = client.listInstancesAsync(request);
             for await (const resource of iterable) {
                 responses.push(resource!);
             }
             assert.deepStrictEqual(responses, expectedResponse);
             assert.deepStrictEqual(
-                (client.descriptors.page.listJobs.asyncIterate as SinonStub)
+                (client.descriptors.page.listInstances.asyncIterate as SinonStub)
                     .getCall(0).args[1], request);
             assert(
-                (client.descriptors.page.listJobs.asyncIterate as SinonStub)
+                (client.descriptors.page.listInstances.asyncIterate as SinonStub)
                     .getCall(0).args[2].otherArgs.headers['x-goog-request-params'].includes(
                         expectedHeaderRequestParams
                     )
             );
         });
 
-        it('uses async iteration with listJobs with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+        it('uses async iteration with listInstances with error', async () => {
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
             await client.initialize();
             const request = generateSampleMessage(
-              new protos.google.cloud.run.v2.ListJobsRequest()
+              new protos.google.cloud.run.v2.ListInstancesRequest()
             );
             // path template: projects/*/locations/{location=*}
             request.parent = 'projects/value/locations/value';
             const expectedHeaderRequestParams = 'location=value';
             const expectedError = new Error('expected');
-            client.descriptors.page.listJobs.asyncIterate = stubAsyncIterationCall(undefined, expectedError);
-            const iterable = client.listJobsAsync(request);
+            client.descriptors.page.listInstances.asyncIterate = stubAsyncIterationCall(undefined, expectedError);
+            const iterable = client.listInstancesAsync(request);
             await assert.rejects(async () => {
-                const responses: protos.google.cloud.run.v2.IJob[] = [];
+                const responses: protos.google.cloud.run.v2.IInstance[] = [];
                 for await (const resource of iterable) {
                     responses.push(resource!);
                 }
             });
             assert.deepStrictEqual(
-                (client.descriptors.page.listJobs.asyncIterate as SinonStub)
+                (client.descriptors.page.listInstances.asyncIterate as SinonStub)
                     .getCall(0).args[1], request);
             assert(
-                (client.descriptors.page.listJobs.asyncIterate as SinonStub)
+                (client.descriptors.page.listInstances.asyncIterate as SinonStub)
                     .getCall(0).args[2].otherArgs.headers['x-goog-request-params'].includes(
                         expectedHeaderRequestParams
                     )
@@ -1546,7 +1226,7 @@ describe('v2.JobsClient', () => {
     });
     describe('getLocation', () => {
         it('invokes getLocation without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1573,7 +1253,7 @@ describe('v2.JobsClient', () => {
                 .getCall(0).calledWith(request, expectedOptions, undefined));
         });
         it('invokes getLocation without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1615,7 +1295,7 @@ describe('v2.JobsClient', () => {
                 .getCall(0));
         });
         it('invokes getLocation with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1641,7 +1321,7 @@ describe('v2.JobsClient', () => {
     });
     describe('listLocationsAsync', () => {
         it('uses async iteration with listLocations without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1680,7 +1360,7 @@ describe('v2.JobsClient', () => {
             );
         });
         it('uses async iteration with listLocations with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -1712,7 +1392,7 @@ describe('v2.JobsClient', () => {
     });
     describe('getOperation', () => {
         it('invokes getOperation without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1731,7 +1411,7 @@ describe('v2.JobsClient', () => {
             );
         });
         it('invokes getOperation without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1763,7 +1443,7 @@ describe('v2.JobsClient', () => {
                 .getCall(0));
         });
         it('invokes getOperation with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1779,7 +1459,7 @@ describe('v2.JobsClient', () => {
     });
     describe('cancelOperation', () => {
         it('invokes cancelOperation without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1798,7 +1478,7 @@ describe('v2.JobsClient', () => {
             );
         });
         it('invokes cancelOperation without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1830,7 +1510,7 @@ describe('v2.JobsClient', () => {
                 .getCall(0));
         });
         it('invokes cancelOperation with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1846,7 +1526,7 @@ describe('v2.JobsClient', () => {
     });
     describe('deleteOperation', () => {
         it('invokes deleteOperation without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1865,7 +1545,7 @@ describe('v2.JobsClient', () => {
             );
         });
         it('invokes deleteOperation without error using callback', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1897,7 +1577,7 @@ describe('v2.JobsClient', () => {
                 .getCall(0));
         });
         it('invokes deleteOperation with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1913,7 +1593,7 @@ describe('v2.JobsClient', () => {
     });
     describe('listOperationsAsync', () => {
         it('uses async iteration with listOperations without error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
               credentials: {client_email: 'bogus', private_key: 'bogus'},
               projectId: 'bogus',
             });
@@ -1943,7 +1623,7 @@ describe('v2.JobsClient', () => {
                     .getCall(0).args[1], request);
         });
         it('uses async iteration with listOperations with error', async () => {
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -1968,6 +1648,60 @@ describe('v2.JobsClient', () => {
 
     describe('Path templates', () => {
 
+        describe('cryptoKey', async () => {
+            const fakePath = "/rendered/path/cryptoKey";
+            const expectedParameters = {
+                project: "projectValue",
+                location: "locationValue",
+                key_ring: "keyRingValue",
+                crypto_key: "cryptoKeyValue",
+            };
+            const client = new instancesModule.v2.InstancesClient({
+                credentials: {client_email: 'bogus', private_key: 'bogus'},
+                projectId: 'bogus',
+            });
+            await client.initialize();
+            client.pathTemplates.cryptoKeyPathTemplate.render =
+                sinon.stub().returns(fakePath);
+            client.pathTemplates.cryptoKeyPathTemplate.match =
+                sinon.stub().returns(expectedParameters);
+
+            it('cryptoKeyPath', () => {
+                const result = client.cryptoKeyPath("projectValue", "locationValue", "keyRingValue", "cryptoKeyValue");
+                assert.strictEqual(result, fakePath);
+                assert((client.pathTemplates.cryptoKeyPathTemplate.render as SinonStub)
+                    .getCall(-1).calledWith(expectedParameters));
+            });
+
+            it('matchProjectFromCryptoKeyName', () => {
+                const result = client.matchProjectFromCryptoKeyName(fakePath);
+                assert.strictEqual(result, "projectValue");
+                assert((client.pathTemplates.cryptoKeyPathTemplate.match as SinonStub)
+                    .getCall(-1).calledWith(fakePath));
+            });
+
+            it('matchLocationFromCryptoKeyName', () => {
+                const result = client.matchLocationFromCryptoKeyName(fakePath);
+                assert.strictEqual(result, "locationValue");
+                assert((client.pathTemplates.cryptoKeyPathTemplate.match as SinonStub)
+                    .getCall(-1).calledWith(fakePath));
+            });
+
+            it('matchKeyRingFromCryptoKeyName', () => {
+                const result = client.matchKeyRingFromCryptoKeyName(fakePath);
+                assert.strictEqual(result, "keyRingValue");
+                assert((client.pathTemplates.cryptoKeyPathTemplate.match as SinonStub)
+                    .getCall(-1).calledWith(fakePath));
+            });
+
+            it('matchCryptoKeyFromCryptoKeyName', () => {
+                const result = client.matchCryptoKeyFromCryptoKeyName(fakePath);
+                assert.strictEqual(result, "cryptoKeyValue");
+                assert((client.pathTemplates.cryptoKeyPathTemplate.match as SinonStub)
+                    .getCall(-1).calledWith(fakePath));
+            });
+        });
+
         describe('execution', async () => {
             const fakePath = "/rendered/path/execution";
             const expectedParameters = {
@@ -1976,7 +1710,7 @@ describe('v2.JobsClient', () => {
                 job: "jobValue",
                 execution: "executionValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2029,7 +1763,7 @@ describe('v2.JobsClient', () => {
                 location: "locationValue",
                 instance: "instanceValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2075,7 +1809,7 @@ describe('v2.JobsClient', () => {
                 location: "locationValue",
                 job: "jobValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2120,7 +1854,7 @@ describe('v2.JobsClient', () => {
                 project: "projectValue",
                 location: "locationValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2157,7 +1891,7 @@ describe('v2.JobsClient', () => {
             const expectedParameters = {
                 project: "projectValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2190,7 +1924,7 @@ describe('v2.JobsClient', () => {
                 service: "serviceValue",
                 revision: "revisionValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2243,7 +1977,7 @@ describe('v2.JobsClient', () => {
                 location: "locationValue",
                 service: "serviceValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2291,7 +2025,7 @@ describe('v2.JobsClient', () => {
                 execution: "executionValue",
                 task: "taskValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
@@ -2351,7 +2085,7 @@ describe('v2.JobsClient', () => {
                 location: "locationValue",
                 worker_pool: "workerPoolValue",
             };
-            const client = new jobsModule.v2.JobsClient({
+            const client = new instancesModule.v2.InstancesClient({
                 credentials: {client_email: 'bogus', private_key: 'bogus'},
                 projectId: 'bogus',
             });
