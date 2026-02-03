@@ -20,8 +20,8 @@
 
 'use strict';
 
-function main(parent, dataObjectId, dataObject) {
-  // [START vectorsearch_v1beta_generated_DataObjectService_CreateDataObject_async]
+function main(name) {
+  // [START vectorsearch_v1beta_generated_VectorSearchService_ExportDataObjects_async]
   /**
    * This snippet has been automatically generated and should be regarded as a code template only.
    * It will require modifications to work.
@@ -29,44 +29,36 @@ function main(parent, dataObjectId, dataObject) {
    * TODO(developer): Uncomment these variables before running the sample.
    */
   /**
-   *  Required. The resource name of the Collection to create the DataObject in.
-   *  Format: `projects/{project}/locations/{location}/collections/{collection}`
+   *  The Cloud Storage location where user wants to export Data Objects.
    */
-  // const parent = 'abc123'
+  // const gcsDestination = {}
   /**
-   *  Required. The id of the dataObject to create.
-   *  The id must be 1-63 characters long, and comply with
-   *  RFC1035 (https://www.ietf.org/rfc/rfc1035.txt).
-   *  Specifically, it must be 1-63 characters long and match the regular
-   *  expression `[a-z](?:[-a-z0-9]{0,61}[a-z0-9])?`.
+   *  Required. The resource name of the Collection from which we want to export
+   *  Data Objects. Format:
+   *  `projects/{project}/locations/{location}/collections/{collection}`.
    */
-  // const dataObjectId = 'abc123'
-  /**
-   *  Required. The DataObject to create.
-   */
-  // const dataObject = {}
+  // const name = 'abc123'
 
   // Imports the Vectorsearch library
-  const {DataObjectServiceClient} = require('@google-cloud/vectorsearch').v1beta;
+  const {VectorSearchServiceClient} = require('@google-cloud/vectorsearch').v1beta;
 
   // Instantiates a client
-  const vectorsearchClient = new DataObjectServiceClient();
+  const vectorsearchClient = new VectorSearchServiceClient();
 
-  async function callCreateDataObject() {
+  async function callExportDataObjects() {
     // Construct request
     const request = {
-      parent,
-      dataObjectId,
-      dataObject,
+      name,
     };
 
     // Run request
-    const response = await vectorsearchClient.createDataObject(request);
+    const [operation] = await vectorsearchClient.exportDataObjects(request);
+    const [response] = await operation.promise();
     console.log(response);
   }
 
-  callCreateDataObject();
-  // [END vectorsearch_v1beta_generated_DataObjectService_CreateDataObject_async]
+  callExportDataObjects();
+  // [END vectorsearch_v1beta_generated_VectorSearchService_ExportDataObjects_async]
 }
 
 process.on('unhandledRejection', err => {
