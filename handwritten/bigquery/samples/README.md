@@ -2,7 +2,7 @@
 [//]: # "To regenerate it, use `python -m synthtool`."
 <img src="https://avatars2.githubusercontent.com/u/2810941?v=3&s=96" alt="Google Cloud Platform logo" title="Google Cloud Platform" align="right" height="96" width="96"/>
 
-# [Google BigQuery: Node.js Samples](https://github.com/googleapis/nodejs-bigquery)
+# [Google BigQuery: Node.js Samples](https://github.com/googleapis/google-cloud-node)
 
 [![Open in Cloud Shell][shell_img]][shell_link]
 
@@ -15,6 +15,7 @@
   * [Add Column Load Append](#add-column-load-append)
   * [Add Column Query Append](#add-column-query-append)
   * [Add Empty Column](#add-empty-column)
+  * [Auth User Flow](#auth-user-flow)
   * [Auth View Tutorial](#auth-view-tutorial)
   * [Browse Table](#browse-table)
   * [Cancel Job](#cancel-job)
@@ -120,7 +121,7 @@
 ## Before you begin
 
 Before running the samples, make sure you've followed the steps outlined in
-[Using the client library](https://github.com/googleapis/nodejs-bigquery#using-the-client-library).
+[Using the client library](https://github.com/googleapis/google-cloud-node#using-the-client-library).
 
 `cd samples`
 
@@ -134,14 +135,14 @@ Before running the samples, make sure you've followed the steps outlined in
 
 ### Add Column Load Append
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/addColumnLoadAppend.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/addColumnLoadAppend.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/addColumnLoadAppend.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/addColumnLoadAppend.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/addColumnLoadAppend.js`
+`node handwritten/bigquery/samples/addColumnLoadAppend.js`
 
 
 -----
@@ -151,14 +152,14 @@ __Usage:__
 
 ### Add Column Query Append
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/addColumnQueryAppend.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/addColumnQueryAppend.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/addColumnQueryAppend.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/addColumnQueryAppend.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/addColumnQueryAppend.js`
+`node handwritten/bigquery/samples/addColumnQueryAppend.js`
 
 
 -----
@@ -168,14 +169,31 @@ __Usage:__
 
 ### Add Empty Column
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/addEmptyColumn.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/addEmptyColumn.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/addEmptyColumn.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/addEmptyColumn.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/addEmptyColumn.js`
+`node handwritten/bigquery/samples/addEmptyColumn.js`
+
+
+-----
+
+
+
+
+### Auth User Flow
+
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/auth-user-sample/authUserFlow.js).
+
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/auth-user-sample/authUserFlow.js,samples/README.md)
+
+__Usage:__
+
+
+`node handwritten/bigquery/samples/auth-user-sample/authUserFlow.js`
 
 
 -----
@@ -185,14 +203,14 @@ __Usage:__
 
 ### Auth View Tutorial
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/authViewTutorial.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/authViewTutorial.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/authViewTutorial.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/authViewTutorial.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/authViewTutorial.js`
+`node handwritten/bigquery/samples/authViewTutorial.js`
 
 
 -----
@@ -202,14 +220,14 @@ __Usage:__
 
 ### Browse Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/browseTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/browseTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/browseTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/browseTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/browseTable.js`
+`node handwritten/bigquery/samples/browseTable.js`
 
 
 -----
@@ -219,14 +237,14 @@ __Usage:__
 
 ### Cancel Job
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/cancelJob.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/cancelJob.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/cancelJob.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/cancelJob.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/cancelJob.js`
+`node handwritten/bigquery/samples/cancelJob.js`
 
 
 -----
@@ -236,14 +254,14 @@ __Usage:__
 
 ### Client JSON Credentials
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/clientJSONCredentials.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/clientJSONCredentials.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/clientJSONCredentials.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/clientJSONCredentials.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/clientJSONCredentials.js`
+`node handwritten/bigquery/samples/clientJSONCredentials.js`
 
 
 -----
@@ -253,14 +271,14 @@ __Usage:__
 
 ### Copy Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/copyTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/copyTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/copyTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/copyTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/copyTable.js`
+`node handwritten/bigquery/samples/copyTable.js`
 
 
 -----
@@ -270,14 +288,14 @@ __Usage:__
 
 ### Copy Table Multiple Source
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/copyTableMultipleSource.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/copyTableMultipleSource.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/copyTableMultipleSource.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/copyTableMultipleSource.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/copyTableMultipleSource.js`
+`node handwritten/bigquery/samples/copyTableMultipleSource.js`
 
 
 -----
@@ -287,14 +305,14 @@ __Usage:__
 
 ### Create Dataset
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createDataset.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createDataset.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createDataset.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createDataset.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createDataset.js`
+`node handwritten/bigquery/samples/createDataset.js`
 
 
 -----
@@ -304,14 +322,14 @@ __Usage:__
 
 ### Create Job
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createJob.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createJob.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createJob.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createJob.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createJob.js`
+`node handwritten/bigquery/samples/createJob.js`
 
 
 -----
@@ -323,9 +341,9 @@ __Usage:__
 
 Creates a model in a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createModel.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createModel.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createModel.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createModel.js,samples/README.md)
 
 __Usage:__
 
@@ -340,14 +358,14 @@ __Usage:__
 
 ### Create Routine
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createRoutine.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createRoutine.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createRoutine.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createRoutine.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createRoutine.js`
+`node handwritten/bigquery/samples/createRoutine.js`
 
 
 -----
@@ -357,14 +375,14 @@ __Usage:__
 
 ### Create Routine DDL
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createRoutineDDL.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createRoutineDDL.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createRoutineDDL.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createRoutineDDL.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createRoutineDDL.js`
+`node handwritten/bigquery/samples/createRoutineDDL.js`
 
 
 -----
@@ -374,14 +392,14 @@ __Usage:__
 
 ### Create Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createTable.js`
+`node handwritten/bigquery/samples/createTable.js`
 
 
 -----
@@ -391,14 +409,14 @@ __Usage:__
 
 ### Create Table Clustered
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createTableClustered.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createTableClustered.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createTableClustered.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createTableClustered.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createTableClustered.js`
+`node handwritten/bigquery/samples/createTableClustered.js`
 
 
 -----
@@ -408,14 +426,14 @@ __Usage:__
 
 ### Create Table Column ACL
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createTableColumnACL.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createTableColumnACL.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createTableColumnACL.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createTableColumnACL.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createTableColumnACL.js`
+`node handwritten/bigquery/samples/createTableColumnACL.js`
 
 
 -----
@@ -425,14 +443,14 @@ __Usage:__
 
 ### Create Table Partitioned
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createTablePartitioned.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createTablePartitioned.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createTablePartitioned.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createTablePartitioned.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createTablePartitioned.js`
+`node handwritten/bigquery/samples/createTablePartitioned.js`
 
 
 -----
@@ -442,14 +460,14 @@ __Usage:__
 
 ### Create Table Range Partitioned
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createTableRangePartitioned.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createTableRangePartitioned.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createTableRangePartitioned.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createTableRangePartitioned.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createTableRangePartitioned.js`
+`node handwritten/bigquery/samples/createTableRangePartitioned.js`
 
 
 -----
@@ -459,14 +477,14 @@ __Usage:__
 
 ### Create View
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/createView.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/createView.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/createView.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/createView.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/createView.js`
+`node handwritten/bigquery/samples/createView.js`
 
 
 -----
@@ -476,14 +494,14 @@ __Usage:__
 
 ### Ddl Create View
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/ddlCreateView.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/ddlCreateView.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/ddlCreateView.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/ddlCreateView.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/ddlCreateView.js`
+`node handwritten/bigquery/samples/ddlCreateView.js`
 
 
 -----
@@ -493,14 +511,14 @@ __Usage:__
 
 ### Delete Dataset
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/deleteDataset.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/deleteDataset.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/deleteDataset.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/deleteDataset.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/deleteDataset.js`
+`node handwritten/bigquery/samples/deleteDataset.js`
 
 
 -----
@@ -512,9 +530,9 @@ __Usage:__
 
 Deletes a label on a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/deleteLabelDataset.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/deleteLabelDataset.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/deleteLabelDataset.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/deleteLabelDataset.js,samples/README.md)
 
 __Usage:__
 
@@ -529,14 +547,14 @@ __Usage:__
 
 ### Delete Label Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/deleteLabelTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/deleteLabelTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/deleteLabelTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/deleteLabelTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/deleteLabelTable.js`
+`node handwritten/bigquery/samples/deleteLabelTable.js`
 
 
 -----
@@ -546,14 +564,14 @@ __Usage:__
 
 ### Delete Model
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/deleteModel.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/deleteModel.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/deleteModel.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/deleteModel.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/deleteModel.js`
+`node handwritten/bigquery/samples/deleteModel.js`
 
 
 -----
@@ -563,14 +581,14 @@ __Usage:__
 
 ### Delete Routine
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/deleteRoutine.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/deleteRoutine.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/deleteRoutine.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/deleteRoutine.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/deleteRoutine.js`
+`node handwritten/bigquery/samples/deleteRoutine.js`
 
 
 -----
@@ -580,14 +598,14 @@ __Usage:__
 
 ### Delete Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/deleteTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/deleteTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/deleteTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/deleteTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/deleteTable.js`
+`node handwritten/bigquery/samples/deleteTable.js`
 
 
 -----
@@ -597,14 +615,14 @@ __Usage:__
 
 ### Extract Table Compressed
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/extractTableCompressed.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/extractTableCompressed.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/extractTableCompressed.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/extractTableCompressed.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/extractTableCompressed.js`
+`node handwritten/bigquery/samples/extractTableCompressed.js`
 
 
 -----
@@ -614,14 +632,14 @@ __Usage:__
 
 ### Extract Table JSON
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/extractTableJSON.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/extractTableJSON.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/extractTableJSON.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/extractTableJSON.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/extractTableJSON.js`
+`node handwritten/bigquery/samples/extractTableJSON.js`
 
 
 -----
@@ -631,14 +649,14 @@ __Usage:__
 
 ### Extract Table To GCS
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/extractTableToGCS.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/extractTableToGCS.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/extractTableToGCS.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/extractTableToGCS.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/extractTableToGCS.js`
+`node handwritten/bigquery/samples/extractTableToGCS.js`
 
 
 -----
@@ -648,14 +666,14 @@ __Usage:__
 
 ### Get Dataset
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getDataset.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getDataset.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getDataset.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getDataset.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/getDataset.js`
+`node handwritten/bigquery/samples/getDataset.js`
 
 
 -----
@@ -667,9 +685,9 @@ __Usage:__
 
 Gets labels on a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getDatasetLabels.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getDatasetLabels.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getDatasetLabels.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getDatasetLabels.js,samples/README.md)
 
 __Usage:__
 
@@ -684,14 +702,14 @@ __Usage:__
 
 ### Get Job
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getJob.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getJob.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getJob.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getJob.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/getJob.js`
+`node handwritten/bigquery/samples/getJob.js`
 
 
 -----
@@ -703,9 +721,9 @@ __Usage:__
 
 Retrieves an existing model from a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getModel.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getModel.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getModel.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getModel.js,samples/README.md)
 
 __Usage:__
 
@@ -720,14 +738,14 @@ __Usage:__
 
 ### Get Routine
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getRoutine.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getRoutine.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getRoutine.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getRoutine.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/getRoutine.js`
+`node handwritten/bigquery/samples/getRoutine.js`
 
 
 -----
@@ -739,9 +757,9 @@ __Usage:__
 
 Retrieves an existing table from a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getTable.js,samples/README.md)
 
 __Usage:__
 
@@ -758,9 +776,9 @@ __Usage:__
 
 Gets labels on a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getTableLabels.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getTableLabels.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getTableLabels.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getTableLabels.js,samples/README.md)
 
 __Usage:__
 
@@ -775,14 +793,14 @@ __Usage:__
 
 ### Get View
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/getView.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/getView.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/getView.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/getView.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/getView.js`
+`node handwritten/bigquery/samples/getView.js`
 
 
 -----
@@ -792,14 +810,14 @@ __Usage:__
 
 ### Insert Rows As Stream
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/insertRowsAsStream.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/insertRowsAsStream.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/insertRowsAsStream.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/insertRowsAsStream.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/insertRowsAsStream.js`
+`node handwritten/bigquery/samples/insertRowsAsStream.js`
 
 
 -----
@@ -809,14 +827,14 @@ __Usage:__
 
 ### Inserting Data Types
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/insertingDataTypes.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/insertingDataTypes.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/insertingDataTypes.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/insertingDataTypes.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/insertingDataTypes.js`
+`node handwritten/bigquery/samples/insertingDataTypes.js`
 
 
 -----
@@ -828,9 +846,9 @@ __Usage:__
 
 Updates a label on a dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/labelDataset.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/labelDataset.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/labelDataset.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/labelDataset.js,samples/README.md)
 
 __Usage:__
 
@@ -845,14 +863,14 @@ __Usage:__
 
 ### Label Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/labelTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/labelTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/labelTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/labelTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/labelTable.js`
+`node handwritten/bigquery/samples/labelTable.js`
 
 
 -----
@@ -862,14 +880,14 @@ __Usage:__
 
 ### List Datasets
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listDatasets.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listDatasets.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listDatasets.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listDatasets.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/listDatasets.js`
+`node handwritten/bigquery/samples/listDatasets.js`
 
 
 -----
@@ -879,14 +897,14 @@ __Usage:__
 
 ### List Datasets By Label
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listDatasetsByLabel.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listDatasetsByLabel.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listDatasetsByLabel.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listDatasetsByLabel.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/listDatasetsByLabel.js`
+`node handwritten/bigquery/samples/listDatasetsByLabel.js`
 
 
 -----
@@ -896,14 +914,14 @@ __Usage:__
 
 ### List Jobs
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listJobs.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listJobs.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listJobs.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listJobs.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/listJobs.js`
+`node handwritten/bigquery/samples/listJobs.js`
 
 
 -----
@@ -915,9 +933,9 @@ __Usage:__
 
 Lists all existing models in the dataset.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listModels.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listModels.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listModels.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listModels.js,samples/README.md)
 
 __Usage:__
 
@@ -934,9 +952,9 @@ __Usage:__
 
 Lists all existing models in the dataset using streaming method.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listModelsStreaming.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listModelsStreaming.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listModelsStreaming.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listModelsStreaming.js,samples/README.md)
 
 __Usage:__
 
@@ -951,14 +969,14 @@ __Usage:__
 
 ### List Routines
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listRoutines.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listRoutines.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listRoutines.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listRoutines.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/listRoutines.js`
+`node handwritten/bigquery/samples/listRoutines.js`
 
 
 -----
@@ -968,14 +986,14 @@ __Usage:__
 
 ### List Tables
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/listTables.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/listTables.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/listTables.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/listTables.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/listTables.js`
+`node handwritten/bigquery/samples/listTables.js`
 
 
 -----
@@ -985,14 +1003,14 @@ __Usage:__
 
 ### Load CSV From GCS
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadCSVFromGCS.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadCSVFromGCS.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadCSVFromGCS.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadCSVFromGCS.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadCSVFromGCS.js`
+`node handwritten/bigquery/samples/loadCSVFromGCS.js`
 
 
 -----
@@ -1002,14 +1020,14 @@ __Usage:__
 
 ### Load CSV From GCS Autodetect
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadCSVFromGCSAutodetect.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadCSVFromGCSAutodetect.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadCSVFromGCSAutodetect.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadCSVFromGCSAutodetect.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadCSVFromGCSAutodetect.js`
+`node handwritten/bigquery/samples/loadCSVFromGCSAutodetect.js`
 
 
 -----
@@ -1019,14 +1037,14 @@ __Usage:__
 
 ### Load CSV From GCS Truncate
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadCSVFromGCSTruncate.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadCSVFromGCSTruncate.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadCSVFromGCSTruncate.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadCSVFromGCSTruncate.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadCSVFromGCSTruncate.js`
+`node handwritten/bigquery/samples/loadCSVFromGCSTruncate.js`
 
 
 -----
@@ -1036,14 +1054,14 @@ __Usage:__
 
 ### Load JSON From GCS
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadJSONFromGCS.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadJSONFromGCS.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadJSONFromGCS.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadJSONFromGCS.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadJSONFromGCS.js`
+`node handwritten/bigquery/samples/loadJSONFromGCS.js`
 
 
 -----
@@ -1053,14 +1071,14 @@ __Usage:__
 
 ### Load JSON From GCS Autodetect
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadJSONFromGCSAutodetect.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadJSONFromGCSAutodetect.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadJSONFromGCSAutodetect.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadJSONFromGCSAutodetect.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadJSONFromGCSAutodetect.js`
+`node handwritten/bigquery/samples/loadJSONFromGCSAutodetect.js`
 
 
 -----
@@ -1070,14 +1088,14 @@ __Usage:__
 
 ### Load JSON From GCS Truncate
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadJSONFromGCSTruncate.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadJSONFromGCSTruncate.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadJSONFromGCSTruncate.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadJSONFromGCSTruncate.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadJSONFromGCSTruncate.js`
+`node handwritten/bigquery/samples/loadJSONFromGCSTruncate.js`
 
 
 -----
@@ -1087,14 +1105,14 @@ __Usage:__
 
 ### Load Local File
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadLocalFile.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadLocalFile.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadLocalFile.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadLocalFile.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadLocalFile.js`
+`node handwritten/bigquery/samples/loadLocalFile.js`
 
 
 -----
@@ -1104,14 +1122,14 @@ __Usage:__
 
 ### Load Orc From GCS Truncate
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadOrcFromGCSTruncate.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadOrcFromGCSTruncate.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadOrcFromGCSTruncate.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadOrcFromGCSTruncate.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadOrcFromGCSTruncate.js`
+`node handwritten/bigquery/samples/loadOrcFromGCSTruncate.js`
 
 
 -----
@@ -1121,14 +1139,14 @@ __Usage:__
 
 ### Load Parquet From GCS Truncate
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadParquetFromGCSTruncate.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadParquetFromGCSTruncate.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadParquetFromGCSTruncate.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadParquetFromGCSTruncate.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadParquetFromGCSTruncate.js`
+`node handwritten/bigquery/samples/loadParquetFromGCSTruncate.js`
 
 
 -----
@@ -1138,14 +1156,14 @@ __Usage:__
 
 ### Load Table Clustered
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTableClustered.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTableClustered.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTableClustered.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTableClustered.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTableClustered.js`
+`node handwritten/bigquery/samples/loadTableClustered.js`
 
 
 -----
@@ -1155,14 +1173,14 @@ __Usage:__
 
 ### Load Table GCS Avro
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTableGCSAvro.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTableGCSAvro.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTableGCSAvro.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTableGCSAvro.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTableGCSAvro.js`
+`node handwritten/bigquery/samples/loadTableGCSAvro.js`
 
 
 -----
@@ -1172,14 +1190,14 @@ __Usage:__
 
 ### Load Table GCS Avro Truncate
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTableGCSAvroTruncate.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTableGCSAvroTruncate.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTableGCSAvroTruncate.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTableGCSAvroTruncate.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTableGCSAvroTruncate.js`
+`node handwritten/bigquery/samples/loadTableGCSAvroTruncate.js`
 
 
 -----
@@ -1189,14 +1207,14 @@ __Usage:__
 
 ### Load Table GCSORC
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTableGCSORC.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTableGCSORC.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTableGCSORC.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTableGCSORC.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTableGCSORC.js`
+`node handwritten/bigquery/samples/loadTableGCSORC.js`
 
 
 -----
@@ -1206,14 +1224,14 @@ __Usage:__
 
 ### Load Table GCS Parquet
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTableGCSParquet.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTableGCSParquet.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTableGCSParquet.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTableGCSParquet.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTableGCSParquet.js`
+`node handwritten/bigquery/samples/loadTableGCSParquet.js`
 
 
 -----
@@ -1223,14 +1241,14 @@ __Usage:__
 
 ### Load Table Partitioned
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTablePartitioned.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTablePartitioned.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTablePartitioned.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTablePartitioned.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTablePartitioned.js`
+`node handwritten/bigquery/samples/loadTablePartitioned.js`
 
 
 -----
@@ -1240,14 +1258,14 @@ __Usage:__
 
 ### Load Table URI Firestore
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/loadTableURIFirestore.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/loadTableURIFirestore.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/loadTableURIFirestore.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/loadTableURIFirestore.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/loadTableURIFirestore.js`
+`node handwritten/bigquery/samples/loadTableURIFirestore.js`
 
 
 -----
@@ -1257,14 +1275,14 @@ __Usage:__
 
 ### Nested Repeated Schema
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/nestedRepeatedSchema.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/nestedRepeatedSchema.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/nestedRepeatedSchema.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/nestedRepeatedSchema.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/nestedRepeatedSchema.js`
+`node handwritten/bigquery/samples/nestedRepeatedSchema.js`
 
 
 -----
@@ -1274,14 +1292,14 @@ __Usage:__
 
 ### Query
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/query.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/query.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/query.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/query.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/query.js`
+`node handwritten/bigquery/samples/query.js`
 
 
 -----
@@ -1291,14 +1309,14 @@ __Usage:__
 
 ### Query Batch
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryBatch.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryBatch.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryBatch.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryBatch.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryBatch.js`
+`node handwritten/bigquery/samples/queryBatch.js`
 
 
 -----
@@ -1308,14 +1326,14 @@ __Usage:__
 
 ### Query Clustered Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryClusteredTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryClusteredTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryClusteredTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryClusteredTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryClusteredTable.js`
+`node handwritten/bigquery/samples/queryClusteredTable.js`
 
 
 -----
@@ -1325,14 +1343,14 @@ __Usage:__
 
 ### Query Destination Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryDestinationTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryDestinationTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryDestinationTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryDestinationTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryDestinationTable.js`
+`node handwritten/bigquery/samples/queryDestinationTable.js`
 
 
 -----
@@ -1342,14 +1360,14 @@ __Usage:__
 
 ### Query Disable Cache
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryDisableCache.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryDisableCache.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryDisableCache.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryDisableCache.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryDisableCache.js`
+`node handwritten/bigquery/samples/queryDisableCache.js`
 
 
 -----
@@ -1359,14 +1377,14 @@ __Usage:__
 
 ### Query Dry Run
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryDryRun.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryDryRun.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryDryRun.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryDryRun.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryDryRun.js`
+`node handwritten/bigquery/samples/queryDryRun.js`
 
 
 -----
@@ -1376,14 +1394,14 @@ __Usage:__
 
 ### Query External GCS Perm
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryExternalGCSPerm.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryExternalGCSPerm.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryExternalGCSPerm.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryExternalGCSPerm.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryExternalGCSPerm.js`
+`node handwritten/bigquery/samples/queryExternalGCSPerm.js`
 
 
 -----
@@ -1393,14 +1411,14 @@ __Usage:__
 
 ### Query External GCS Temp
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryExternalGCSTemp.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryExternalGCSTemp.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryExternalGCSTemp.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryExternalGCSTemp.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryExternalGCSTemp.js`
+`node handwritten/bigquery/samples/queryExternalGCSTemp.js`
 
 
 -----
@@ -1410,14 +1428,14 @@ __Usage:__
 
 ### Query Job Optional
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryJobOptional.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryJobOptional.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryJobOptional.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryJobOptional.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryJobOptional.js`
+`node handwritten/bigquery/samples/queryJobOptional.js`
 
 
 -----
@@ -1427,14 +1445,14 @@ __Usage:__
 
 ### Query Legacy
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryLegacy.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryLegacy.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryLegacy.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryLegacy.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryLegacy.js`
+`node handwritten/bigquery/samples/queryLegacy.js`
 
 
 -----
@@ -1444,14 +1462,14 @@ __Usage:__
 
 ### Query Legacy Large Results
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryLegacyLargeResults.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryLegacyLargeResults.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryLegacyLargeResults.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryLegacyLargeResults.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryLegacyLargeResults.js`
+`node handwritten/bigquery/samples/queryLegacyLargeResults.js`
 
 
 -----
@@ -1461,14 +1479,14 @@ __Usage:__
 
 ### Query Pagination
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryPagination.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryPagination.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryPagination.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryPagination.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryPagination.js`
+`node handwritten/bigquery/samples/queryPagination.js`
 
 
 -----
@@ -1478,14 +1496,14 @@ __Usage:__
 
 ### Query Params Arrays
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsArrays.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsArrays.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsArrays.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsArrays.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsArrays.js`
+`node handwritten/bigquery/samples/queryParamsArrays.js`
 
 
 -----
@@ -1495,14 +1513,14 @@ __Usage:__
 
 ### Query Params Named
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsNamed.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsNamed.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsNamed.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsNamed.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsNamed.js`
+`node handwritten/bigquery/samples/queryParamsNamed.js`
 
 
 -----
@@ -1512,14 +1530,14 @@ __Usage:__
 
 ### Query Params Named Types
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsNamedTypes.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsNamedTypes.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsNamedTypes.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsNamedTypes.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsNamedTypes.js`
+`node handwritten/bigquery/samples/queryParamsNamedTypes.js`
 
 
 -----
@@ -1529,14 +1547,14 @@ __Usage:__
 
 ### Query Params Positional
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsPositional.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsPositional.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsPositional.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsPositional.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsPositional.js`
+`node handwritten/bigquery/samples/queryParamsPositional.js`
 
 
 -----
@@ -1546,14 +1564,14 @@ __Usage:__
 
 ### Query Params Positional Types
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsPositionalTypes.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsPositionalTypes.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsPositionalTypes.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsPositionalTypes.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsPositionalTypes.js`
+`node handwritten/bigquery/samples/queryParamsPositionalTypes.js`
 
 
 -----
@@ -1563,14 +1581,14 @@ __Usage:__
 
 ### Query Params Structs
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsStructs.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsStructs.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsStructs.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsStructs.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsStructs.js`
+`node handwritten/bigquery/samples/queryParamsStructs.js`
 
 
 -----
@@ -1580,14 +1598,14 @@ __Usage:__
 
 ### Query Params Timestamps
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryParamsTimestamps.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryParamsTimestamps.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryParamsTimestamps.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryParamsTimestamps.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryParamsTimestamps.js`
+`node handwritten/bigquery/samples/queryParamsTimestamps.js`
 
 
 -----
@@ -1597,14 +1615,14 @@ __Usage:__
 
 ### Query Stack Overflow
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/queryStackOverflow.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/queryStackOverflow.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/queryStackOverflow.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/queryStackOverflow.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/queryStackOverflow.js`
+`node handwritten/bigquery/samples/queryStackOverflow.js`
 
 
 -----
@@ -1614,14 +1632,14 @@ __Usage:__
 
 ### Quickstart
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/quickstart.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/quickstart.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/quickstart.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/quickstart.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/quickstart.js`
+`node handwritten/bigquery/samples/quickstart.js`
 
 
 -----
@@ -1631,14 +1649,14 @@ __Usage:__
 
 ### Relax Column
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/relaxColumn.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/relaxColumn.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/relaxColumn.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/relaxColumn.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/relaxColumn.js`
+`node handwritten/bigquery/samples/relaxColumn.js`
 
 
 -----
@@ -1648,14 +1666,14 @@ __Usage:__
 
 ### Relax Column Load Append
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/relaxColumnLoadAppend.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/relaxColumnLoadAppend.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/relaxColumnLoadAppend.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/relaxColumnLoadAppend.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/relaxColumnLoadAppend.js`
+`node handwritten/bigquery/samples/relaxColumnLoadAppend.js`
 
 
 -----
@@ -1665,14 +1683,14 @@ __Usage:__
 
 ### Relax Column Query Append
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/relaxColumnQueryAppend.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/relaxColumnQueryAppend.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/relaxColumnQueryAppend.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/relaxColumnQueryAppend.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/relaxColumnQueryAppend.js`
+`node handwritten/bigquery/samples/relaxColumnQueryAppend.js`
 
 
 -----
@@ -1682,14 +1700,14 @@ __Usage:__
 
 ### Remove Table Clustering
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/removeTableClustering.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/removeTableClustering.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/removeTableClustering.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/removeTableClustering.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/removeTableClustering.js`
+`node handwritten/bigquery/samples/removeTableClustering.js`
 
 
 -----
@@ -1699,14 +1717,14 @@ __Usage:__
 
 ### Set Client Endpoint
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/setClientEndpoint.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/setClientEndpoint.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/setClientEndpoint.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/setClientEndpoint.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/setClientEndpoint.js`
+`node handwritten/bigquery/samples/setClientEndpoint.js`
 
 
 -----
@@ -1716,14 +1734,14 @@ __Usage:__
 
 ### Set User Agent
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/setUserAgent.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/setUserAgent.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/setUserAgent.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/setUserAgent.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/setUserAgent.js`
+`node handwritten/bigquery/samples/setUserAgent.js`
 
 
 -----
@@ -1733,14 +1751,14 @@ __Usage:__
 
 ### Table Exists
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/tableExists.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/tableExists.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/tableExists.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/tableExists.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/tableExists.js`
+`node handwritten/bigquery/samples/tableExists.js`
 
 
 -----
@@ -1750,14 +1768,14 @@ __Usage:__
 
 ### Undelete Table
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/undeleteTable.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/undeleteTable.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/undeleteTable.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/undeleteTable.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/undeleteTable.js`
+`node handwritten/bigquery/samples/undeleteTable.js`
 
 
 -----
@@ -1767,14 +1785,14 @@ __Usage:__
 
 ### Update Dataset Access
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateDatasetAccess.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateDatasetAccess.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateDatasetAccess.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateDatasetAccess.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateDatasetAccess.js`
+`node handwritten/bigquery/samples/updateDatasetAccess.js`
 
 
 -----
@@ -1784,14 +1802,14 @@ __Usage:__
 
 ### Update Dataset Description
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateDatasetDescription.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateDatasetDescription.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateDatasetDescription.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateDatasetDescription.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateDatasetDescription.js`
+`node handwritten/bigquery/samples/updateDatasetDescription.js`
 
 
 -----
@@ -1801,14 +1819,14 @@ __Usage:__
 
 ### Update Dataset Expiration
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateDatasetExpiration.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateDatasetExpiration.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateDatasetExpiration.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateDatasetExpiration.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateDatasetExpiration.js`
+`node handwritten/bigquery/samples/updateDatasetExpiration.js`
 
 
 -----
@@ -1820,9 +1838,9 @@ __Usage:__
 
 Updates a model's metadata.
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateModel.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateModel.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateModel.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateModel.js,samples/README.md)
 
 __Usage:__
 
@@ -1837,14 +1855,14 @@ __Usage:__
 
 ### Update Routine
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateRoutine.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateRoutine.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateRoutine.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateRoutine.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateRoutine.js`
+`node handwritten/bigquery/samples/updateRoutine.js`
 
 
 -----
@@ -1854,14 +1872,14 @@ __Usage:__
 
 ### Update Table Column ACL
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateTableColumnACL.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateTableColumnACL.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateTableColumnACL.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateTableColumnACL.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateTableColumnACL.js`
+`node handwritten/bigquery/samples/updateTableColumnACL.js`
 
 
 -----
@@ -1871,14 +1889,14 @@ __Usage:__
 
 ### Update Table Description
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateTableDescription.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateTableDescription.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateTableDescription.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateTableDescription.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateTableDescription.js`
+`node handwritten/bigquery/samples/updateTableDescription.js`
 
 
 -----
@@ -1888,14 +1906,14 @@ __Usage:__
 
 ### Update Table Expiration
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateTableExpiration.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateTableExpiration.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateTableExpiration.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateTableExpiration.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateTableExpiration.js`
+`node handwritten/bigquery/samples/updateTableExpiration.js`
 
 
 -----
@@ -1905,14 +1923,14 @@ __Usage:__
 
 ### Update View Query
 
-View the [source code](https://github.com/googleapis/nodejs-bigquery/blob/main/samples/updateViewQuery.js).
+View the [source code](https://github.com/googleapis/google-cloud-node/blob/main/handwritten/bigquery/samples/updateViewQuery.js).
 
-[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/updateViewQuery.js,samples/README.md)
+[![Open in Cloud Shell][shell_img]](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=handwritten/bigquery/samples/updateViewQuery.js,samples/README.md)
 
 __Usage:__
 
 
-`node samples/updateViewQuery.js`
+`node handwritten/bigquery/samples/updateViewQuery.js`
 
 
 
@@ -1920,5 +1938,5 @@ __Usage:__
 
 
 [shell_img]: https://gstatic.com/cloudssh/images/open-btn.png
-[shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/nodejs-bigquery&page=editor&open_in_editor=samples/README.md
+[shell_link]: https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/googleapis/google-cloud-node&page=editor&open_in_editor=samples/README.md
 [product-docs]: https://cloud.google.com/bigquery
