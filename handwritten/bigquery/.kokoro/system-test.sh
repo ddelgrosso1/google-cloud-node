@@ -16,6 +16,16 @@
 
 set -eo pipefail
 
+
+echo "--- DEBUG INFO ---"
+echo "SECRET_MANAGER_KEYS=[${SECRET_MANAGER_KEYS}]"
+echo "TRAMPOLINE_BUILD_FILE=[${TRAMPOLINE_BUILD_FILE}]"
+echo "--- ENV VARS ---"
+env | sort
+echo "--- END DEBUG INFO ---"
+
+# Rest of your system-test.sh script follows
+# Example: source $(dirname $0)/../../../../.kokoro/trampoline_v2.sh
 export NPM_CONFIG_PREFIX=${HOME}/.npm-global
 
 # Setup service account credentials.
