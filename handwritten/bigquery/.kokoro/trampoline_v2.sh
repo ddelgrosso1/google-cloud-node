@@ -298,7 +298,7 @@ required_envvars=(
 )
 
 if [[ -f "${PROJECT_ROOT}/.trampolinerc" ]]; then
-    source "${PROJECT_ROOT}/.trampolinerc"
+    source "${PROJECT_ROOT}/handwritten/bigquery/.trampolinerc"
 fi
 
 log_yellow "Checking environment variables."
