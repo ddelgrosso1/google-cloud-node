@@ -51,7 +51,7 @@
 set -euo pipefail
 
 TRAMPOLINE_VERSION="2.0.7"
-TRAMPOLINERC_PATH="${PROJECT_ROOT}/handwritten/bigquery/.trampolinerc"
+TRAMPOLINERC_PATH="${PROJECT_ROOT}"/handwritten/bigquery/.trampolinerc
 
 if command -v tput >/dev/null && [[ -n "${TERM:-}" ]]; then
   readonly IO_COLOR_RED="$(tput setaf 1)"
