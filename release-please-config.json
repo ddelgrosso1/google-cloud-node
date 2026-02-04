@@ -3,6 +3,7 @@
   "initial-version": "0.1.0",
   "packages": {
     "handwritten/logging-winston": {},
+    "handwritten/cloud-profiler": {},
     "packages/gapic-node-processing": {},
     "packages/google-ads-admanager": {},
     "packages/google-ads-datamanager": {},
