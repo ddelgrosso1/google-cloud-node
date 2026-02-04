@@ -51,6 +51,7 @@
 set -euo pipefail
 
 TRAMPOLINE_VERSION="2.0.7"
+TRAMPOLINERC_PATH="${PROJECT_ROOT}/handwritten/bigquery/.trampolinerc"
 
 if command -v tput >/dev/null && [[ -n "${TERM:-}" ]]; then
   readonly IO_COLOR_RED="$(tput setaf 1)"
@@ -297,8 +298,11 @@ required_envvars=(
     "TRAMPOLINE_BUILD_FILE"
 )
 
-if [[ -f "${PROJECT_ROOT}/.trampolinerc" ]]; then
-    source "${PROJECT_ROOT}/handwritten/bigquery/.trampolinerc"
+if [[ -f "${TRAMPOLINERC_PATH}" ]]; then
+    echo "Sourcing TrampolineRC from ${TRAMPOLINERC_PATH}"
+    source "${TRAMPOLINERC_PATH}"
+else
+    echo "Warning: TrampolineRC not found at ${TRAMPOLINERC_PATH}"
 fi
 
 log_yellow "Checking environment variables."
