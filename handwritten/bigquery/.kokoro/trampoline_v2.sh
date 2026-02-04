@@ -246,11 +246,10 @@ function repo_root() {
 if [[ "${RUNNING_IN_CI:-}" == "true" ]]; then
     PROGRAM_PATH="$(realpath "$0")"
     PROGRAM_DIR="$(dirname "${PROGRAM_PATH}")"
-    PROJECT_ROOT="$(repo_root "${PROGRAM_DIR}")"
+    PROJECT_ROOT="$(repo_root "${PROGRAM_DIR}")"/handwritten/bigquery
 else
-    PROJECT_ROOT="$(repo_root $(pwd))"
+    PROJECT_ROOT="$(repo_root $(pwd))"/handwritten/bigquery
 fi
-TRAMPOLINERC_PATH="${PROJECT_ROOT}"/handwritten/bigquery/.trampolinerc
 
 log_yellow "Changing to the project root: ${PROJECT_ROOT}."
 cd "${PROJECT_ROOT}"
@@ -298,11 +297,8 @@ required_envvars=(
     "TRAMPOLINE_BUILD_FILE"
 )
 
-if [[ -f "${TRAMPOLINERC_PATH}" ]]; then
-    echo "Sourcing TrampolineRC from ${TRAMPOLINERC_PATH}"
-    source "${TRAMPOLINERC_PATH}"
-else
-    echo "Warning: TrampolineRC not found at ${TRAMPOLINERC_PATH}"
+if [[ -f "${PROJECT_ROOT}/.trampolinerc" ]]; then
+    source "${PROJECT_ROOT}/.trampolinerc"
 fi
 
 log_yellow "Checking environment variables."
