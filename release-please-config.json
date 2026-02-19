@@ -224,7 +224,8 @@
     "packages/google-streetview-publish": {},
     "packages/grafeas": {},
     "packages/typeless-sample-bot": {},
-    "packages/google-cloud-ces": {}
+    "packages/google-cloud-ces": {},
+    "handwritten/datastore": {}
   },
   "plugins": [
     {
