@@ -13,6 +13,9 @@
     "handwritten/cloud-profiler": {
       "component": "cloud-profiler"
     },
+    "handwritten/datastore": {
+      "component": "datastore"
+    },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     }
