@@ -224,6 +224,7 @@
     "packages/google-streetview-publish": {},
     "packages/grafeas": {},
     "packages/typeless-sample-bot": {},
+    "packages/google-cloud-workloadmanager": {},
     "packages/google-cloud-ces": {}
   },
   "plugins": [
