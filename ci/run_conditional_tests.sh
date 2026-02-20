@@ -84,9 +84,11 @@ RETVAL=0
 tests_with_credentials="packages/google-analytics-admin/ packages/google-area120-tables/ packages/google-analytics-data/ packages/google-iam-credentials/ packages/google-apps-meet/ packages/google-chat/ packages/google-streetview-publish/ packages/google-cloud-developerconnect/"
 
 # Some packages are only used by our bots and automation. These packages do not need to run on Windows and
-# often employ platform specific code like file system interaction. Until these packages can be updated to be
-# OS agnostic, we will skip them on Windows.
-windows_exempt_tests="packages/gapic-node-processing/"
+# often employ platform specific code like file system interaction. Some packages may also fail
+# on Windows due to incompatible npm scripts.
+# 
+# Until these packages can be updated to be OS agnostic, we will skip them on Windows.
+windows_exempt_tests="packages/gapic-node-processing/ packages/google-cloud-discoveryengine/"
 
 for subdir in ${subdirs[@]}; do
     for d in `ls -d ${subdir}/*/`; do
