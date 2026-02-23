@@ -182,7 +182,6 @@
     "packages/google-cloud-vpcaccess": {},
     "packages/google-cloud-webrisk": {},
     "packages/google-cloud-websecurityscanner": {},
-    "packages/google-cloud-workflows-executions": {},
     "packages/google-cloud-workstations": {},
     "packages/google-container": {},
     "packages/google-dataflow": {},
@@ -224,6 +223,7 @@
     "packages/google-streetview-publish": {},
     "packages/grafeas": {},
     "packages/typeless-sample-bot": {},
+    "packages/google-cloud-workflows": {},
     "packages/google-cloud-visionai": {},
     "packages/google-cloud-workloadmanager": {},
     "packages/google-cloud-ces": {}
