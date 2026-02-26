@@ -20,8 +20,8 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 common_templates = gcp.CommonTemplates()
-templates = common_templates.node_library(source_location='build/src')
-s.copy(templates, excludes=['.jsdoc.js',
+templates = common_templates.node_mono_repo_library(relative_dir="handwriten/storage", source_location='build/src')
+s.copy(templates, destination="handwritten/storage", excludes=['.jsdoc.js',
                             '.github/release-please.yml',
                             '.github/sync-repo-settings.yaml',
                             '.github/workflows/ci.yaml',
@@ -37,7 +37,7 @@ s.copy(templates, excludes=['.jsdoc.js',
 # Create .config directory under $HOME to get around permissions issues
 # with resumable upload.
 s.replace(
-    ".circleci/config.yml",
+    "handwriten/storage/.circleci/config.yml",
     "command: npm run system-test",
     "command: mkdir $HOME/.config && npm run system-test")
-node.fix()
+node.fix_hermetic(relative_dir="handwriten/storage")
