@@ -40,7 +40,7 @@
     "google-gax": "^5.0.0"
   },
   "peerDependencies": {
-    "protobufjs": "^7.2.4 - 7.5.0"
+    "protobufjs": "7.2.4 - 7.5.0"
   },
   "devDependencies": {
     "@google-cloud/bigquery": "^8.0.0",
