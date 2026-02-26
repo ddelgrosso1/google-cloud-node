@@ -63,6 +63,13 @@ function extractRemoteAddressFromRequest(req: hapi.Request) {
 }
 
 /**
+ * Helper to normalize headers that might be arrays into a single string.
+ */
+function getSingleHeader(val: string | string[] | undefined): string | undefined {
+  return Array.isArray(val) ? val[0] : val;
+}
+
+/**
  * This function is used to extract request information from a hapi request
  * object. This function will not check for the presence of properties on the
  * request object.
@@ -93,10 +100,10 @@ export function hapiRequestInformationExtractor(req?: hapi.Request) {
   returnObject
     .setMethod(req!.method)
     .setUrl(urlString)
-    .setUserAgent(req!.headers['user-agent'])
-    .setReferrer(req!.headers.referrer)
+    .setUserAgent(getSingleHeader(req!.headers['user-agent']))
+    .setReferrer(getSingleHeader(req!.headers.referrer))
     .setStatusCode(attemptToExtractStatusCode(req!))
-    .setRemoteAddress(extractRemoteAddressFromRequest(req!));
+    .setRemoteAddress(getSingleHeader(extractRemoteAddressFromRequest(req!)));
 
   return returnObject;
 }
