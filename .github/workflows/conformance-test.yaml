@@ -2,7 +2,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'handwritten/storage/**'
   pull_request:
+    paths:
+      - 'handwritten/storage/**'
 name: conformance
 jobs:
   conformance-test:
@@ -13,5 +17,5 @@ jobs:
         with:
           node-version: 14
       - run: node --version
-      - run: npm install
-      - run: npm run conformance-test
+      - run: cd handwritten/storage && npm install
+      - run: cd handwritten/storage && npm run conformance-test
