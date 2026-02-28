@@ -21,9 +21,9 @@ import os
 logging.basicConfig(level=logging.DEBUG)
 
 common_templates = gcp.CommonTemplates()
-templates = common_templates.node_library()
-s.copy(templates, excludes=[".github/auto-label.yaml", ".github/CODEOWNERS", ".github/sync-repo-settings.yaml"])
-node.fix()
+templates = common_templates.node_mono_repo_library()
+s.copy(templates, destination="handwritten/error-reporting")
+node.fix_hermetic(relative_dir="handwritten/error-reporting")
 
 
 # --------------------------------------------------------------------------
@@ -32,16 +32,16 @@ node.fix()
 
 # add shared environment variables to test configs
 s.move(
-    ".kokoro/common_env_vars.cfg",
-    ".kokoro/common.cfg",
+    "handwritten/error-reporting/.kokoro/common_env_vars.cfg",
+    "handwritten/error-reporting/.kokoro/common.cfg",
     merge=lambda src, dst, _, : f"{dst}\n{src}",
 )
-for path, subdirs, files in os.walk(f".kokoro/continuous"):
+for path, subdirs, files in os.walk(f"handwritten/error-reporting/.kokoro/continuous"):
     for name in files:
         if name == "common.cfg":
             file_path = os.path.join(path, name)
             s.move(
-                ".kokoro/common_env_vars.cfg",
+                "handwritten/error-reporting/.kokoro/common_env_vars.cfg",
                 file_path,
                 merge=lambda src, dst, _, : f"{dst}\n{src}",
             )
