@@ -16,7 +16,7 @@ import * as assert from 'assert';
 import {describe, it} from 'mocha';
 import * as protobuf from 'protobufjs';
 import * as adapt from '../../src/adapt';
-import * as messagesJSON from '../../samples/testdata/messages.json';
+import * as messagesJSON from '../testdata/message.json';
 import * as protos from '../../protos/protos';
 
 type TableFieldSchema =

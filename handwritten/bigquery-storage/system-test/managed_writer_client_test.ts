@@ -24,7 +24,7 @@ import * as protos from '../protos/protos';
 import * as bigquerywriter from '../src';
 import * as protobuf from 'protobufjs';
 import {ClientOptions} from 'google-gax';
-import * as customerRecordProtoJson from '../samples/customer_record.json';
+import * as customerRecordProtoJson from './fixtures/customer_record.json';
 import {JSONEncoder} from '../src/managedwriter/encoder';
 import {PendingWrite} from '../src/managedwriter/pending_write';
 import {PreciseDate} from '@google-cloud/precise-date';
