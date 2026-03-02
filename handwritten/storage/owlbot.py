@@ -32,6 +32,7 @@ s.copy(templates, destination="handwritten/storage", excludes=['.jsdoc.js',
                             '.kokoro/release/publish.cfg',
                             '.kokoro/system-test.sh',
                             '.kokoro/samples-test.sh',
+                            '.OwlBot.yaml'
                             ])
 
 # Create .config directory under $HOME to get around permissions issues
@@ -40,4 +41,4 @@ s.replace(
     "handwriten/storage/.circleci/config.yml",
     "command: npm run system-test",
     "command: mkdir $HOME/.config && npm run system-test")
-node.fix_hermetic(relative_dir="handwriten/storage")
+node.fix_hermetic(relative_dir="handwritten/storage")
