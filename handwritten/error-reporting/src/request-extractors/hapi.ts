@@ -65,7 +65,9 @@ function extractRemoteAddressFromRequest(req: hapi.Request) {
 /**
  * Helper to normalize headers that might be arrays into a single string.
  */
-function getSingleHeader(val: string | string[] | undefined): string | undefined {
+function getSingleHeader(
+  val: string | string[] | undefined,
+): string | undefined {
   return Array.isArray(val) ? val[0] : val;
 }
 

@@ -2,25 +2,23 @@
 [//]: # "To regenerate it, use `python -m synthtool`."
 <img src="https://avatars2.githubusercontent.com/u/2810941?v=3&s=96" alt="Google Cloud Platform logo" title="Google Cloud Platform" align="right" height="96" width="96"/>
 
-# [Error Reporting: Node.js Client](https://github.com/googleapis/nodejs-error-reporting)
+# [Error Reporting: Node.js Client](https://github.com/googleapis/google-cloud-node/tree/main/handwritten/error-reporting)
 
 [![release level](https://img.shields.io/badge/release%20level-stable-brightgreen.svg?style=flat)](https://cloud.google.com/terms/launch-stages)
-[![npm version](https://img.shields.io/npm/v/@google-cloud/error-reporting.svg)](https://www.npmjs.org/package/@google-cloud/error-reporting)
+[![npm version](https://img.shields.io/npm/v/@google-cloud/error-reporting.svg)](https://www.npmjs.com/package/@google-cloud/error-reporting)
 
 
 
 
-> Node.js idiomatic client for [Error Reporting][product-docs].
-
-[Error Reporting](https://cloud.google.com/error-reporting/docs/) aggregates and displays errors produced in your running cloud services.
+Error Reporting Client Library for Node.js
 
 
 A comprehensive list of changes in each version may be found in
-[the CHANGELOG](https://github.com/googleapis/nodejs-error-reporting/blob/main/CHANGELOG.md).
+[the CHANGELOG](https://github.com/googleapis/google-cloud-node/tree/main/handwritten/error-reporting/CHANGELOG.md).
 
 * [Error Reporting Node.js Client API Reference][client-docs]
 * [Error Reporting Documentation][product-docs]
-* [github.com/googleapis/nodejs-error-reporting](https://github.com/googleapis/nodejs-error-reporting)
+* [github.com/googleapis/google-cloud-node/handwritten/error-reporting](https://github.com/googleapis/google-cloud-node/tree/main/handwritten/error-reporting)
 
 Read more about the client libraries for Cloud APIs, including the older
 Google APIs Client Libraries, in [Client Libraries Explained][explained].
@@ -45,7 +43,7 @@ Google APIs Client Libraries, in [Client Libraries Explained][explained].
 
 1.  [Select or create a Cloud Platform project][projects].
 1.  [Enable the Error Reporting API][enable_api].
-1.  [Set up authentication with a service account][auth] so you can access the
+1.  [Set up authentication][auth] so you can access the
     API from your local workstation.
 
 ### Installing the client library
@@ -54,35 +52,7 @@ Google APIs Client Libraries, in [Client Libraries Explained][explained].
 npm install @google-cloud/error-reporting
 ```
 
-This module provides custom Error Reporting support for Node.js applications.
-[Error Reporting](https://cloud.google.com/error-reporting/) is a feature of
-Google Cloud Platform that allows in-depth monitoring and viewing of errors reported by
-applications running in almost any environment.
 
-However, note that [@google-cloud/logging-winston](https://github.com/googleapis/nodejs-logging-winston) and [@google-cloud/logging-bunyan](https://github.com/googleapis/nodejs-logging-bunyan) automatically integrate with the Error Reporting service for Error objects logged at severity `error` or higher, for applications running on Google Cloud Platform.
-
-Thus, if you are already using Winston or Bunyan in your application, and don't need custom error reporting capabilities, you do not need to use the `@google-cloud/error-reporting` library directly to report errors to the Error Reporting Console.
-
-![Error Reporting overview](https://raw.githubusercontent.com/googleapis/nodejs-error-reporting/master/doc/images/errors-overview.png)
-
-# When Errors Are Reported
-
-The `reportMode` configuration option is used to specify when errors are reported to the Error Reporting Console.  It can have one of three values:
-* `'production'` (default): Only report errors if the NODE_ENV environment variable is set to "production".
-* `'always'`: Always report errors regardless of the value of NODE_ENV.
-* `'never'`: Never report errors regardless of the value of NODE_ENV.
-
-The `reportMode` configuration option replaces the deprecated `ignoreEnvironmentCheck` configuration option.  If both the `reportMode` and `ignoreEnvironmentCheck` options are specified, the `reportMode` configuration option takes precedence.
-
-The `ignoreEnvironmentCheck` option should not be used.  However, if it is used, and the `reportMode` option is not specified, it can have the values:
-* `false` (default): Only report errors if the NODE_ENV environment variable is set to "production".
-* `true`: Always report errors regardless of the value of NODE_ENV.
-
-## Setup, Configuration, and Examples
-
-See the documentation for setup instructions, configuration options, and examples: https://cloud.google.com/error-reporting/docs/setup/nodejs 
-
-Additional code samples can also be found here: https://github.com/GoogleCloudPlatform/nodejs-docs-samples/tree/main/error-reporting
 
 
 
@@ -132,7 +102,7 @@ More Information: [Google Cloud Platform Launch Stages][launch_stages]
 
 ## Contributing
 
-Contributions welcome! See the [Contributing Guide](https://github.com/googleapis/nodejs-error-reporting/blob/main/CONTRIBUTING.md).
+Contributions welcome! See the [Contributing Guide](https://github.com/googleapis/google-cloud-node/blob/main/CONTRIBUTING.md).
 
 Please note that this `README.md`, the `samples/README.md`,
 and a variety of configuration files in this repository (including `.nycrc` and `tsconfig.json`)
@@ -144,7 +114,7 @@ to its templates in
 
 Apache Version 2.0
 
-See [LICENSE](https://github.com/googleapis/nodejs-error-reporting/blob/main/LICENSE)
+See [LICENSE](https://github.com/googleapis/google-cloud-node/blob/main/LICENSE)
 
 [client-docs]: https://cloud.google.com/nodejs/docs/reference/error-reporting/latest
 [product-docs]: https://cloud.google.com/error-reporting
@@ -152,4 +122,4 @@ See [LICENSE](https://github.com/googleapis/nodejs-error-reporting/blob/main/LIC
 [projects]: https://console.cloud.google.com/project
 [billing]: https://support.google.com/cloud/answer/6293499#enable-billing
 [enable_api]: https://console.cloud.google.com/flows/enableapi?apiid=clouderrorreporting.googleapis.com
-[auth]: https://cloud.google.com/docs/authentication/getting-started
+[auth]: https://cloud.google.com/docs/authentication/external/set-up-adc-local
