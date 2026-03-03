@@ -43,5 +43,5 @@ for path, subdirs, files in os.walk(f"handwritten/error-reporting/.kokoro/contin
             s.move(
                 "handwritten/error-reporting/.kokoro/common_env_vars.cfg",
                 file_path,
-                merge=lambda src, dst, _, : f"{dst}\n{src}",
+                merge=lambda src, dst, _: dst if src.strip() in dst else f"{dst.rstrip()}\n{src.strip()}\n",
             )
