@@ -17,6 +17,9 @@
     },
     "handwritten/logging-winston": {
       "component": "logging-winston"
+    },
+    "handwritten/storage": {
+      "component": "storage"
     }
   },
   "plugins": [
