@@ -22,7 +22,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 common_templates = gcp.CommonTemplates()
 templates = common_templates.node_mono_repo_library(relative_dir="handwritten/error-reporting")
-s.copy(templates, destination="handwritten/error-reporting")
+s.copy(templates, destination="handwritten/error-reporting", excludes=["README.md"])
 node.fix_hermetic(relative_dir="handwritten/error-reporting")
 
 
