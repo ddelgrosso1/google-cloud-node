@@ -21,7 +21,7 @@ from synthtool import _tracked_paths
 from synthtool import shell
 import shutil
 
-staging = Path("owl-bot-staging")
+staging = Path("owl-bot-staging/spanner")
 
 if staging.is_dir():
     logging.info(f"Copying files from staging directory ${staging}.")
@@ -37,7 +37,7 @@ if staging.is_dir():
     for version in ['v1']:
         library = staging / version
         _tracked_paths.add(library)
-        s.copy([library], excludes=excludes)
+        s.copy([library], destination="handwritten/spanner", excludes=excludes)
 
     excludes += ["webpack.config.js", ".jsdoc.js"]
 
@@ -63,10 +63,10 @@ if staging.is_dir():
     shutil.rmtree(staging)
 
 common_templates = gcp.CommonTemplates()
-templates = common_templates.node_library(source_location='build/src')
-s.copy(templates, excludes=[".kokoro/samples-test.sh", ".kokoro/trampoline_v2.sh", ".github/release-trigger.yml", ".github/sync-repo-settings.yaml"])
+templates = common_templates.node_mono_repo_library(relative_dir="handwritten/spanner", source_location='build/src')
+s.copy(templates, destination="handwritten/spanner", excludes=[".kokoro/samples-test.sh", ".kokoro/trampoline_v2.sh", ".github/release-trigger.yml", ".github/sync-repo-settings.yaml", "README.md"])
 
-node.postprocess_gapic_library_hermetic()
+node.postprocess_gapic_library_hermetic(relative_dir="handwritten/spanner")
 
 # Remove generated samples from veneer library:
-shell.run(('rm', '-rf', 'samples/generated'), hide_output = False)
+shell.run(('rm', '-rf', 'handwritten/spanner/samples/generated'), hide_output = False)
