@@ -11,6 +11,9 @@
     "handwritten/datastore": {
       "component": "datastore"
     },
+    "handwritten/firestore": {
+      "component": "firestore"
+    },
     "handwritten/error-reporting": {
       "component": "error-reporting"
     },
