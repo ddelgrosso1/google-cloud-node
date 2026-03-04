@@ -11,7 +11,9 @@
     "handwritten/datastore": {
       "component": "datastore"
     },
-    "handwritten/firestore": {},
+    "handwritten/firestore": {
+      "component": "firestore"
+    },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },
