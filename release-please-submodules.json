@@ -17,6 +17,7 @@
     "handwritten/logging-winston": {
       "component": "logging-winston"
     },
+    "handwritten/spanner": {},
     "handwritten/storage": {
       "component": "storage"
     }
