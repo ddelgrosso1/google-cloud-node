@@ -11,7 +11,9 @@
     "handwritten/datastore": {
       "component": "datastore"
     },
-    "handwritten/error-reporting": {},
+    "handwritten/error-reporting": {
+      "component": "error-reporting"
+    },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },
