@@ -12,11 +12,20 @@
     "handwritten/datastore": {
       "component": "datastore"
     },
+    "handwritten/firestore": {
+      "component": "firestore"
+    },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },
     "handwritten/logging-winston": {
       "component": "logging-winston"
+    },
+    "handwritten/spanner": {
+      "component": "spanner"
+    },
+    "handwritten/storage": {
+      "component": "storage"
     }
   },
   "plugins": [
