@@ -2,7 +2,11 @@
   "name": "@google-cloud/bigquery-storage",
   "version": "5.1.0",
   "description": "Client for the BigQuery Storage API",
-  "repository": "googleapis/nodejs-bigquery-storage",
+  "repository": {
+    "type": "git",
+    "directory": "handwritten/bigquery-storage",
+    "url": "https://github.com/googleapis/google-cloud-node.git"
+  },
   "license": "Apache-2.0",
   "author": "Google LLC",
   "files": [
@@ -34,7 +38,6 @@
     "extend": "^3.0.2",
     "google-auth-library": "^10.0.0",
     "google-gax": "^5.0.0"
-
   },
   "peerDependencies": {
     "protobufjs": "^7.2.4 - 7.5.0"
@@ -67,5 +70,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "homepage": "https://github.com/googleapis/google-cloud-node/tree/main/handwritten/bigquery-storage"
 }

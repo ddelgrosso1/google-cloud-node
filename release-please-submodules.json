@@ -5,6 +5,7 @@
     "handwritten/bigquery": {
       "component": "bigquery"
     },
+    "handwritten/bigquery-storage": {},
     "handwritten/cloud-profiler": {
       "component": "cloud-profiler"
     },
