@@ -14,6 +14,9 @@
     "handwritten/firestore": {
       "component": "firestore"
     },
+    "handwritten/error-reporting": {
+      "component": "error-reporting"
+    },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },
