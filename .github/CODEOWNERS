@@ -11,4 +11,6 @@
 /handwritten/cloud-profiler @googleapis/cloud-profiler-team
 /handwritten/storage @googleapis/gcs-team
 /handwritten/firestore @googleapis/firestore-team
-/handwritten/spanner @googleapis/spanner-team/handwritten/logging @googleapis/yoshi-nodejs
+/handwritten/spanner @googleapis/spanner-team
+/handwritten/bigquery-storage @googleapis/bigquery-team
+/handwritten/logging @googleapis/yoshi-nodejs
