@@ -11,12 +11,13 @@
     "handwritten/datastore": {
       "component": "datastore"
     },
-    "handwritten/firestore": {
-      "component": "firestore"
-    },
     "handwritten/error-reporting": {
       "component": "error-reporting"
     },
+    "handwritten/firestore": {
+      "component": "firestore"
+    },
+    "handwritten/logging": {},
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },

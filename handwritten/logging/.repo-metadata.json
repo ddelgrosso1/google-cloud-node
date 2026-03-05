@@ -7,7 +7,7 @@
   "language": "nodejs",
   "api_id": "logging.googleapis.com",
   "distribution_name": "@google-cloud/logging",
-  "repo": "googleapis/nodejs-logging",
+  "repo": "googleapis/google-cloud-node",
   "issue_tracker": "https://issuetracker.google.com/savedsearches/559764",
   "name_pretty": "Cloud Logging",
   "default_version": "v2",

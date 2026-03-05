@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # `npm postpublish` script that ships an minified version of this library
-# Todo(nicolezhu): Eventually deprecate this script for go/nodejs-logging-lite
+# Todo(nicolezhu): Eventually deprecate this script for go/nodejs-logging/handwritten/logging-lite
 
 set -eo pipefail
 

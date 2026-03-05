@@ -16,9 +16,9 @@
 
 import os
 import synthtool as s
-import synthtool.languages.node as node
+import synthtool.languages.node_mono_repo as node
 
-node.owlbot_main(
+node.owlbot_main(relative_dir="handwritten/logging",
     staging_excludes=[
         ".eslintignore", ".prettierignore", "src/index.ts", "README.md", "package.json",
         "system-test/fixtures/sample/src/index.js",
