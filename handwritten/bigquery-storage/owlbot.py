@@ -14,7 +14,4 @@
 """This script is used to synthesize generated parts of this library."""
 import synthtool.languages.node_mono_repo as node
 
-node.owlbot_main(relative_dir="handwritten/bigquery-storage",
-    staging_excludes=['package.json', 'README.md', 'src/index.ts'],
-    templates_excludes=['src/index.ts','.OwlBot.yaml']
-)
+node.owlbot_main(relative_dir="handwritten/bigquery-storage", templates_excludes=["README.md"])
