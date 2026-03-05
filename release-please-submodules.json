@@ -2,7 +2,9 @@
   "commit-batch-size": 1,
   "include-component-in-tag": true,
   "packages": {
-    "core/projectify": {},
+    "core/projectify": {
+      "component": "projectify"
+    },
     "handwritten/bigquery": {
       "component": "bigquery"
     },
