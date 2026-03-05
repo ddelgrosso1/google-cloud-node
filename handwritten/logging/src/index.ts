@@ -725,7 +725,7 @@ class Logging {
               return;
             }
             gaxStream
-              .on('error', err => {
+              .on('error', (err: Error) => {
                 requestStream.destroy(err);
               })
               .pipe(requestStream);
@@ -1037,7 +1037,7 @@ class Logging {
             return;
           }
           gaxStream
-            .on('error', err => {
+            .on('error', (err: Error) => {
               requestStream.destroy(err);
             })
             .pipe(requestStream);
@@ -1225,7 +1225,7 @@ class Logging {
               return;
             }
             gaxStream
-              .on('error', err => {
+              .on('error', (err: Error) => {
                 requestStream.destroy(err);
               })
               .pipe(requestStream);
@@ -1384,7 +1384,7 @@ class Logging {
         }
         gaxStream = requestFn!();
         gaxStream
-          .on('error', err => {
+          .on('error', (err: Error) => {
             stream.destroy(err);
           })
           .pipe(stream);
