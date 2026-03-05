@@ -4,7 +4,11 @@
   "description": "A simple utility for replacing the projectid token in objects.",
   "main": "build/src/index.js",
   "types": "build/src/index.d.ts",
-  "repository": "googleapis/nodejs-projectify",
+  "repository": {
+    "type": "git",
+    "directory": "core/projectify",
+    "url": "https://github.com/googleapis/google-cloud-node.git"
+  },
   "scripts": {
     "test": "c8 mocha build/test",
     "lint": "gts check",
@@ -44,5 +48,6 @@
   },
   "engines": {
     "node": ">=18"
-  }
+  },
+  "homepage": "https://github.com/googleapis/google-cloud-node/tree/main/core/projectify"
 }
