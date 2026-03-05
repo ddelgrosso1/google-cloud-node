@@ -60,7 +60,7 @@ export interface HeaderWrapper {
  * @param req
  */
 export function makeHeaderWrapper(
-  req: http.IncomingMessage
+  req: http.IncomingMessage,
 ): HeaderWrapper | null {
   if (!req.headers) return null;
   const wrapper = {
@@ -96,7 +96,7 @@ export interface CloudTraceContext {
 export function getOrInjectContext(
   req: http.IncomingMessage,
   projectId: string,
-  inject?: boolean
+  inject?: boolean,
 ): CloudTraceContext {
   const defaultContext = toCloudTraceContext({}, projectId);
 
@@ -130,7 +130,7 @@ export function getOrInjectContext(
 function toCloudTraceContext(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   anyContext: any,
-  projectId: string
+  projectId: string,
 ): CloudTraceContext {
   const context: CloudTraceContext = {
     trace: '',
@@ -163,7 +163,7 @@ function makeCloudTraceHeader(): string {
  * @param projectId
  */
 export function getContextFromOtelContext(
-  projectId: string
+  projectId: string,
 ): CloudTraceContext | null {
   const spanContext = trace.getActiveSpan()?.spanContext();
   const FLAG_SAMPLED = 1; // 00000001
@@ -189,7 +189,7 @@ export function getContextFromOtelContext(
  */
 export function getContextFromXCloudTrace(
   headerWrapper: HeaderWrapper,
-  projectId: string
+  projectId: string,
 ): CloudTraceContext | null {
   const context = parseXCloudTraceHeader(headerWrapper);
   if (!context) return null;
@@ -206,7 +206,7 @@ export function getContextFromXCloudTrace(
  */
 export function getContextFromTraceParent(
   headerWrapper: HeaderWrapper,
-  projectId: string
+  projectId: string,
 ): CloudTraceContext | null {
   const context = parseTraceParentHeader(headerWrapper);
   if (!context) return null;
@@ -219,7 +219,7 @@ export function getContextFromTraceParent(
  * @param headerWrapper
  */
 export function parseXCloudTraceHeader(
-  headerWrapper: HeaderWrapper
+  headerWrapper: HeaderWrapper,
 ): CloudTraceContext | null {
   const regex = /([a-f\d]+)?(\/?([a-f\d]+))?(;?o=(\d))?/;
   const match = headerWrapper
@@ -241,14 +241,14 @@ export function parseXCloudTraceHeader(
  * @param headerWrapper
  */
 export function parseTraceParentHeader(
-  headerWrapper: HeaderWrapper
+  headerWrapper: HeaderWrapper,
 ): CloudTraceContext | null {
   const VERSION_PART = '(?!ff)[\\da-f]{2}';
   const TRACE_ID_PART = '(?![0]{32})[\\da-f]{32}';
   const PARENT_ID_PART = '(?![0]{16})[\\da-f]{16}';
   const FLAGS_PART = '[\\da-f]{2}';
   const TRACE_PARENT_REGEX = new RegExp(
-    `^\\s?(${VERSION_PART})-(${TRACE_ID_PART})-(${PARENT_ID_PART})-(${FLAGS_PART})(-.*)?\\s?$`
+    `^\\s?(${VERSION_PART})-(${TRACE_ID_PART})-(${PARENT_ID_PART})-(${FLAGS_PART})(-.*)?\\s?$`,
   );
   const match = headerWrapper
     .getHeader(W3C_TRACE_PARENT_HEADER)
