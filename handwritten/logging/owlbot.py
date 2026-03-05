@@ -31,7 +31,8 @@ node.owlbot_main(relative_dir="handwritten/logging",
         ".github/auto-label.yaml",
         ".github/release-please.yml",
         ".github/CODEOWNERS",
-        ".github/sync-repo-settings.yaml"
+        ".github/sync-repo-settings.yaml",
+        "README.md"
     ]
 )
 
@@ -53,17 +54,17 @@ s.replace(
 
 # add shared environment variables to test configs
 s.move(
-    ".kokoro/common_env_vars.cfg",
-    ".kokoro/common.cfg",
+    "handwritten/logging/.kokoro/common_env_vars.cfg",
+    "handwritten/logging/.kokoro/common.cfg",
     merge=lambda src, dst, _, : f"{dst}\n{src}",
 )
 
-for path, subdirs, files in os.walk(f".kokoro/continuous"):
+for path, subdirs, files in os.walk(f"handwritten/logging/.kokoro/continuous"):
     for name in files:
         if name == "common.cfg":
             file_path = os.path.join(path, name)
             s.move(
-                ".kokoro/common_env_vars.cfg",
+                "handwritten/logging/.kokoro/common_env_vars.cfg",
                 file_path,
                 merge=lambda src, dst, _, : f"{dst}\n{src}",
             )
