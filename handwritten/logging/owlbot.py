@@ -39,12 +39,12 @@ node.owlbot_main(relative_dir="handwritten/logging",
 # adjust .trampolinerc for environment tests
 s.replace(
     ".trampolinerc",
-    "required_envvars[^\)]*\)",
+    r"required_envvars[^\)]*\)",
     "required_envvars+=()"
 )
 s.replace(
     ".trampolinerc",
-    "pass_down_envvars\+\=\(",
+    r"pass_down_envvars\+\=\(",
     'pass_down_envvars+=(\n    "ENVIRONMENT"\n    "RUNTIME"'
 )
 
@@ -56,7 +56,7 @@ s.replace(
 s.move(
     "handwritten/logging/.kokoro/common_env_vars.cfg",
     "handwritten/logging/.kokoro/common.cfg",
-    merge=lambda src, dst, _, : f"{dst}\n{src}",
+    merge=lambda src, dst, _: dst if src.strip() in dst else f"{dst.rstrip()}\n{src.strip()}\n",
 )
 
 for path, subdirs, files in os.walk(f"handwritten/logging/.kokoro/continuous"):
@@ -66,5 +66,5 @@ for path, subdirs, files in os.walk(f"handwritten/logging/.kokoro/continuous"):
             s.move(
                 "handwritten/logging/.kokoro/common_env_vars.cfg",
                 file_path,
-                merge=lambda src, dst, _, : f"{dst}\n{src}",
+                merge=lambda src, dst, _: dst if src.strip() in dst else f"{dst.rstrip()}\n{src.strip()}\n",
             )
