@@ -21,6 +21,8 @@ required_envvars+=()
 pass_down_envvars+=(
     "ENVIRONMENT"
     "RUNTIME"
+    "ENVIRONMENT"
+    "RUNTIME"
     "AUTORELEASE_PR"
     "VERSION"
 )
