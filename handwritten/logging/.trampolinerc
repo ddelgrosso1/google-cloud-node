@@ -23,6 +23,8 @@ pass_down_envvars+=(
     "RUNTIME"
     "ENVIRONMENT"
     "RUNTIME"
+    "ENVIRONMENT"
+    "RUNTIME"
     "AUTORELEASE_PR"
     "VERSION"
 )
