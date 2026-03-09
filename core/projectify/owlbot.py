@@ -16,4 +16,4 @@ import synthtool.gcp as gcp
 
 common_templates = gcp.CommonTemplates()
 templates = common_templates.node_mono_repo_library(relative_dir="core/projectify")
-s.copy(sources=templates, excludes=["LICENSE", "README.md", ".github/ISSUE_TEMPLATE", ".github/scripts", ".kokoro", ".jsdoc.js"])
+s.copy(sources=templates, destination="core/projectify", excludes=["LICENSE", "README.md", ".github/ISSUE_TEMPLATE", ".github/scripts", ".kokoro", ".jsdoc.js"])
