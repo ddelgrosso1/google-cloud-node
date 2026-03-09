@@ -38,12 +38,12 @@ node.owlbot_main(relative_dir="handwritten/logging",
 
 # adjust .trampolinerc for environment tests
 s.replace(
-    ".trampolinerc",
+    "handwritten/logging/.trampolinerc",
     r"required_envvars[^\)]*\)",
     "required_envvars+=()"
 )
 s.replace(
-    ".trampolinerc",
+    "handwritten/logging/.trampolinerc",
     r"pass_down_envvars\+\=\(",
     'pass_down_envvars+=(\n    "ENVIRONMENT"\n    "RUNTIME"'
 )
