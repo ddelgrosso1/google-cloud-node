@@ -44,7 +44,7 @@ s.replace(
 )
 s.replace(
     "handwritten/logging/.trampolinerc",
-    r"pass_down_envvars\+\=\(",
+    r"pass_down_envvars\+\=\((?!\s*\"ENVIRONMENT\")",
     'pass_down_envvars+=(\n    "ENVIRONMENT"\n    "RUNTIME"'
 )
 
