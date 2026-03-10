@@ -72,6 +72,7 @@ fi
 # necessary.
 
 subdirs=(
+    core
     containers
     packages
     handwritten
@@ -97,8 +98,8 @@ for subdir in ${subdirs[@]}; do
             echo "Skipping ${d} (explicitly ignored in ignore.json)"
             continue
         fi
-        if [[ "${subdir}" == "handwritten" && ("${TEST_TYPE}" == "samples" || "${TEST_TYPE}" == "system") ]]; then
-            echo "Skipping ${TEST_TYPE} test for handwritten package ${d}"
+        if [[ ("${subdir}" == "handwritten" || "${subdir}" == "core") && ("${TEST_TYPE}" == "samples" || "${TEST_TYPE}" == "system") ]]; then
+            echo "Skipping ${TEST_TYPE} test for handwritten and core packages: ${d}"
             continue
         fi
 
