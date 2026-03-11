@@ -23,6 +23,9 @@
     "handwritten/firestore": {
       "component": "firestore"
     },
+    "handwritten/logging": {
+      "component": "logging"
+    },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },
