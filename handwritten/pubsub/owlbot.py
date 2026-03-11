@@ -23,5 +23,6 @@ node.owlbot_main(relative_dir="handwritten/pubsub",templates_excludes=[
     '.github/workflows/ci.yaml',
     '.eslintignore',
     '.OwlBot.yaml',
-    'renovate.json'
+    'renovate.json',
+    "README.md"
 ])
