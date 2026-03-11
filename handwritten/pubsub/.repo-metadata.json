@@ -2,7 +2,7 @@
   "distribution_name": "@google-cloud/pubsub",
   "release_level": "stable",
   "product_documentation": "https://cloud.google.com/pubsub/docs/",
-  "repo": "googleapis/nodejs-pubsub",
+  "repo": "googleapis/google-cloud-node",
   "default_version": "v1",
   "language": "nodejs",
   "requires_billing": true,

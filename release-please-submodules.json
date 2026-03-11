@@ -32,6 +32,7 @@
     "handwritten/logging-winston": {
       "component": "logging-winston"
     },
+    "handwritten/pubsub": {},
     "handwritten/spanner": {
       "component": "spanner"
     },

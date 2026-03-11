@@ -15,7 +15,7 @@
 from synthtool.languages import node
 
 # Main OwlBot processing.
-node.owlbot_main(templates_excludes=[
+node.owlbot_main(relative_dir="handwritten/pubsub",templates_excludes=[
     'src/index.ts',
     '.github/PULL_REQUEST_TEMPLATE.md',
     '.github/release-please.yml',
