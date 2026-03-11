@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from synthtool.languages import node
+import synthtool.languages.node_mono_repo as node
 
 # Main OwlBot processing.
 node.owlbot_main(relative_dir="handwritten/pubsub",templates_excludes=[
