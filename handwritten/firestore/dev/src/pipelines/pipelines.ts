@@ -59,6 +59,7 @@ import {
   constant,
   _mapValue,
   field,
+  documentMatches,
 } from './expression';
 import {
   AddFields,
@@ -95,6 +96,8 @@ import {
   InternalDocumentsStageOptions,
   InternalCollectionGroupStageOptions,
   InternalCollectionStageOptions,
+  Search,
+  InternalSearchStageOptions,
 } from './stage';
 import {StructuredPipeline} from './structured-pipeline';
 import Selectable = FirebaseFirestore.Pipelines.Selectable;
@@ -1418,6 +1421,30 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       indexField: normalizedIndexField,
     };
     return this._addStage(new Unnest(internalOptions));
+  }
+
+  /**
+   * Add a search stage to the Pipeline.
+   *
+   * @remarks This must be the first stage of the pipeline.
+   * @remarks A limited set of expressions are supported in the search stage.
+   *
+   * @param options - An object that specifies required and optional parameters
+   *                  for the stage.
+   * @return A new `Pipeline` object with this stage appended to the stage list.
+   */
+  search(options: firestore.Pipelines.SearchStageOptions): Pipeline {
+    const normalizedQuery = isString(options.query)
+      ? documentMatches(options.query)
+      : (options.query as BooleanExpression | undefined);
+
+    const internalOptions: InternalSearchStageOptions = {
+      ...options,
+      query: normalizedQuery,
+    };
+
+    // Add stage to the pipeline
+    return this._addStage(new Search(internalOptions));
   }
 
   /**

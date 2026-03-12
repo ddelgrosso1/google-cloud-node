@@ -645,6 +645,61 @@ export class Sort implements Stage {
   }
 }
 
+export type InternalSearchStageOptions = Omit<
+  firestore.Pipelines.SearchStageOptions,
+  'query'
+> & {
+  query?: BooleanExpression;
+};
+
+/**
+ * Search stage.
+ */
+export class Search implements Stage {
+  name = 'search';
+
+  constructor(private options: InternalSearchStageOptions) {}
+
+  readonly optionsUtil = new OptionsUtil({
+    query: {
+      serverName: 'query',
+    },
+    limit: {
+      serverName: 'limit',
+    },
+    retrievalDepth: {
+      serverName: 'retrieval_depth',
+    },
+    sort: {
+      serverName: 'sort',
+    },
+    addFields: {
+      serverName: 'add_fields',
+    },
+    select: {
+      serverName: 'select',
+    },
+    offset: {
+      serverName: 'offset',
+    },
+    queryExpansion: {
+      serverName: 'query_expansion',
+    },
+  });
+
+  _toProto(serializer: Serializer): api.Pipeline.IStage {
+    return {
+      name: this.name,
+      args: [],
+      options: this.optionsUtil.getOptionsProto(
+        serializer,
+        this.options,
+        this.options.rawOptions,
+      ),
+    };
+  }
+}
+
 /**
  * Raw stage.
  */
