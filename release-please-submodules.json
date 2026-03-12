@@ -8,6 +8,7 @@
     "core/projectify": {
       "component": "projectify"
     },
+    "core/promisify": {},
     "handwritten/bigquery": {
       "component": "bigquery"
     },
