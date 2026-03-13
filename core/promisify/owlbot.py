@@ -16,5 +16,5 @@ import synthtool as s
 import synthtool.gcp as gcp
 
 common_templates = gcp.CommonTemplates()
-templates = common_templates.node_library()
-s.copy(sources=templates, excludes=["LICENSE", "README.md", ".github/ISSUE_TEMPLATE", ".github/scripts", ".kokoro", ".github/workflows/issues-no-repro.yaml", ".jsdoc.js"])
+templates = common_templates.node_mono_repo_library(relative_dir="core/promisify")
+s.copy(sources=templates, destination="core/promisify", excludes=["LICENSE", "README.md", ".github/ISSUE_TEMPLATE", ".github/scripts", ".kokoro", ".github/workflows/issues-no-repro.yaml", ".jsdoc.js"])
