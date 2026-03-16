@@ -39,6 +39,7 @@ import {
   selectablesToMap,
   toField,
   vectorToExpr,
+  selectablesToObject,
 } from './pipeline-util';
 import {DocumentReference} from '../reference/document-reference';
 import {PipelineResponse} from '../reference/types';
@@ -1434,13 +1435,25 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
    * @return A new `Pipeline` object with this stage appended to the stage list.
    */
   search(options: firestore.Pipelines.SearchStageOptions): Pipeline {
-    const normalizedQuery = isString(options.query)
-      ? documentMatches(options.query)
-      : (options.query as BooleanExpression | undefined);
+    // Convert user land convenience types to internal types
+    const normalizedQuery: firestore.Pipelines.BooleanExpression = isExpr(
+      options.query,
+    )
+      ? options.query
+      : documentMatches(options.query);
+    const normalizedSelect: Record<string, Expression> | undefined =
+      options.select ? selectablesToObject(options.select) : undefined;
+    const normalizedAddFields: Record<string, Expression> | undefined =
+      options.addFields ? selectablesToObject(options.addFields) : undefined;
+    const normalizedSort: firestore.Pipelines.Ordering[] | undefined =
+      isOrdering(options.sort) ? [options.sort] : options.sort;
 
     const internalOptions: InternalSearchStageOptions = {
       ...options,
       query: normalizedQuery,
+      select: normalizedSelect,
+      addFields: normalizedAddFields,
+      sort: normalizedSort,
     };
 
     // Add stage to the pipeline

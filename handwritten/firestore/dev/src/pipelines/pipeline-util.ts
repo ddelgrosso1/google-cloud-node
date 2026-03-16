@@ -577,6 +577,7 @@ export function isSelectable(
 export function isOrdering(val: unknown): val is firestore.Pipelines.Ordering {
   const candidate = val as firestore.Pipelines.Ordering;
   return (
+    val !== undefined &&
     isExpr(candidate.expr) &&
     (candidate.direction === 'ascending' ||
       candidate.direction === 'descending')
@@ -721,10 +722,19 @@ export function fieldOrSelectable(value: string | Selectable): Selectable {
   }
 }
 
+/**
+ * @deprecated use selectablesToObject instead
+ */
 export function selectablesToMap(
   selectables: (firestore.Pipelines.Selectable | string)[],
 ): Map<string, Expression> {
-  const result = new Map<string, Expression>();
+  return new Map(Object.entries(selectablesToObject(selectables)));
+}
+
+export function selectablesToObject(
+  selectables: (firestore.Pipelines.Selectable | string)[],
+): Record<string, Expression> {
+  const result: Record<string, Expression> = {};
   for (const selectable of selectables) {
     let alias: string;
     let expression: Expression;
@@ -736,11 +746,11 @@ export function selectablesToMap(
       expression = selectable._expr as unknown as Expression;
     }
 
-    if (result.get(alias) !== undefined) {
+    if (result[alias] !== undefined) {
       throw new Error(`Duplicate alias or field '${alias}'`);
     }
 
-    result.set(alias, expression);
+    result[alias] = expression;
   }
   return result;
 }
