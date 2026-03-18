@@ -433,8 +433,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       : fieldOrOptions.fields;
     const normalizedFields: Map<string, Expression> = selectablesToMap(fields);
 
-    this._deprecatedValidateUserData('select', normalizedFields);
-
     const internalOptions = {
       ...options,
       fields: normalizedFields,
@@ -503,8 +501,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const convertedFields: Array<Field> = fields.map(f =>
       isString(f) ? field(f) : (f as Field),
     );
-    // REMOVED: This is now done in RemoveFields._validateUserData
-    // this._deprecatedValidateUserData('removeFields', convertedFields);
 
     const innerOptions = {
       ...options,
@@ -603,8 +599,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const normalizedSelections: Map<string, Expression> =
       selectablesToMap(selections);
 
-    this._deprecatedValidateUserData('select', normalizedSelections);
-
     const internalOptions = {
       ...options,
       selections: normalizedSelections,
@@ -690,7 +684,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       : conditionOrOptions.condition;
     const convertedCondition: BooleanExpression =
       condition as BooleanExpression;
-    this._deprecatedValidateUserData('where', convertedCondition);
 
     const internalOptions: InternalWhereStageOptions = {
       ...options,
@@ -907,7 +900,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
         ? [groupOrOptions, ...additionalGroups]
         : groupOrOptions.groups;
     const convertedGroups: Map<string, Expression> = selectablesToMap(groups);
-    this._deprecatedValidateUserData('distinct', convertedGroups);
 
     const internalOptions: InternalDistinctStageOptions = {
       ...options,
@@ -997,7 +989,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const groups: Array<firestore.Pipelines.Selectable | string> =
       isAliasedAggregate(targetOrOptions) ? [] : (targetOrOptions.groups ?? []);
     const convertedGroups: Map<string, Expression> = selectablesToMap(groups);
-    this._deprecatedValidateUserData('aggregate', convertedGroups);
 
     const internalOptions: InternalAggregateStageOptions = {
       ...options,
@@ -1040,10 +1031,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const distanceField = options.distanceField
       ? toField(options.distanceField)
       : undefined;
-
-    this._deprecatedValidateUserData('findNearest', field);
-
-    this._deprecatedValidateUserData('findNearest', vectorValue);
 
     const internalOptions: InternalFindNearestStageOptions = {
       ...options,
@@ -1178,7 +1165,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
         ? valueOrOptions
         : valueOrOptions.map;
     const mapExpr = fieldOrExpression(fieldNameOrExpr);
-    this._deprecatedValidateUserData('replaceWith', mapExpr);
 
     const internalOptions: InternalReplaceWithStageOptions = {
       ...options,
@@ -1491,7 +1477,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       ? [orderingOrOptions, ...additionalOrderings]
       : orderingOrOptions.orderings;
     const normalizedOrderings = orderings as Array<Ordering>;
-    this._deprecatedValidateUserData('sort', normalizedOrderings);
 
     const internalOptions: InternalSortStageOptions = {
       ...options,
@@ -1546,12 +1531,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       }
     });
 
-    // TODO(dlarocque): Defer this validation to RawStage._validateUserData
-    expressionParams.forEach(param => {
-      if (hasUserData(param)) {
-        param._validateUserData(!!this.db!._settings.ignoreUndefinedProperties); // TODO(dlarocque): Non-null assertion is a placeholder.
-      }
-    });
     return this._addStage(new RawStage(name, expressionParams, options ?? {}));
   }
 
@@ -1618,8 +1597,9 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const structuredPipeline = this._toStructuredPipeline(
       pipelineExecuteOptions,
     );
-    structuredPipeline._validateUserData('execute');
-    // this._deprecatedValidateUserData('execute', structuredPipeline);
+    structuredPipeline._validateUserData(
+      !!this.db._settings.ignoreUndefinedProperties,
+    );
     return util
       ._getResponse(structuredPipeline, transactionOrReadTime)
       .then(result => result!);
@@ -1695,36 +1675,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     this.stages.forEach(stage => {
       stage._validateUserData(stage.name, ignoreUndefinedProperties);
     });
-  }
-
-  /**
-   * @beta
-   * Validates user data for each expression in the expressionMap.
-   * @param name Name of the calling function. Used for error messages when invalid user data is encountered.
-   * @param val
-   * @returns the expressionMap argument.
-   * @private
-   */
-  _deprecatedValidateUserData<
-    T extends Map<string, HasUserData> | HasUserData[] | HasUserData,
-  >(_: string, val: T): T {
-    if (!this.db) {
-      throw new Error(
-        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
-      );
-    }
-    const ignoreUndefinedProperties =
-      !!this.db._settings.ignoreUndefinedProperties;
-    if (hasUserData(val)) {
-      val._validateUserData(ignoreUndefinedProperties);
-    } else if (Array.isArray(val)) {
-      val.forEach(readableData => {
-        readableData._validateUserData(ignoreUndefinedProperties);
-      });
-    } else {
-      val.forEach(expr => expr._validateUserData(ignoreUndefinedProperties));
-    }
-    return val;
   }
 }
 
