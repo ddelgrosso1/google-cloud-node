@@ -199,7 +199,7 @@ export class CollectionSource implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
@@ -236,7 +236,7 @@ export class CollectionGroupSource implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
@@ -265,7 +265,7 @@ export class DatabaseSource implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
@@ -302,7 +302,7 @@ export class DocumentsSource implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
@@ -435,7 +435,7 @@ export class Sample implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
@@ -466,7 +466,7 @@ export class Union implements Stage {
 
   _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {
     // A Union stage embeds a full pipeline, we trigger its validation here.
-    (this.options.other as any)._validateUserData(name);
+    this.options.other._validateUserData(name, ignoreUndefinedProperties);
   }
 }
 
@@ -541,7 +541,7 @@ export class Limit implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
@@ -570,7 +570,7 @@ export class Offset implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {}
+  _validateUserData(_name: string, _ignoreUndefinedProperties: boolean): void {}
 }
 
 /**
