@@ -42,7 +42,7 @@ import {
 } from './pipeline-util';
 import {DocumentReference} from '../reference/document-reference';
 import {PipelineResponse} from '../reference/types';
-import {HasUserData, hasUserData, Serializer} from '../serializer';
+import {Serializer} from '../serializer';
 import {ApiMapValue} from '../types';
 import * as protos from '../../protos/firestore_v1_proto_api';
 import api = protos.google.firestore.v1;
@@ -1597,9 +1597,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const structuredPipeline = this._toStructuredPipeline(
       pipelineExecuteOptions,
     );
-    structuredPipeline._validateUserData(
-      !!this.db._settings.ignoreUndefinedProperties,
-    );
     return util
       ._getResponse(structuredPipeline, transactionOrReadTime)
       .then(result => result!);
@@ -1662,7 +1659,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     return {stages};
   }
 
-  _validateUserData(name: string): void {
+  _validateUserData(_: string): void {
     if (!this.db) {
       throw new Error(
         'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
@@ -2068,40 +2065,3 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
     );
   }
 }
-
-// /**
-//  * @beta
-//  * Creates a new Pipeline targeted at a subcollection relative to the current document context.
-//  * This creates a pipeline without a database instance, suitable for embedding as a subquery.
-//  * If executed directly, this pipeline will fail.
-//  *
-//  * @param path - The relative path to the subcollection.
-//  */
-// export function subcollection(path: string): Pipeline;
-// /**
-//  * @beta
-//  * Creates a new Pipeline targeted at a subcollection relative to the current document context.
-//  * This creates a pipeline without a database instance, suitable for embedding as a subquery.
-//  * If executed directly, this pipeline will fail.
-//  *
-//  * @param options - Options defining how this SubcollectionStage is evaluated.
-//  */
-// export function subcollection(options: SubcollectionStageOptions): Pipeline;
-// export function subcollection(
-//   pathOrOptions: string | SubcollectionStageOptions,
-// ): Pipeline {
-//   // Process argument union(s) from method overloads
-//   let path: string;
-//   let options: {};
-//   if (isString(pathOrOptions)) {
-//     path = pathOrOptions;
-//     options = {};
-//   } else {
-//     ({path, ...options} = pathOrOptions);
-//   }
-
-//   // Create stage object
-//   const stage = new SubcollectionSource(path, options);
-
-//   return new Pipeline(undefined, [stage]); // TODO: pass stages
-// }

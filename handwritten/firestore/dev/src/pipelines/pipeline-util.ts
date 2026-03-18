@@ -768,9 +768,6 @@ export function aliasedAggregateToMap(
  * @internal
  *
  * Helper to read user data across a number of different formats.
- * @param name - Name of the calling function. Used for error messages when invalid user data is encountered.
- * @param expressionMap The expressions to validate.
- * @returns the expressionMap argument.
  */
 export function validateUserDataHelper<
   T extends Map<string, HasUserData> | HasUserData[] | HasUserData,
