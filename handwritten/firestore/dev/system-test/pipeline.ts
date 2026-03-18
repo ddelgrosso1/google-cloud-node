@@ -812,7 +812,7 @@ describe.skipClassic('Pipeline class', () => {
 
     it('throws on undefined in a map', async () => {
       try {
-        await firestore
+        firestore
           .pipeline()
           .collection(randomCol.path)
           .limit(1)
@@ -821,8 +821,7 @@ describe.skipClassic('Pipeline class', () => {
               number: 1,
               bad: undefined,
             }).as('foo'),
-          )
-          .execute();
+          );
         expect.fail('The statement above was expected to throw.');
       } catch (e: unknown) {
         const error = e as Error;

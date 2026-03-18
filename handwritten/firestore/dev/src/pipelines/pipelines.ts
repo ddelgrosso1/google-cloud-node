@@ -349,7 +349,7 @@ export class PipelineSource implements firestore.Pipelines.PipelineSource {
  */
 export class Pipeline implements firestore.Pipelines.Pipeline {
   constructor(
-    private db: Firestore,
+    private db: Firestore | undefined,
     private stages: Stage[],
   ) {}
 
@@ -433,7 +433,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       : fieldOrOptions.fields;
     const normalizedFields: Map<string, Expression> = selectablesToMap(fields);
 
-    this._validateUserData('select', normalizedFields);
+    this._deprecatedValidateUserData('select', normalizedFields);
 
     const internalOptions = {
       ...options,
@@ -503,7 +503,8 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const convertedFields: Array<Field> = fields.map(f =>
       isString(f) ? field(f) : (f as Field),
     );
-    this._validateUserData('removeFields', convertedFields);
+    // REMOVED: This is now done in RemoveFields._validateUserData
+    // this._deprecatedValidateUserData('removeFields', convertedFields);
 
     const innerOptions = {
       ...options,
@@ -602,7 +603,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const normalizedSelections: Map<string, Expression> =
       selectablesToMap(selections);
 
-    this._validateUserData('select', normalizedSelections);
+    this._deprecatedValidateUserData('select', normalizedSelections);
 
     const internalOptions = {
       ...options,
@@ -689,7 +690,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       : conditionOrOptions.condition;
     const convertedCondition: BooleanExpression =
       condition as BooleanExpression;
-    this._validateUserData('where', convertedCondition);
+    this._deprecatedValidateUserData('where', convertedCondition);
 
     const internalOptions: InternalWhereStageOptions = {
       ...options,
@@ -906,7 +907,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
         ? [groupOrOptions, ...additionalGroups]
         : groupOrOptions.groups;
     const convertedGroups: Map<string, Expression> = selectablesToMap(groups);
-    this._validateUserData('distinct', convertedGroups);
+    this._deprecatedValidateUserData('distinct', convertedGroups);
 
     const internalOptions: InternalDistinctStageOptions = {
       ...options,
@@ -996,7 +997,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const groups: Array<firestore.Pipelines.Selectable | string> =
       isAliasedAggregate(targetOrOptions) ? [] : (targetOrOptions.groups ?? []);
     const convertedGroups: Map<string, Expression> = selectablesToMap(groups);
-    this._validateUserData('aggregate', convertedGroups);
+    this._deprecatedValidateUserData('aggregate', convertedGroups);
 
     const internalOptions: InternalAggregateStageOptions = {
       ...options,
@@ -1040,9 +1041,9 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       ? toField(options.distanceField)
       : undefined;
 
-    this._validateUserData('findNearest', field);
+    this._deprecatedValidateUserData('findNearest', field);
 
-    this._validateUserData('findNearest', vectorValue);
+    this._deprecatedValidateUserData('findNearest', vectorValue);
 
     const internalOptions: InternalFindNearestStageOptions = {
       ...options,
@@ -1177,7 +1178,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
         ? valueOrOptions
         : valueOrOptions.map;
     const mapExpr = fieldOrExpression(fieldNameOrExpr);
-    this._validateUserData('replaceWith', mapExpr);
+    this._deprecatedValidateUserData('replaceWith', mapExpr);
 
     const internalOptions: InternalReplaceWithStageOptions = {
       ...options,
@@ -1490,7 +1491,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       ? [orderingOrOptions, ...additionalOrderings]
       : orderingOrOptions.orderings;
     const normalizedOrderings = orderings as Array<Ordering>;
-    this._validateUserData('sort', normalizedOrderings);
+    this._deprecatedValidateUserData('sort', normalizedOrderings);
 
     const internalOptions: InternalSortStageOptions = {
       ...options,
@@ -1545,9 +1546,10 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       }
     });
 
+    // TODO(dlarocque): Defer this validation to RawStage._validateUserData
     expressionParams.forEach(param => {
       if (hasUserData(param)) {
-        param._validateUserData(!!this.db._settings.ignoreUndefinedProperties);
+        param._validateUserData(!!this.db!._settings.ignoreUndefinedProperties); // TODO(dlarocque): Non-null assertion is a placeholder.
       }
     });
     return this._addStage(new RawStage(name, expressionParams, options ?? {}));
@@ -1602,10 +1604,22 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     transactionOrReadTime?: Uint8Array | Timestamp | api.ITransactionOptions,
     pipelineExecuteOptions?: firestore.Pipelines.PipelineExecuteOptions,
   ): Promise<PipelineResponse> {
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
+
+    // Validates user data in the entire pipeline
+    this._validateUserData('execute');
+
     const util = new ExecutionUtil(this.db, this.db._serializer!);
+
     const structuredPipeline = this._toStructuredPipeline(
       pipelineExecuteOptions,
     );
+    structuredPipeline._validateUserData('execute');
+    // this._deprecatedValidateUserData('execute', structuredPipeline);
     return util
       ._getResponse(structuredPipeline, transactionOrReadTime)
       .then(result => result!);
@@ -1641,6 +1655,11 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
    * ```
    */
   stream(): NodeJS.ReadableStream {
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
     const util = new ExecutionUtil(this.db, this.db._serializer!);
     // TODO(pipelines) support options
     const structuredPipeline = this._toStructuredPipeline();
@@ -1648,10 +1667,34 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
   }
 
   _toProto(): api.IPipeline {
-    const stages: IStage[] = this.stages.map(stage =>
-      stage._toProto(this.db._serializer!),
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
+
+    const stages: IStage[] = this.stages.map(
+      // We use a non-null assertion here because we've already checked that
+      // 'db' is not null at the start of this function, but TS does not
+      // recognize that 'db' can no longer be undefined.
+      stage => stage._toProto(this.db!._serializer!),
     );
     return {stages};
+  }
+
+  _validateUserData(name: string): void {
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
+
+    const ignoreUndefinedProperties =
+      !!this.db._settings.ignoreUndefinedProperties;
+
+    this.stages.forEach(stage => {
+      stage._validateUserData(stage.name, ignoreUndefinedProperties);
+    });
   }
 
   /**
@@ -1662,9 +1705,14 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
    * @returns the expressionMap argument.
    * @private
    */
-  _validateUserData<
+  _deprecatedValidateUserData<
     T extends Map<string, HasUserData> | HasUserData[] | HasUserData,
   >(_: string, val: T): T {
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
     const ignoreUndefinedProperties =
       !!this.db._settings.ignoreUndefinedProperties;
     if (hasUserData(val)) {
@@ -2070,3 +2118,40 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
     );
   }
 }
+
+// /**
+//  * @beta
+//  * Creates a new Pipeline targeted at a subcollection relative to the current document context.
+//  * This creates a pipeline without a database instance, suitable for embedding as a subquery.
+//  * If executed directly, this pipeline will fail.
+//  *
+//  * @param path - The relative path to the subcollection.
+//  */
+// export function subcollection(path: string): Pipeline;
+// /**
+//  * @beta
+//  * Creates a new Pipeline targeted at a subcollection relative to the current document context.
+//  * This creates a pipeline without a database instance, suitable for embedding as a subquery.
+//  * If executed directly, this pipeline will fail.
+//  *
+//  * @param options - Options defining how this SubcollectionStage is evaluated.
+//  */
+// export function subcollection(options: SubcollectionStageOptions): Pipeline;
+// export function subcollection(
+//   pathOrOptions: string | SubcollectionStageOptions,
+// ): Pipeline {
+//   // Process argument union(s) from method overloads
+//   let path: string;
+//   let options: {};
+//   if (isString(pathOrOptions)) {
+//     path = pathOrOptions;
+//     options = {};
+//   } else {
+//     ({path, ...options} = pathOrOptions);
+//   }
+
+//   // Create stage object
+//   const stage = new SubcollectionSource(path, options);
+
+//   return new Pipeline(undefined, [stage]); // TODO: pass stages
+// }

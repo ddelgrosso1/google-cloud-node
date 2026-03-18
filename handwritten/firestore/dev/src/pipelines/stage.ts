@@ -29,6 +29,7 @@ import {
 } from './expression';
 import {OptionsUtil} from './options-util';
 import {CollectionReference} from '../reference/collection-reference';
+import {isField, isString, validateUserDataHelper} from './pipeline-util';
 
 /**
  * Interface for Stage classes.
@@ -37,6 +38,7 @@ export interface Stage extends ProtoSerializable<api.Pipeline.IStage> {
   name: string;
 
   _toProto(serializer: Serializer): api.Pipeline.IStage;
+  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void;
 }
 
 /**
@@ -68,6 +70,10 @@ export class RemoveFields implements Stage {
         this.options.rawOptions,
       ),
     };
+  }
+
+  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {
+    validateUserDataHelper(this.options.fields, ignoreUndefinedProperties);
   }
 }
 
