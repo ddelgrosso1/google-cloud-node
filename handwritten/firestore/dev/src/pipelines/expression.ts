@@ -666,7 +666,7 @@ export abstract class Expression
 
   /**
    * @beta
-   * Returns a subset of this array.
+   * Returns a subset of the array.
    *
    * @example
    * ```typescript
