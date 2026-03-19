@@ -2,6 +2,18 @@
   "commit-batch-size": 1,
   "include-component-in-tag": true,
   "packages": {
+    "core/common": {
+      "component": "common"
+    },
+    "core/paginator": {
+      "component": "paginator"
+    },
+    "core/projectify": {
+      "component": "projectify"
+    },
+    "core/promisify": {
+      "component": "promisify"
+    },
     "handwritten/bigquery": {
       "component": "bigquery"
     },
@@ -14,17 +26,23 @@
     "handwritten/datastore": {
       "component": "datastore"
     },
+    "handwritten/error-reporting": {
+      "component": "error-reporting"
+    },
     "handwritten/firestore": {
       "component": "firestore"
     },
-    "handwritten/error-reporting": {
-      "component": "error-reporting"
+    "handwritten/logging": {
+      "component": "logging"
     },
     "handwritten/logging-bunyan": {
       "component": "logging-bunyan"
     },
     "handwritten/logging-winston": {
       "component": "logging-winston"
+    },
+    "handwritten/pubsub": {
+      "component": "pubsub"
     },
     "handwritten/spanner": {
       "component": "spanner"
