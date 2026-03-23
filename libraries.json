@@ -1923,25 +1923,6 @@
     "support_documentation": "https://cloud.google.com/policy-intelligence/docs/getting-support"
   },
   {
-    "distribution_name": "@google-cloud/pubsub",
-    "release_level": "stable",
-    "product_documentation": "https://cloud.google.com/pubsub/docs/",
-    "repo": "googleapis/nodejs-pubsub",
-    "default_version": "v1",
-    "language": "nodejs",
-    "requires_billing": true,
-    "issue_tracker": "https://issuetracker.google.com/savedsearches/559741",
-    "client_documentation": "https://cloud.google.com/nodejs/docs/reference/pubsub/latest",
-    "name": "pubsub",
-    "name_pretty": "Pub/Sub",
-    "api_id": "pubsub.googleapis.com",
-    "codeowner_team": "@googleapis/pubsub-team @googleapis/cloud-sdk-nodejs-team",
-    "api_shortname": "pubsub",
-    "library_type": "GAPIC_COMBO",
-    "linkToRepoHomepage": "https://github.com/googleapis/nodejs-pubsub",
-    "support_documentation": "https://cloud.google.com/pubsub/docs/getting-support"
-  },
-  {
     "name": "publicca",
     "name_pretty": "Public Certificate Authority",
     "product_documentation": "cloud.google.com/certificate-manager/docs/public-ca/",
@@ -3643,6 +3624,24 @@
     "api_shortname": "modelarmor",
     "linkToRepoHomepage": "https://github.com/googleapis/google-cloud-node/tree/main/packages/google-cloud-modelarmor",
     "support_documentation": "https://cloud.google.com/security-command-center/docs/getting-support"
+  },
+  {
+    "name": "navigationconnect",
+    "name_pretty": "Navigation Connect API",
+    "product_documentation": "https://developers.google.com/maps/documentation/mobility/navigationconnect",
+    "client_documentation": "https://cloud.google.com/nodejs/docs/reference/navigationconnect/latest",
+    "issue_tracker": "https://github.com/googleapis/google-cloud-node/issues",
+    "release_level": "preview",
+    "language": "nodejs",
+    "repo": "googleapis/google-cloud-node",
+    "distribution_name": "@google-cloud/navconnect",
+    "api_id": "navigationconnect.googleapis.com",
+    "default_version": "v1",
+    "requires_billing": true,
+    "library_type": "GAPIC_AUTO",
+    "api_shortname": "navigationconnect",
+    "linkToRepoHomepage": "https://github.com/googleapis/google-cloud-node/tree/main/packages/google-maps-navconnect",
+    "support_documentation": "https://developers.google.com/maps/documentation/mobility/navigationconnect/docs/getting-support"
   },
   {
     "name": "oracledatabase",
