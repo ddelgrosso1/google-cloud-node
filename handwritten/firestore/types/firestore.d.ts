@@ -5682,6 +5682,10 @@ declare namespace FirebaseFirestore {
        * Creates an expression that checks if the result of this expression is of the given type.
        *
        * @remarks Null or undefined fields evaluate to skip/error. Use `ifAbsent()` / `isAbsent()` to evaluate missing data.
+       * Supported values for `type` are:
+       * `'null'`, `'array'`, `'boolean'`, `'bytes'`, `'timestamp'`, `'geo_point'`, `'number'`,
+       * `'int32'`, `'int64'`, `'float64'`, `'decimal128'`, `'map'`, `'reference'`, `'string'`,
+       * `'vector'`, `'max_key'`, `'min_key'`, `'object_id'`, `'regex'`, `'request_timestamp'`.
        *
        * @example
        * ```typescript
@@ -5692,7 +5696,7 @@ declare namespace FirebaseFirestore {
        * @param type The type to check for.
        * @returns A new `BooleanExpression` that evaluates to true if the expression's result is of the given type, false otherwise.
        */
-      isType(type: Type): BooleanExpression;
+      isType(type: string): BooleanExpression;
 
       // TODO(new-expression): Add new expression method declarations above this line
       /**
@@ -11700,6 +11704,10 @@ declare namespace FirebaseFirestore {
      * Creates an expression that checks if the value in the specified field is of the given type.
      *
      * @remarks Null or undefined fields evaluate to skip/error. Use `ifAbsent()` / `isAbsent()` to evaluate missing data.
+     * Supported values for `type` are:
+     * `'null'`, `'array'`, `'boolean'`, `'bytes'`, `'timestamp'`, `'geo_point'`, `'number'`,
+     * `'int32'`, `'int64'`, `'float64'`, `'decimal128'`, `'map'`, `'reference'`, `'string'`,
+     * `'vector'`, `'max_key'`, `'min_key'`, `'object_id'`, `'regex'`, `'request_timestamp'`.
      *
      * @example
      * ```typescript
@@ -11711,12 +11719,16 @@ declare namespace FirebaseFirestore {
      * @param type The type to check for.
      * @returns A new `BooleanExpression` that evaluates to true if the field's value is of the given type, false otherwise.
      */
-    export function isType(fieldName: string, type: Type): BooleanExpression;
+    export function isType(fieldName: string, type: string): BooleanExpression;
     /**
      * @beta
      * Creates an expression that checks if the result of an expression is of the given type.
      *
      * @remarks Null or undefined fields evaluate to skip/error. Use `ifAbsent()` / `isAbsent()` to evaluate missing data.
+     * Supported values for `type` are:
+     * `'null'`, `'array'`, `'boolean'`, `'bytes'`, `'timestamp'`, `'geo_point'`, `'number'`,
+     * `'int32'`, `'int64'`, `'float64'`, `'decimal128'`, `'map'`, `'reference'`, `'string'`,
+     * `'vector'`, `'max_key'`, `'min_key'`, `'object_id'`, `'regex'`, `'request_timestamp'`.
      *
      * @example
      * ```typescript
@@ -11730,7 +11742,7 @@ declare namespace FirebaseFirestore {
      */
     export function isType(
       expression: Expression,
-      type: Type,
+      type: string,
     ): BooleanExpression;
 
     // TODO(new-expression): Add new top-level expression function declarations above this line
