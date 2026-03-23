@@ -30,6 +30,7 @@ import {
 import {OptionsUtil} from './options-util';
 import {CollectionReference} from '../reference/collection-reference';
 import {validateUserDataHelper} from './pipeline-util';
+import {Pipeline} from './pipelines';
 
 /**
  * Interface for Stage classes.
@@ -464,9 +465,9 @@ export class Union implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {
+  _validateUserData(name: string): void {
     // A Union stage embeds a full pipeline, we trigger its validation here.
-    this.options.other._validateUserData(name, ignoreUndefinedProperties);
+    (this.options.other as Pipeline)._validateUserData(name);
   }
 }
 
@@ -510,7 +511,7 @@ export class Unnest implements Stage {
     };
   }
 
-  _validateUserData(name: string, ignoreUndefinedProperties: boolean): void {
+  _validateUserData(_name: string, ignoreUndefinedProperties: boolean): void {
     validateUserDataHelper(this.options.expr, ignoreUndefinedProperties);
   }
 }

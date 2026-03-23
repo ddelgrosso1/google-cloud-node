@@ -11632,10 +11632,6 @@ declare namespace FirebaseFirestore {
      */
     export class Pipeline {
       /**
-       * @internal
-       */
-      _validateUserData(name: string, ignoreUndefinedProperties: boolean): void;
-      /**
        * @beta
        * Adds new fields to outputs from previous stages.
        *
