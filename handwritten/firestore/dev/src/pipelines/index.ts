@@ -17,6 +17,7 @@ export {
   PipelineResult,
   PipelineSnapshot,
   PipelineSource,
+  subcollection,
 } from './pipelines';
 
 export {
@@ -156,5 +157,8 @@ export {
   stringReplaceOne,
   nor,
   switchOn,
+  getField,
+  variable,
+  currentDocument,
   // TODO(new-expression): Add new expression exports above this line
 } from './expression';
