@@ -3108,7 +3108,7 @@ export abstract class Expression
    * the `lowerBound` (inclusive) and `upperBound` (inclusive).
    *
    * @example
-   * ```
+   * ```typescript
    * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
    * field('tireWidth').between(constant(2.2), constant(2.4))
    *
