@@ -224,6 +224,12 @@ function arrayContainsAny(array: Expression, values: Expression): BooleanExpress
 function arrayContainsAny(fieldName: string, values: Expression): BooleanExpression;
 
 // @beta
+function arrayFilter(fieldName: string, alias: string, filter: BooleanExpression): FunctionExpression;
+
+// @beta
+function arrayFilter(arrayExpression: Expression, alias: string, filter: BooleanExpression): FunctionExpression;
+
+// @beta
 function arrayFirst(fieldName: string): FunctionExpression;
 
 // @beta
@@ -336,6 +342,12 @@ function arrayReverse(fieldName: string): FunctionExpression;
 
 // @beta
 function arrayReverse(arrayExpression: Expression): FunctionExpression;
+
+// @beta
+function arraySlice(arrayName: string, offset: number | Expression, length?: number | Expression): FunctionExpression;
+
+// @beta
+function arraySlice(arrayExpression: Expression, offset: number | Expression, length?: number | Expression): FunctionExpression;
 
 // @beta
 function arraySum(fieldName: string): FunctionExpression;
@@ -1069,6 +1081,7 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     arrayContainsAll(arrayExpression: Expression): BooleanExpression;
     arrayContainsAny(values: Array<Expression | unknown>): BooleanExpression;
     arrayContainsAny(arrayExpression: Expression): BooleanExpression;
+    arrayFilter(alias: string, filter: BooleanExpression): FunctionExpression;
     arrayFirst(): FunctionExpression;
     arrayFirstN(n: number): FunctionExpression;
     arrayFirstN(n: Expression): FunctionExpression;
@@ -1091,6 +1104,7 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     arrayMinimumN(n: number): FunctionExpression;
     arrayMinimumN(n: Expression): FunctionExpression;
     arrayReverse(): FunctionExpression;
+    arraySlice(offset: number | Expression, length?: number | Expression): FunctionExpression;
     arraySum(): FunctionExpression;
     as(name: string): AliasedExpression;
     asBoolean(): BooleanExpression;
@@ -2032,6 +2046,8 @@ declare namespace Pipelines {
         arrayMinimum,
         arrayMaximumN,
         arrayMinimumN,
+        arrayFilter,
+        arraySlice,
         field,
         xor,
         AggregateFunction,
