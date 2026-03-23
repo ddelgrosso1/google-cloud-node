@@ -1590,7 +1590,9 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     }
 
     // Validates user data in the entire pipeline
-    this._validateUserData('execute');
+    this._validateUserData(
+      this.db._settings.ignoreUndefinedProperties ?? false,
+    );
 
     const util = new ExecutionUtil(this.db, this.db._serializer!);
 
@@ -1659,18 +1661,9 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     return {stages};
   }
 
-  _validateUserData(_: string): void {
-    if (!this.db) {
-      throw new Error(
-        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
-      );
-    }
-
-    const ignoreUndefinedProperties =
-      !!this.db._settings.ignoreUndefinedProperties;
-
+  _validateUserData(ignoreUndefinedProperties: boolean): void {
     this.stages.forEach(stage => {
-      stage._validateUserData(stage.name, ignoreUndefinedProperties);
+      stage._validateUserData(ignoreUndefinedProperties);
     });
   }
 }
