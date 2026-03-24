@@ -10265,6 +10265,7 @@ export function isType(
  * getField(field("address"), "city")
  * ```
  *
+ * @param expression The expression representing the document.
  * @param key The field to access in the document.
  * @returns A new `Expression` representing the value of the field in the document.
  */
@@ -10276,10 +10277,11 @@ export function getField(expression: Expression, key: string): Expression;
  * @example
  * ```typescript
  * // Get the value of the key resulting from the "addressField" variable in the "address" document.
- * getField(field("address", variable("addressField")),
+ * getField(field("address"), variable("addressField"))
  * ```
  *
- * @param key The expression representing the key to access in the document.
+ * @param expression The expression representing the document.
+ * @param keyExpr The expression representing the key to access in the document.
  * @returns A new `Expression` representing the value of the field in the document.
  */
 export function getField(
@@ -10296,7 +10298,8 @@ export function getField(
  * getField("address", "city")
  * ```
  *
- * @param key The field to access in the document.
+ * @param fieldName The name of the field containing the map/document.
+ * @param key The key to access.
  * @returns A new `Expression` representing the value of the field in the document.
  */
 export function getField(fieldName: string, key: string): Expression;
@@ -10310,7 +10313,8 @@ export function getField(fieldName: string, key: string): Expression;
  * getField("address", variable("addressField"))
  * ```
  *
- * @param key The field to access in the document.
+ * @param fieldName The name of the field containing the map/document.
+ * @param keyExpr The key expression to access.
  * @returns A new `Expression` representing the value of the field in the document.
  */
 export function getField(fieldName: string, keyExpr: Expression): Expression;

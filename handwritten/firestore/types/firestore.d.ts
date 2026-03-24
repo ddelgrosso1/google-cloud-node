@@ -9733,7 +9733,7 @@ declare namespace FirebaseFirestore {
      * @example
      * ```typescript
      * // Get the value of the key resulting from the "addressField" variable in the "address" document.
-     * getField(field("address", variable("addressField")),
+     * getField(field("address"), variable("addressField"))
      * ```
      *
      * @param expression The expression representing the document.
@@ -9754,7 +9754,7 @@ declare namespace FirebaseFirestore {
      * getField("address", "city")
      * ```
      *
-     * @param fieldName The field to access in the document.
+     * @param fieldName The name of the field containing the map/document.
      * @param key The key to access.
      * @returns A new `Expression` representing the value of the field in the document.
      */
@@ -9769,7 +9769,7 @@ declare namespace FirebaseFirestore {
      * getField("address", variable("addressField"))
      * ```
      *
-     * @param fieldName The field to access in the document.
+     * @param fieldName The name of the field containing the map/document.
      * @param keyExpr The key expression to access.
      * @returns A new `Expression` representing the value of the field in the document.
      */
@@ -11896,7 +11896,7 @@ declare namespace FirebaseFirestore {
        * ```
        *
        * @param aliasedExpression - The first expression to bind to a variable.
-       * @param additionalExpressions - Optional additional expression to bind to a variable.
+       * @param additionalExpressions - Optional additional expressions to bind to a variable.
        * @returns A new Pipeline object with this stage appended to the stage list.
        */
       define(
@@ -11934,7 +11934,7 @@ declare namespace FirebaseFirestore {
        * <p>Result Unwrapping:</p>
        * <ul>
        *  <li>If the items have a single field, their values are unwrapped and returned directly in the array.</li>
-       *  <li>If the items have multiple fields, they are returned as objects in the array</li>
+       *  <li>If the items have multiple fields, they are returned as objects in the array.</li>
        * </ul>
        *
        * @example
@@ -11947,7 +11947,7 @@ declare namespace FirebaseFirestore {
        *             .where(field("book_id").equal(variable("book_id")))
        *             .select(field("reviewer"))
        *             .toArrayExpression()
-       *             .as("reviewers")
+       *             .as("reviewers");
        *     )
        * ```
        *
@@ -11972,7 +11972,7 @@ declare namespace FirebaseFirestore {
        *             .where(field("book_id").equal(variable("book_id")))
        *             .select(field("reviewer"), field("rating"))
        *             .toArrayExpression()
-       *             .as("reviews"))
+       *             .as("reviews"));
        * ```
        *
        * Output:
@@ -12003,7 +12003,7 @@ declare namespace FirebaseFirestore {
        * <p>Result Unwrapping:</p>
        * <ul>
        *  <li>If the item has a single field, its value is unwrapped and returned directly.</li>
-       *  <li>f the item has multiple fields, they are returned as an object.</li>
+       *  <li>If the item has multiple fields, they are returned as an object.</li>
        * </ul>
        *
        * @example
@@ -12015,7 +12015,7 @@ declare namespace FirebaseFirestore {
        *     .aggregate(average("rating").as("avg"))
        *     // Unwraps the single "avg" field to a scalar double
        *     .toScalarExpression().as("average_rating")
-       * )
+       * );
        * ```
        *
        * Output:
@@ -12038,7 +12038,7 @@ declare namespace FirebaseFirestore {
        *     )
        *     // Returns an object with "avg" and "count" fields
        *     .toScalarExpression().as("stats")
-       * )
+       * );
        * ```
        *
        * Output:
