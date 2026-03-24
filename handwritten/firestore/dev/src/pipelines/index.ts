@@ -156,5 +156,7 @@ export {
   stringReplaceOne,
   nor,
   switchOn,
+  ifNull,
+  coalesce,
   // TODO(new-expression): Add new expression exports above this line
 } from './expression';
