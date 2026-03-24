@@ -10954,7 +10954,7 @@ declare namespace FirebaseFirestore {
      *
      * @param ifExpr The expression to check for null.
      * @param elseExpr The value that will be returned if `ifExpr` evaluates to a null value.
-     * @returns A new {@code Expression} representing the ifNull operation.
+     * @returns A new [Expression] representing the ifNull operation.
      */
     export function ifNull(
       ifExpr: Expression,
@@ -10975,7 +10975,7 @@ declare namespace FirebaseFirestore {
      *
      * @param ifExpr The expression to check for null.
      * @param elseValue The value that will be returned if `ifExpr` evaluates to a null value.
-     * @returns A new {@code Expression} representing the ifNull operation.
+     * @returns A new [Expression] representing the ifNull operation.
      */
     export function ifNull(ifExpr: Expression, elseValue: unknown): Expression;
 
@@ -10994,7 +10994,7 @@ declare namespace FirebaseFirestore {
      * @param ifFieldName The field to check for null.
      * @param elseExpr The expression that will be evaluated and returned if `ifFieldName` is
      * null.
-     * @returns A new {@code Expression} representing the ifNull operation.
+     * @returns A new Expression representing the ifNull operation.
      */
     export function ifNull(
       ifFieldName: string,
@@ -11015,9 +11015,12 @@ declare namespace FirebaseFirestore {
      *
      * @param ifFieldName The field to check for null.
      * @param elseValue The value that will be returned if `ifFieldName` is null.
-     * @returns A new {@code Expression} representing the ifNull operation.
+     * @returns A new Expression representing the ifNull operation.
      */
-    export function ifNull(ifFieldName: string, elseValue: unknown): Expression;
+    export function ifNull(
+      ifFieldName: string | Expression,
+      elseValue: Expression | unknown,
+    ): Expression;
 
     /**
      * @beta
@@ -11033,7 +11036,7 @@ declare namespace FirebaseFirestore {
      * @param first The first expression to evaluate.
      * @param second The next expression or literal to evaluate.
      * @param others Additional expressions or literals to evaluate.
-     * @returns A new {@code Expression} representing the coalesce operation.
+     * @returns A new [Expression] representing the coalesce operation.
      */
     export function coalesce(
       first: Expression,
