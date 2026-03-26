@@ -10256,7 +10256,7 @@ export function isType(
 }
 
 /**
- * @beta
+ * @public
  * Creates an expression that returns the value of a field from a document that results from the evaluation of the expression.
  *
  * @example
@@ -10271,7 +10271,7 @@ export function isType(
  */
 export function getField(expression: Expression, key: string): Expression;
 /**
- * @beta
+ * @public
  * Creates an expression that returns the value of a field from a document that results from the evaluation of the expression.
  *
  * @example
@@ -10289,7 +10289,7 @@ export function getField(
   keyExpr: Expression,
 ): Expression;
 /**
- * @beta
+ * @public
  * Creates an expression that returns the value of a field from the document with the given field name.
  *
  * @example
@@ -10304,7 +10304,7 @@ export function getField(
  */
 export function getField(fieldName: string, key: string): Expression;
 /**
- * @beta
+ * @public
  * Creates an expression that returns the value of a field from the document with the given field name.
  *
  * @example

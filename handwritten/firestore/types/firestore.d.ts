@@ -4608,7 +4608,7 @@ declare namespace FirebaseFirestore {
        */
       mapEntries(): FunctionExpression;
       /**
-       * @beta
+       * @public
        * Creates an expression that returns the value of a field from the document that results from the evaluation of this expression.
        *
        * @example
@@ -11711,7 +11711,7 @@ declare namespace FirebaseFirestore {
     }
 
     /**
-     * @beta
+     * @public
      * Creates a new Pipeline targeted at a subcollection relative to the current document context.
      * This creates a pipeline without a database instance, suitable for embedding as a subquery.
      * If executed directly, this pipeline will fail.
@@ -11721,7 +11721,7 @@ declare namespace FirebaseFirestore {
      */
     export function subcollection(path: string): Pipeline;
     /**
-     * @beta
+     * @public
      * Creates a new Pipeline targeted at a subcollection relative to the current document context.
      *
      * @param options - Options defining how this SubcollectionStage is evaluated.
@@ -11928,7 +11928,7 @@ declare namespace FirebaseFirestore {
       define(options: DefineStageOptions): Pipeline;
 
       /**
-       * @beta
+       * @public
        * Converts this Pipeline into an expression that evaluates to an array of results.
        *
        * <p>Result Unwrapping:</p>
@@ -11994,7 +11994,7 @@ declare namespace FirebaseFirestore {
       toArrayExpression(): Expression;
 
       /**
-       * @beta
+       * @public
        * Converts this Pipeline into an expression that evaluates to a single scalar result.
        *
        * <p><b>Runtime Validation:</b> The runtime validates that the result set contains zero or one item. If
