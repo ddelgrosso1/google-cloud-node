@@ -3073,7 +3073,7 @@ export abstract class Expression
   }
 
   /**
-   * @beta
+   * @public
    * Creates an expression that returns the value of a field from the document that results from the evaluation of this expression.
    *
    * @example
@@ -3086,7 +3086,7 @@ export abstract class Expression
    * @returns A new `Expression` representing the value of the field in the document.
    */
   getField(key: string | Expression): Expression {
-    return new FunctionExpression('field', [this, valueToDefaultExpr(key)]);
+    return new FunctionExpression('get_field', [this, valueToDefaultExpr(key)]);
   }
 
   // TODO(new-expression): Add new expression method definitions above this line
@@ -10356,7 +10356,7 @@ export class VariableExpression extends Expression {
 }
 
 /**
- * @beta
+ * @public
  * Creates an expression that retrieves the value of a variable bound via `define()`.
  *
  * @example
@@ -10378,7 +10378,7 @@ export function variable(name: string): Expression {
 }
 
 /**
- * @beta
+ * @public
  * Creates an expression that represents the current document being processed.
  *
  * @example

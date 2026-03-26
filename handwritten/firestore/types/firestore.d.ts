@@ -9712,7 +9712,7 @@ declare namespace FirebaseFirestore {
     export function mapEntries(mapExpression: Expression): FunctionExpression;
 
     /**
-     * @beta
+     * @public
      * Creates an expression that returns the value of a field from a document that results from the evaluation of the expression.
      *
      * @example
@@ -9727,7 +9727,7 @@ declare namespace FirebaseFirestore {
      */
     export function getField(expression: Expression, key: string): Expression;
     /**
-     * @beta
+     * @public
      * Creates an expression that returns the value of a field from a document that results from the evaluation of the expression.
      *
      * @example
@@ -9745,7 +9745,7 @@ declare namespace FirebaseFirestore {
       keyExpr: Expression,
     ): Expression;
     /**
-     * @beta
+     * @public
      * Creates an expression that returns the value of a field from the document with the given field name.
      *
      * @example
@@ -9760,7 +9760,7 @@ declare namespace FirebaseFirestore {
      */
     export function getField(fieldName: string, key: string): Expression;
     /**
-     * @beta
+     * @public
      * Creates an expression that returns the value of a field from the document with the given field name.
      *
      * @example
@@ -9779,7 +9779,7 @@ declare namespace FirebaseFirestore {
     ): Expression;
 
     /**
-     * @beta
+     * @public
      * Creates an expression that retrieves the value of a variable bound via `define()`.
      *
      * @example
@@ -9799,7 +9799,7 @@ declare namespace FirebaseFirestore {
     export function variable(name: string): Expression;
 
     /**
-     * @beta
+     * @public
      * Creates an expression that represents the current document being processed.
      *
      * @example
@@ -11877,7 +11877,7 @@ declare namespace FirebaseFirestore {
       removeFields(options: RemoveFieldsStageOptions): Pipeline;
 
       /**
-       * @beta
+       * @public
        * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
        * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
        *
@@ -11904,7 +11904,7 @@ declare namespace FirebaseFirestore {
         ...additionalExpressions: AliasedExpression[]
       ): Pipeline;
       /**
-       * @beta
+       * @public
        * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
        * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
        *
@@ -12972,24 +12972,24 @@ declare namespace FirebaseFirestore {
     };
 
     /**
-     * @beta
+     * @public
      * Options defining how a SubcollectionStage is evaluated.
      */
     export type SubcollectionStageOptions = StageOptions & {
       /**
-       * @beta
+       * @public
        * The relative path to the subcollection.
        */
       path: string;
     };
 
     /**
-     * @beta
+     * @public
      * Options defining how a DefineStage is evaluated. See {@link Pipeline.define}.
      */
     export type DefineStageOptions = StageOptions & {
       /**
-       * @beta
+       * @public
        * The variables to define.
        */
       variables: AliasedExpression[];

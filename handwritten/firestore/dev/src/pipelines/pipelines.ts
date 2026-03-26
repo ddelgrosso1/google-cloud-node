@@ -517,7 +517,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
   }
 
   /**
-   * @beta
+   * @public
    * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
    * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
    *
@@ -544,7 +544,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     ...additionalExpressions: firestore.Pipelines.AliasedExpression[]
   ): Pipeline;
   /**
-   * @beta
+   * @public
    * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
    * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
    *
@@ -593,7 +593,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
   }
 
   /**
-   * @beta
+   * @public
    * Converts this Pipeline into an expression that evaluates to an array of results.
    *
    * <p>Result Unwrapping:</p>
@@ -662,7 +662,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
   }
 
   /**
-   * @beta
+   * @public
    * Converts this Pipeline into an expression that evaluates to a single scalar result.
    *
    * <p><b>Runtime Validation:</b> The runtime validates that the result set contains zero or one item. If
@@ -2274,7 +2274,7 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
 }
 
 /**
- * @beta
+ * @public
  * Creates a new Pipeline targeted at a subcollection relative to the current document context.
  * This creates a pipeline without a database instance, suitable for embedding as a subquery.
  * If executed directly, this pipeline will fail.
@@ -2283,7 +2283,7 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
  */
 export function subcollection(path: string): Pipeline;
 /**
- * @beta
+ * @public
  * Creates a new Pipeline targeted at a subcollection relative to the current document context.
  *
  * @param options - Options defining how this SubcollectionStage is evaluated.
