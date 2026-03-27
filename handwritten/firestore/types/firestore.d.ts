@@ -4991,16 +4991,7 @@ declare namespace FirebaseFirestore {
        * @param amount The amount of time to add.
        * @returns A new {@code Expression} representing the resulting timestamp.
        */
-      timestampAdd(
-        unit:
-          | 'microsecond'
-          | 'millisecond'
-          | 'second'
-          | 'minute'
-          | 'hour'
-          | 'day',
-        amount: number,
-      ): FunctionExpression;
+      timestampAdd(unit: TimeUnit, amount: number): FunctionExpression;
       /**
        * @beta
        * Creates an expression that subtracts a specified amount of time from this timestamp expression.
@@ -5034,16 +5025,7 @@ declare namespace FirebaseFirestore {
        * @param amount The amount of time to subtract.
        * @returns A new {@code FunctionExpression} representing the resulting timestamp after subtraction.
        */
-      timestampSubtract(
-        unit:
-          | 'microsecond'
-          | 'millisecond'
-          | 'second'
-          | 'minute'
-          | 'hour'
-          | 'day',
-        amount: number,
-      ): FunctionExpression;
+      timestampSubtract(unit: TimeUnit, amount: number): FunctionExpression;
       /**
        * @beta
        * Creates an expression that returns the document ID from a DocumentReference.
@@ -5612,13 +5594,7 @@ declare namespace FirebaseFirestore {
        */
       timestampDiff(
         start: string | Expression,
-        unit:
-          | 'microsecond'
-          | 'millisecond'
-          | 'second'
-          | 'minute'
-          | 'hour'
-          | 'day',
+        unit: TimeUnit,
       ): FunctionExpression;
 
       /**
@@ -5750,15 +5726,22 @@ declare namespace FirebaseFirestore {
 
     /**
      * @beta
-     * Time granularity used for timestamp functions.
+     * Time unit used for timestamp functions.
      */
-    export type TimeGranularity =
+    export type TimeUnit =
       | 'microsecond'
       | 'millisecond'
       | 'second'
       | 'minute'
       | 'hour'
-      | 'day'
+      | 'day';
+
+    /**
+     * @beta
+     * Time granularity used for timestamp functions.
+     */
+    export type TimeGranularity =
+      | TimeUnit
       | 'week'
       | 'week(monday)'
       | 'week(tuesday)'
@@ -5767,11 +5750,11 @@ declare namespace FirebaseFirestore {
       | 'week(friday)'
       | 'week(saturday)'
       | 'week(sunday)'
-      | 'isoWeek'
+      | 'isoweek'
       | 'month'
       | 'quarter'
       | 'year'
-      | 'isoYear';
+      | 'isoyear';
 
     /**
      * @beta
@@ -10525,13 +10508,7 @@ declare namespace FirebaseFirestore {
      */
     export function timestampAdd(
       timestamp: Expression,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day',
+      unit: TimeUnit,
       amount: number,
     ): FunctionExpression;
     /**
@@ -10550,13 +10527,7 @@ declare namespace FirebaseFirestore {
      */
     export function timestampAdd(
       fieldName: string,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day',
+      unit: TimeUnit,
       amount: number,
     ): FunctionExpression;
     /**
@@ -10594,13 +10565,7 @@ declare namespace FirebaseFirestore {
      */
     export function timestampSubtract(
       timestamp: Expression,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day',
+      unit: TimeUnit,
       amount: number,
     ): FunctionExpression;
     /**
@@ -10619,13 +10584,7 @@ declare namespace FirebaseFirestore {
      */
     export function timestampSubtract(
       fieldName: string,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day',
+      unit: TimeUnit,
       amount: number,
     ): FunctionExpression;
 
@@ -11453,14 +11412,7 @@ declare namespace FirebaseFirestore {
     export function timestampDiff(
       endFieldName: string,
       startFieldName: string,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day'
-        | Expression,
+      unit: TimeUnit | Expression,
     ): FunctionExpression;
 
     /**
@@ -11481,14 +11433,7 @@ declare namespace FirebaseFirestore {
     export function timestampDiff(
       endFieldName: string,
       startExpression: Expression,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day'
-        | Expression,
+      unit: TimeUnit | Expression,
     ): FunctionExpression;
 
     /**
@@ -11509,14 +11454,7 @@ declare namespace FirebaseFirestore {
     export function timestampDiff(
       endExpression: Expression,
       startFieldName: string,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day'
-        | Expression,
+      unit: TimeUnit | Expression,
     ): FunctionExpression;
 
     /**
@@ -11537,14 +11475,7 @@ declare namespace FirebaseFirestore {
     export function timestampDiff(
       endExpression: Expression,
       startExpression: Expression,
-      unit:
-        | 'microsecond'
-        | 'millisecond'
-        | 'second'
-        | 'minute'
-        | 'hour'
-        | 'day'
-        | Expression,
+      unit: TimeUnit | Expression,
     ): FunctionExpression;
 
     /**
