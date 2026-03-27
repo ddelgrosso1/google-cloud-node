@@ -2323,18 +2323,11 @@ export abstract class Expression
    * @returns A new `Expression` representing the resulting timestamp.
    */
   timestampAdd(
-    unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+    unit: firestore.Pipelines.TimeUnit,
     amount: number,
   ): FunctionExpression;
   timestampAdd(
-    unit:
-      | Expression
-      | 'microsecond'
-      | 'millisecond'
-      | 'second'
-      | 'minute'
-      | 'hour'
-      | 'day',
+    unit: Expression | firestore.Pipelines.TimeUnit,
     amount: Expression | number,
   ): FunctionExpression {
     return new FunctionExpression('timestamp_add', [
@@ -2375,18 +2368,11 @@ export abstract class Expression
    * @returns A new `Expression` representing the resulting timestamp.
    */
   timestampSubtract(
-    unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+    unit: firestore.Pipelines.TimeUnit,
     amount: number,
   ): FunctionExpression;
   timestampSubtract(
-    unit:
-      | Expression
-      | 'microsecond'
-      | 'millisecond'
-      | 'second'
-      | 'minute'
-      | 'hour'
-      | 'day',
+    unit: Expression | firestore.Pipelines.TimeUnit,
     amount: Expression | number,
   ): FunctionExpression {
     return new FunctionExpression('timestamp_subtract', [
@@ -2428,18 +2414,11 @@ export abstract class Expression
    */
   timestampDiff(
     start: string | Expression,
-    unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+    unit: firestore.Pipelines.TimeUnit,
   ): FunctionExpression;
   timestampDiff(
     start: string | Expression,
-    unit:
-      | 'microsecond'
-      | 'millisecond'
-      | 'second'
-      | 'minute'
-      | 'hour'
-      | 'day'
-      | Expression,
+    unit: Expression | firestore.Pipelines.TimeUnit,
   ): FunctionExpression {
     return new FunctionExpression('timestamp_diff', [
       this,
@@ -2493,8 +2472,7 @@ export abstract class Expression
     part: firestore.Pipelines.TimePart | Expression,
     timezone?: string | Expression,
   ): FunctionExpression {
-    const internalPart = isString(part) ? part.toLowerCase() : part;
-    const args = [this, valueToDefaultExpr(internalPart)];
+    const args = [this, valueToDefaultExpr(part)];
     if (timezone) {
       args.push(valueToDefaultExpr(timezone));
     }
@@ -3196,11 +3174,7 @@ export abstract class Expression
     granularity: firestore.Pipelines.TimeGranularity | Expression,
     timezone?: string | Expression,
   ): FunctionExpression {
-    const internalGranularity = isString(granularity)
-      ? granularity.toLowerCase()
-      : granularity;
-
-    const args = [this, valueToDefaultExpr(internalGranularity)];
+    const args = [this, valueToDefaultExpr(granularity)];
     if (timezone) {
       args.push(valueToDefaultExpr(timezone));
     }
@@ -8574,7 +8548,7 @@ export function timestampAdd(
  */
 export function timestampAdd(
   timestamp: Expression,
-  unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+  unit: firestore.Pipelines.TimeUnit,
   amount: number,
 ): FunctionExpression;
 
@@ -8594,19 +8568,12 @@ export function timestampAdd(
  */
 export function timestampAdd(
   fieldName: string,
-  unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+  unit: firestore.Pipelines.TimeUnit,
   amount: number,
 ): FunctionExpression;
 export function timestampAdd(
   timestamp: Expression | string,
-  unit:
-    | Expression
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day',
+  unit: Expression | firestore.Pipelines.TimeUnit,
   amount: Expression | number,
 ): FunctionExpression {
   const normalizedTimestamp = fieldOrExpression(timestamp);
@@ -8651,7 +8618,7 @@ export function timestampSubtract(
  */
 export function timestampSubtract(
   timestamp: Expression,
-  unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+  unit: firestore.Pipelines.TimeUnit,
   amount: number,
 ): FunctionExpression;
 
@@ -8671,19 +8638,12 @@ export function timestampSubtract(
  */
 export function timestampSubtract(
   fieldName: string,
-  unit: 'microsecond' | 'millisecond' | 'second' | 'minute' | 'hour' | 'day',
+  unit: firestore.Pipelines.TimeUnit,
   amount: number,
 ): FunctionExpression;
 export function timestampSubtract(
   timestamp: Expression | string,
-  unit:
-    | Expression
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day',
+  unit: Expression | firestore.Pipelines.TimeUnit,
   amount: Expression | number,
 ): FunctionExpression {
   const normalizedTimestamp = fieldOrExpression(timestamp);
@@ -9839,7 +9799,7 @@ export function timestampTruncate(
   timezone?: string | Expression,
 ): FunctionExpression {
   const internalGranularity = isString(granularity)
-    ? valueToDefaultExpr(granularity.toLowerCase())
+    ? valueToDefaultExpr(granularity)
     : granularity;
   return fieldOrExpression(fieldNameOrExpression).timestampTruncate(
     internalGranularity,
@@ -9865,14 +9825,7 @@ export function timestampTruncate(
 export function timestampDiff(
   endFieldName: string,
   startFieldName: string,
-  unit:
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day'
-    | Expression,
+  unit: firestore.Pipelines.TimeUnit | Expression,
 ): FunctionExpression;
 
 /**
@@ -9893,14 +9846,7 @@ export function timestampDiff(
 export function timestampDiff(
   endFieldName: string,
   startExpression: Expression,
-  unit:
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day'
-    | Expression,
+  unit: firestore.Pipelines.TimeUnit | Expression,
 ): FunctionExpression;
 
 /**
@@ -9921,14 +9867,7 @@ export function timestampDiff(
 export function timestampDiff(
   endExpression: Expression,
   startFieldName: string,
-  unit:
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day'
-    | Expression,
+  unit: firestore.Pipelines.TimeUnit | Expression,
 ): FunctionExpression;
 
 /**
@@ -9949,26 +9888,12 @@ export function timestampDiff(
 export function timestampDiff(
   endExpression: Expression,
   startExpression: Expression,
-  unit:
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day'
-    | Expression,
+  unit: firestore.Pipelines.TimeUnit | Expression,
 ): FunctionExpression;
 export function timestampDiff(
   endFieldNameOrExpression: string | Expression,
   startFieldNameOrExpression: string | Expression,
-  unit:
-    | 'microsecond'
-    | 'millisecond'
-    | 'second'
-    | 'minute'
-    | 'hour'
-    | 'day'
-    | Expression,
+  unit: firestore.Pipelines.TimeUnit | Expression,
 ): FunctionExpression {
   const normalizedEnd = fieldOrExpression(endFieldNameOrExpression);
   const normalizedStart = fieldOrExpression(startFieldNameOrExpression);
@@ -10073,7 +9998,7 @@ export function timestampExtract(
   timezone?: string | Expression,
 ): FunctionExpression {
   return fieldOrExpression(fieldNameOrExpression).timestampExtract(
-    valueToDefaultExpr(isString(part) ? part.toLowerCase() : part),
+    valueToDefaultExpr(part),
     timezone,
   );
 }
