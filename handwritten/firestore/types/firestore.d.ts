@@ -505,6 +505,10 @@ declare namespace FirebaseFirestore {
      * @beta
      */
     openTelemetry?: FirestoreOpenTelemetryOptions;
+    /**
+     * Whether to always use implicit order by clauses.
+     */
+    alwaysUseImplicitOrderBy?: boolean;
     [key: string]: any; // Accept other properties, such as GRPC settings.
   }
   /**
@@ -570,6 +574,10 @@ declare namespace FirebaseFirestore {
      * Returns the Database ID for this Firestore instance.
      */
     get databaseId(): string;
+    /**
+     * Whether to always use implicit order by clauses.
+     */
+    get alwaysUseImplicitOrderBy(): boolean;
     /**
      * Gets a `CollectionReference` instance that refers to the collection at
      * the specified path.
@@ -3190,7 +3198,9 @@ declare namespace FirebaseFirestore {
       | 'Function'
       | 'AggregateFunction'
       | 'ListOfExprs'
-      | 'AliasedExpression';
+      | 'AliasedExpression'
+      | 'Variable'
+      | 'PipelineValue';
     /**
      * @beta
      * Represents an expression that can be evaluated to a value within the execution of a {@link
@@ -4636,6 +4646,20 @@ declare namespace FirebaseFirestore {
        */
       mapEntries(): FunctionExpression;
       /**
+       * @public
+       * Creates an expression that returns the value of a field from the document that results from the evaluation of this expression.
+       *
+       * @example
+       * ```typescript
+       * // Get the value of the "city" field in the "address" document.
+       * field("address").getField("city")
+       * ```
+       *
+       * @param key The field to access in the document.
+       * @returns A new `Expression` representing the value of the field in the document.
+       */
+      getField(key: string | Expression): Expression;
+      /**
        * @beta
        * Creates an aggregation that counts the number of stage inputs with valid evaluations of the
        * expression or field.
@@ -5629,6 +5653,10 @@ declare namespace FirebaseFirestore {
        * Creates an expression that checks if the result of this expression is of the given type.
        *
        * @remarks Null or undefined fields evaluate to skip/error. Use `ifAbsent()` / `isAbsent()` to evaluate missing data.
+       * Supported values for `type` are:
+       * `'null'`, `'array'`, `'boolean'`, `'bytes'`, `'timestamp'`, `'geo_point'`, `'number'`,
+       * `'int32'`, `'int64'`, `'float64'`, `'decimal128'`, `'map'`, `'reference'`, `'string'`,
+       * `'vector'`, `'max_key'`, `'min_key'`, `'object_id'`, `'regex'`, `'request_timestamp'`.
        *
        * @example
        * ```typescript
@@ -5639,7 +5667,7 @@ declare namespace FirebaseFirestore {
        * @param type The type to check for.
        * @returns A new `BooleanExpression` that evaluates to true if the expression's result is of the given type, false otherwise.
        */
-      isType(type: Type): BooleanExpression;
+      isType(type: string): BooleanExpression;
 
       // TODO(new-expression): Add new expression method declarations above this line
       /**
@@ -9808,6 +9836,110 @@ declare namespace FirebaseFirestore {
     export function mapEntries(mapExpression: Expression): FunctionExpression;
 
     /**
+     * @public
+     * Creates an expression that returns the value of a field from a document that results from the evaluation of the expression.
+     *
+     * @example
+     * ```typescript
+     * // Get the value of the "city" field in the "address" document.
+     * getField(field("address"), "city")
+     * ```
+     *
+     * @param expression The expression representing the document.
+     * @param key The field to access in the document.
+     * @returns A new `Expression` representing the value of the field in the document.
+     */
+    export function getField(expression: Expression, key: string): Expression;
+    /**
+     * @public
+     * Creates an expression that returns the value of a field from a document that results from the evaluation of the expression.
+     *
+     * @example
+     * ```typescript
+     * // Get the value of the key resulting from the "addressField" variable in the "address" document.
+     * getField(field("address"), variable("addressField"))
+     * ```
+     *
+     * @param expression The expression representing the document.
+     * @param keyExpr The expression representing the key to access in the document.
+     * @returns A new `Expression` representing the value of the field in the document.
+     */
+    export function getField(
+      expression: Expression,
+      keyExpr: Expression,
+    ): Expression;
+    /**
+     * @public
+     * Creates an expression that returns the value of a field from the document with the given field name.
+     *
+     * @example
+     * ```typescript
+     * // Get the value of the "city" field in the "address" document.
+     * getField("address", "city")
+     * ```
+     *
+     * @param fieldName The name of the field containing the map/document.
+     * @param key The key to access.
+     * @returns A new `Expression` representing the value of the field in the document.
+     */
+    export function getField(fieldName: string, key: string): Expression;
+    /**
+     * @public
+     * Creates an expression that returns the value of a field from the document with the given field name.
+     *
+     * @example
+     * ```typescript
+     * // Get the value of the "city" field in the "address" document.
+     * getField("address", variable("addressField"))
+     * ```
+     *
+     * @param fieldName The name of the field containing the map/document.
+     * @param keyExpr The key expression to access.
+     * @returns A new `Expression` representing the value of the field in the document.
+     */
+    export function getField(
+      fieldName: string,
+      keyExpr: Expression,
+    ): Expression;
+
+    /**
+     * @public
+     * Creates an expression that retrieves the value of a variable bound via `define()`.
+     *
+     * @example
+     * ```typescript
+     * db.pipeline().collection("products")
+     *   .define(
+     *     field("price").multiply(0.9).as("discountedPrice"),
+     *     field("stock").add(10).as("newStock")
+     *   )
+     *   .where(variable("discountedPrice").lessThan(100))
+     *   .select(field("name"), variable("newStock"));
+     * ```
+     *
+     * @param name - The name of the variable to retrieve.
+     * @returns An `Expression` representing the variable's value.
+     */
+    export function variable(name: string): Expression;
+
+    /**
+     * @public
+     * Creates an expression that represents the current document being processed.
+     *
+     * @example
+     * ```typescript
+     * // Define the current document as a variable "doc"
+     * firestore.pipeline().collection("books")
+     *     .define(currentDocument().as("doc"))
+     *     // Access a field from the defined document variable
+     *     .select(variable("doc").mapGet("title"));
+     * ```
+     *
+     * @returns An `Expression` representing the current document.
+     */
+    export function currentDocument(): Expression;
+
+    /**
      * @beta
      * Creates an aggregation that counts the total number of stage inputs.
      *
@@ -10706,6 +10838,62 @@ declare namespace FirebaseFirestore {
       second: BooleanExpression,
       ...more: BooleanExpression[]
     ): BooleanExpression;
+
+    /**
+     * @beta
+     * Creates an expression that performs a logical 'NOR' operation on multiple filter conditions.
+     *
+     * @example
+     * ```typescript
+     * // Check if neither the 'age' field is greater than 18 nor the 'city' field is "London"
+     * const condition = nor(
+     *   greaterThan("age", 18),
+     *   equal("city", "London")
+     * );
+     * ```
+     * @param first The first filter condition.
+     * @param second The second filter condition.
+     * @param more - Additional filter conditions to 'NOR' together.
+     * @returns A new {@code Expression} representing the logical 'NOR' operation.
+     */
+    export function nor(
+      first: BooleanExpression,
+      second: BooleanExpression,
+      ...more: BooleanExpression[]
+    ): BooleanExpression;
+
+    /**
+     * @beta
+     * Creates an expression that evaluates to the result corresponding to the first true condition.
+     *
+     * @remarks
+     * This function behaves like a `switch` statement. It accepts an alternating sequence of conditions
+     * and their corresponding results.
+     * If an odd number of arguments is provided, the final argument serves as a default fallback result.
+     * If no default is provided and no condition evaluates to true, it throws an error.
+     *
+     * @example
+     * ```typescript
+     * // Return "Active" if field "status" is 1, "Pending" if field "status" is 2,
+     * // and default to "Unknown" if none of the conditions are true.
+     * switchOn(
+     *   equal(field("status"), 1), constant("Active"),
+     *   equal(field("status"), 2), constant("Pending"),
+     *   constant("Unknown")
+     * )
+     * ```
+     *
+     * @param condition - The first condition to check.
+     * @param result - The result if the first condition is true.
+     * @param others - Additional conditions and results, and optionally a default value.
+     * @returns A new {@code Expression} representing the switch operation.
+     */
+    export function switchOn(
+      condition: BooleanExpression,
+      result: Expression,
+      ...others: Array<BooleanExpression | Expression>
+    ): FunctionExpression;
+
     /**
      * @beta
      * Creates an expression that returns the value of the base expression raised to the power of the exponent expression.
@@ -11404,39 +11592,6 @@ declare namespace FirebaseFirestore {
 
     /**
      * @beta
-     *
-     * An enumeration of the different types generated by the Firestore backend.
-     *
-     * <ul>
-     *  <li>Numerics evaluate directly to backend representation (`int64` or `float64`), not JS `number`.</li>
-     *  <li>JavaScript `Date` and firestore `Timestamp` objects strictly evaluate to `'timestamp'`.</li>
-     *  <li>Advanced configurations parsing backend types (such as `decimal128`, `max_key` or `min_key` from BSON) are also incorporated in this union string type. Note that `decimal128` is a backend-only numeric type that the JavaScript SDK cannot create natively, but can be evaluated in pipelines.</li>
-     * </ul>
-     */
-    export type Type =
-      | 'null'
-      | 'array'
-      | 'boolean'
-      | 'bytes'
-      | 'timestamp'
-      | 'geo_point'
-      | 'number'
-      | 'int32'
-      | 'int64'
-      | 'float64'
-      | 'decimal128'
-      | 'map'
-      | 'reference'
-      | 'string'
-      | 'vector'
-      | 'max_key'
-      | 'min_key'
-      | 'object_id'
-      | 'regex'
-      | 'request_timestamp';
-
-    /**
-     * @beta
      * Creates an expression that returns the data type of the data in the specified field.
      *
      * @example
@@ -11467,6 +11622,10 @@ declare namespace FirebaseFirestore {
      * Creates an expression that checks if the value in the specified field is of the given type.
      *
      * @remarks Null or undefined fields evaluate to skip/error. Use `ifAbsent()` / `isAbsent()` to evaluate missing data.
+     * Supported values for `type` are:
+     * `'null'`, `'array'`, `'boolean'`, `'bytes'`, `'timestamp'`, `'geo_point'`, `'number'`,
+     * `'int32'`, `'int64'`, `'float64'`, `'decimal128'`, `'map'`, `'reference'`, `'string'`,
+     * `'vector'`, `'max_key'`, `'min_key'`, `'object_id'`, `'regex'`, `'request_timestamp'`.
      *
      * @example
      * ```typescript
@@ -11478,12 +11637,16 @@ declare namespace FirebaseFirestore {
      * @param type The type to check for.
      * @returns A new `BooleanExpression` that evaluates to true if the field's value is of the given type, false otherwise.
      */
-    export function isType(fieldName: string, type: Type): BooleanExpression;
+    export function isType(fieldName: string, type: string): BooleanExpression;
     /**
      * @beta
      * Creates an expression that checks if the result of an expression is of the given type.
      *
      * @remarks Null or undefined fields evaluate to skip/error. Use `ifAbsent()` / `isAbsent()` to evaluate missing data.
+     * Supported values for `type` are:
+     * `'null'`, `'array'`, `'boolean'`, `'bytes'`, `'timestamp'`, `'geo_point'`, `'number'`,
+     * `'int32'`, `'int64'`, `'float64'`, `'decimal128'`, `'map'`, `'reference'`, `'string'`,
+     * `'vector'`, `'max_key'`, `'min_key'`, `'object_id'`, `'regex'`, `'request_timestamp'`.
      *
      * @example
      * ```typescript
@@ -11497,7 +11660,7 @@ declare namespace FirebaseFirestore {
      */
     export function isType(
       expression: Expression,
-      type: Type,
+      type: string,
     ): BooleanExpression;
 
     // TODO(new-expression): Add new top-level expression function declarations above this line
@@ -11670,6 +11833,26 @@ declare namespace FirebaseFirestore {
        */
       createFrom(query: Query): Pipeline;
     }
+
+    /**
+     * @public
+     * Creates a new Pipeline targeted at a subcollection relative to the current document context.
+     * This creates a pipeline without a database instance, suitable for embedding as a subquery.
+     * If executed directly, this pipeline will fail.
+     *
+     * @param path - The relative path to the subcollection.
+     * @returns A new `Pipeline` object configured to read from the specified subcollection.
+     */
+    export function subcollection(path: string): Pipeline;
+    /**
+     * @public
+     * Creates a new Pipeline targeted at a subcollection relative to the current document context.
+     *
+     * @param options - Options defining how this SubcollectionStage is evaluated.
+     * @returns A new `Pipeline` object configured to read from the specified subcollection.
+     */
+    export function subcollection(options: SubcollectionStageOptions): Pipeline;
+
     /**
      * @beta
      * The Pipeline class provides a flexible and expressive framework for building complex data
@@ -11816,6 +11999,186 @@ declare namespace FirebaseFirestore {
        * @returns A new `Pipeline` object with this stage appended to the stage list.
        */
       removeFields(options: RemoveFieldsStageOptions): Pipeline;
+
+      /**
+       * @public
+       * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
+       * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
+       *
+       * This stage is useful for declaring reusable values or intermediate calculations that can be
+       * referenced multiple times in later parts of the pipeline.
+       *
+       * @example
+       * ```typescript
+       * db.pipeline().collection("products")
+       *   .define(
+       *     field("price").multiply(0.9).as("discountedPrice"),
+       *     field("stock").add(10).as("newStock")
+       *   )
+       *   .where(variable("discountedPrice").lessThan(100))
+       *   .select(field("name"), variable("newStock"));
+       * ```
+       *
+       * @param aliasedExpression - The first expression to bind to a variable.
+       * @param additionalExpressions - Optional additional expressions to bind to a variable.
+       * @returns A new Pipeline object with this stage appended to the stage list.
+       */
+      define(
+        aliasedExpression: AliasedExpression,
+        ...additionalExpressions: AliasedExpression[]
+      ): Pipeline;
+      /**
+       * @public
+       * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
+       * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
+       *
+       * This stage is useful for declaring reusable values or intermediate calculations that can be
+       * referenced multiple times in later parts of the pipeline.
+       *
+       * @example
+       * ```typescript
+       * db.pipeline().collection("products")
+       *   .define(
+       *     field("price").multiply(0.9).as("discountedPrice"),
+       *     field("stock").add(10).as("newStock")
+       *   )
+       *   .where(variable("discountedPrice").lessThan(100))
+       *   .select(field("name"), variable("newStock"));
+       * ```
+       *
+       * @param options - An object that specifies required and optional parameters for the stage.
+       * @returns A new Pipeline object with this stage appended to the stage list.
+       */
+      define(options: DefineStageOptions): Pipeline;
+
+      /**
+       * @public
+       * Converts this Pipeline into an expression that evaluates to an array of results.
+       *
+       * <p>Result Unwrapping:</p>
+       * <ul>
+       *  <li>If the items have a single field, their values are unwrapped and returned directly in the array.</li>
+       *  <li>If the items have multiple fields, they are returned as objects in the array.</li>
+       * </ul>
+       *
+       * @example
+       * ```typescript
+       * // Get a list of reviewers for each book
+       * db.pipeline().collection("books")
+       *     .define(field("id").as("book_id"))
+       *     .addFields(
+       *         db.pipeline().collection("reviews")
+       *             .where(field("book_id").equal(variable("book_id")))
+       *             .select(field("reviewer"))
+       *             .toArrayExpression()
+       *             .as("reviewers");
+       *     )
+       * ```
+       *
+       * Output:
+       * ```json
+       * [
+       *   {
+       *     "id": "1",
+       *     "title": "1984",
+       *     "reviewers": ["Alice", "Bob"]
+       *   }
+       * ]
+       * ```
+       *
+       * Multiple Fields:
+       * ```typescript
+       * // Get a list of reviews (reviewer and rating) for each book
+       * db.pipeline().collection("books")
+       *     .define(field("id").as("book_id"))
+       *     .addFields(
+       *         db.pipeline().collection("reviews")
+       *             .where(field("book_id").equal(variable("book_id")))
+       *             .select(field("reviewer"), field("rating"))
+       *             .toArrayExpression()
+       *             .as("reviews"));
+       * ```
+       *
+       * Output:
+       * ```json
+       * [
+       *   {
+       *     "id": "1",
+       *     "title": "1984",
+       *     "reviews": [
+       *       { "reviewer": "Alice", "rating": 5 },
+       *       { "reviewer": "Bob", "rating": 4 }
+       *     ]
+       *   }
+       * ]
+       * ```
+       *
+       * @returns An `Expression` representing the execution of this pipeline.
+       */
+      toArrayExpression(): Expression;
+
+      /**
+       * @public
+       * Converts this Pipeline into an expression that evaluates to a single scalar result.
+       *
+       * <p><b>Runtime Validation:</b> The runtime validates that the result set contains zero or one item. If
+       * zero items, it evaluates to `null`.</p>
+       *
+       * <p>Result Unwrapping:</p>
+       * <ul>
+       *  <li>If the item has a single field, its value is unwrapped and returned directly.</li>
+       *  <li>If the item has multiple fields, they are returned as an object.</li>
+       * </ul>
+       *
+       * @example
+       * ```typescript
+       * // Calculate average rating for a restaurant
+       * db.pipeline().collection("restaurants").addFields(
+       *   db.pipeline().collection("reviews")
+       *     .where(field("restaurant_id").equal(variable("rid")))
+       *     .aggregate(average("rating").as("avg"))
+       *     // Unwraps the single "avg" field to a scalar double
+       *     .toScalarExpression().as("average_rating")
+       * );
+       * ```
+       *
+       * Output:
+       * ```json
+       * {
+       *   "name": "The Burger Joint",
+       *   "average_rating": 4.5
+       * }
+       * ```
+       *
+       * Multiple Fields:
+       * ```typescript
+       * // Calculate average rating AND count for a restaurant
+       * db.pipeline().collection("restaurants").addFields(
+       *   db.pipeline().collection("reviews")
+       *     .where(field("restaurant_id").equal(variable("rid")))
+       *     .aggregate(
+       *       average("rating").as("avg"),
+       *       count().as("count")
+       *     )
+       *     // Returns an object with "avg" and "count" fields
+       *     .toScalarExpression().as("stats")
+       * );
+       * ```
+       *
+       * Output:
+       * ```json
+       * {
+       *   "name": "The Burger Joint",
+       *   "stats": {
+       *     "avg": 4.5,
+       *     "count": 100
+       *   }
+       * }
+       * ```
+       *
+       * @returns An `Expression` representing the execution of this pipeline.
+       */
+      toScalarExpression(): Expression;
 
       /**
        * @beta
@@ -12731,6 +13094,31 @@ declare namespace FirebaseFirestore {
        */
       forceIndex?: string;
     };
+
+    /**
+     * @public
+     * Options defining how a SubcollectionStage is evaluated.
+     */
+    export type SubcollectionStageOptions = StageOptions & {
+      /**
+       * @public
+       * The relative path to the subcollection.
+       */
+      path: string;
+    };
+
+    /**
+     * @public
+     * Options defining how a DefineStage is evaluated. See {@link Pipeline.define}.
+     */
+    export type DefineStageOptions = StageOptions & {
+      /**
+       * @public
+       * The variables to define.
+       */
+      variables: AliasedExpression[];
+    };
+
     /**
      * @beta
      * Options defining how a DatabaseStage is evaluated. See {@link PipelineSource.database}.

@@ -17,6 +17,7 @@ export {
   PipelineResult,
   PipelineSnapshot,
   PipelineSource,
+  subcollection,
 } from './pipelines';
 
 export {
@@ -148,7 +149,6 @@ export {
   arrayConcat,
   type,
   isType,
-  Type,
   timestampTruncate,
   split,
   ltrim,
@@ -157,5 +157,10 @@ export {
   stringRepeat,
   stringReplaceAll,
   stringReplaceOne,
+  nor,
+  switchOn,
+  getField,
+  variable,
+  currentDocument,
   // TODO(new-expression): Add new expression exports above this line
 } from './expression';

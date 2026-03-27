@@ -27,6 +27,7 @@ import {
   aliasedAggregateToMap,
   fieldOrExpression,
   isAliasedAggregate,
+  isAliasedExpr,
   isBooleanExpr,
   isCollectionReference,
   isExpr,
@@ -42,7 +43,7 @@ import {
 } from './pipeline-util';
 import {DocumentReference} from '../reference/document-reference';
 import {PipelineResponse} from '../reference/types';
-import {HasUserData, hasUserData, Serializer} from '../serializer';
+import {Serializer} from '../serializer';
 import {ApiMapValue} from '../types';
 import * as protos from '../../protos/firestore_v1_proto_api';
 import api = protos.google.firestore.v1;
@@ -59,6 +60,7 @@ import {
   constant,
   _mapValue,
   field,
+  FunctionExpression,
 } from './expression';
 import {
   AddFields,
@@ -95,6 +97,10 @@ import {
   InternalDocumentsStageOptions,
   InternalCollectionGroupStageOptions,
   InternalCollectionStageOptions,
+  Define,
+  SubcollectionSource,
+  InternalDefineStageOptions,
+  InternalSubcollectionStageOptions,
 } from './stage';
 import {StructuredPipeline} from './structured-pipeline';
 import Selectable = FirebaseFirestore.Pipelines.Selectable;
@@ -349,7 +355,7 @@ export class PipelineSource implements firestore.Pipelines.PipelineSource {
  */
 export class Pipeline implements firestore.Pipelines.Pipeline {
   constructor(
-    private db: Firestore,
+    private db: Firestore | undefined,
     private stages: Stage[],
   ) {}
 
@@ -433,8 +439,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       : fieldOrOptions.fields;
     const normalizedFields: Map<string, Expression> = selectablesToMap(fields);
 
-    this._validateUserData('select', normalizedFields);
-
     const internalOptions = {
       ...options,
       fields: normalizedFields,
@@ -503,7 +507,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const convertedFields: Array<Field> = fields.map(f =>
       isString(f) ? field(f) : (f as Field),
     );
-    this._validateUserData('removeFields', convertedFields);
 
     const innerOptions = {
       ...options,
@@ -511,6 +514,216 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     };
 
     return this._addStage(new RemoveFields(innerOptions));
+  }
+
+  /**
+   * @public
+   * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
+   * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
+   *
+   * This stage is useful for declaring reusable values or intermediate calculations that can be
+   * referenced multiple times in later parts of the pipeline.
+   *
+   * @example
+   * ```typescript
+   * db.pipeline().collection("products")
+   *   .define(
+   *     field("price").multiply(0.9).as("discountedPrice"),
+   *     field("stock").add(10).as("newStock")
+   *   )
+   *   .where(variable("discountedPrice").lessThan(100))
+   *   .select(field("name"), variable("newStock"));
+   * ```
+   *
+   * @param aliasedExpression - The first expression to bind to a variable.
+   * @param additionalExpressions - Optional additional expressions to bind to a variable.
+   * @returns A new Pipeline object with this stage appended to the stage list.
+   */
+  define(
+    aliasedExpression: firestore.Pipelines.AliasedExpression,
+    ...additionalExpressions: firestore.Pipelines.AliasedExpression[]
+  ): Pipeline;
+  /**
+   * @public
+   * Defines one or more variables in the pipeline's scope. `define` is used to bind a value to a
+   * variable for internal reuse within the pipeline body (accessed via the `variable()` function).
+   *
+   * This stage is useful for declaring reusable values or intermediate calculations that can be
+   * referenced multiple times in later parts of the pipeline.
+   *
+   * @example
+   * ```typescript
+   * db.pipeline().collection("products")
+   *   .define(
+   *     field("price").multiply(0.9).as("discountedPrice"),
+   *     field("stock").add(10).as("newStock")
+   *   )
+   *   .where(variable("discountedPrice").lessThan(100))
+   *   .select(field("name"), variable("newStock"));
+   * ```
+   *
+   * @param options - An object that specifies required and optional parameters for the stage.
+   * @returns A new Pipeline object with this stage appended to the stage list.
+   */
+  define(options: firestore.Pipelines.DefineStageOptions): Pipeline;
+  define(
+    aliasedExpressionOrOptions:
+      | firestore.Pipelines.AliasedExpression
+      | firestore.Pipelines.DefineStageOptions,
+    ...additionalExpressions: firestore.Pipelines.AliasedExpression[]
+  ): Pipeline {
+    const options = isAliasedExpr(aliasedExpressionOrOptions)
+      ? {}
+      : aliasedExpressionOrOptions;
+
+    const aliasedExpressions: firestore.Pipelines.AliasedExpression[] =
+      isAliasedExpr(aliasedExpressionOrOptions)
+        ? [aliasedExpressionOrOptions, ...additionalExpressions]
+        : aliasedExpressionOrOptions.variables;
+
+    const convertedExpressions: Map<string, Expression> =
+      selectablesToMap(aliasedExpressions);
+
+    const internalOptions: InternalDefineStageOptions = {
+      ...options,
+      variables: convertedExpressions,
+    };
+
+    return this._addStage(new Define(internalOptions));
+  }
+
+  /**
+   * @public
+   * Converts this Pipeline into an expression that evaluates to an array of results.
+   *
+   * <p>Result Unwrapping:</p>
+   * <ul>
+   *  <li>If the items have a single field, their values are unwrapped and returned directly in the array.</li>
+   *  <li>If the items have multiple fields, they are returned as objects in the array.</li>
+   * </ul>
+   *
+   * @example
+   * ```typescript
+   * // Get a list of reviewers for each book
+   * db.pipeline().collection("books")
+   *     .define(field("id").as("book_id"))
+   *     .addFields(
+   *         db.pipeline().collection("reviews")
+   *             .where(field("book_id").equal(variable("book_id")))
+   *             .select(field("reviewer"))
+   *             .toArrayExpression()
+   *             .as("reviewers")
+   *     );
+   * ```
+   *
+   * Output:
+   * ```json
+   * [
+   *   {
+   *     "id": "1",
+   *     "title": "1984",
+   *     "reviewers": ["Alice", "Bob"]
+   *   }
+   * ]
+   * ```
+   *
+   * Multiple Fields:
+   * ```typescript
+   * // Get a list of reviews (reviewer and rating) for each book
+   * db.pipeline().collection("books")
+   *     .define(field("id").as("book_id"))
+   *     .addFields(
+   *         db.pipeline().collection("reviews")
+   *             .where(field("book_id").equal(variable("book_id")))
+   *             .select(field("reviewer"), field("rating"))
+   *             .toArrayExpression()
+   *             .as("reviews")
+   *    );
+   * ```
+   *
+   * Output:
+   * ```json
+   * [
+   *   {
+   *     "id": "1",
+   *     "title": "1984",
+   *     "reviews": [
+   *       { "reviewer": "Alice", "rating": 5 },
+   *       { "reviewer": "Bob", "rating": 4 }
+   *     ]
+   *   }
+   * ]
+   * ```
+   *
+   * @returns An `Expression` representing the execution of this pipeline.
+   */
+  toArrayExpression(): firestore.Pipelines.Expression {
+    return new FunctionExpression('array', [fieldOrExpression(this)]);
+  }
+
+  /**
+   * @public
+   * Converts this Pipeline into an expression that evaluates to a single scalar result.
+   *
+   * <p><b>Runtime Validation:</b> The runtime validates that the result set contains zero or one item. If
+   * zero items, it evaluates to `null`.</p>
+   *
+   * <p>Result Unwrapping:</p>
+   * <ul>
+   *  <li>If the item has a single field, its value is unwrapped and returned directly.</li>
+   *  <li>If the item has multiple fields, they are returned as an object.</li>
+   * </ul>
+   *
+   * @example
+   * ```typescript
+   * // Calculate average rating for a restaurant
+   * db.pipeline().collection("restaurants").addFields(
+   *   db.pipeline().collection("reviews")
+   *     .where(field("restaurant_id").equal(variable("rid")))
+   *     .aggregate(average("rating").as("avg"))
+   *     // Unwraps the single "avg" field to a scalar double
+   *     .toScalarExpression().as("average_rating")
+   * );
+   * ```
+   *
+   * Output:
+   * ```json
+   * {
+   *   "name": "The Burger Joint",
+   *   "average_rating": 4.5
+   * }
+   * ```
+   *
+   * Multiple Fields:
+   * ```typescript
+   * // Calculate average rating AND count for a restaurant
+   * db.pipeline().collection("restaurants").addFields(
+   *   db.pipeline().collection("reviews")
+   *     .where(field("restaurant_id").equal(variable("rid")))
+   *     .aggregate(
+   *       average("rating").as("avg"),
+   *       count().as("count")
+   *     )
+   *     // Returns an object with "avg" and "count" fields
+   *     .toScalarExpression().as("stats")
+   * );
+   * ```
+   *
+   * Output:
+   * ```json
+   * {
+   *   "name": "The Burger Joint",
+   *   "stats": {
+   *     "avg": 4.5,
+   *     "count": 100
+   *   }
+   * }
+   * ```
+   *
+   * @returns An `Expression` representing the execution of this pipeline.
+   */
+  toScalarExpression(): firestore.Pipelines.Expression {
+    return new FunctionExpression('scalar', [fieldOrExpression(this)]);
   }
 
   /**
@@ -602,8 +815,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const normalizedSelections: Map<string, Expression> =
       selectablesToMap(selections);
 
-    this._validateUserData('select', normalizedSelections);
-
     const internalOptions = {
       ...options,
       selections: normalizedSelections,
@@ -689,7 +900,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       : conditionOrOptions.condition;
     const convertedCondition: BooleanExpression =
       condition as BooleanExpression;
-    this._validateUserData('where', convertedCondition);
 
     const internalOptions: InternalWhereStageOptions = {
       ...options,
@@ -906,7 +1116,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
         ? [groupOrOptions, ...additionalGroups]
         : groupOrOptions.groups;
     const convertedGroups: Map<string, Expression> = selectablesToMap(groups);
-    this._validateUserData('distinct', convertedGroups);
 
     const internalOptions: InternalDistinctStageOptions = {
       ...options,
@@ -996,7 +1205,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const groups: Array<firestore.Pipelines.Selectable | string> =
       isAliasedAggregate(targetOrOptions) ? [] : (targetOrOptions.groups ?? []);
     const convertedGroups: Map<string, Expression> = selectablesToMap(groups);
-    this._validateUserData('aggregate', convertedGroups);
 
     const internalOptions: InternalAggregateStageOptions = {
       ...options,
@@ -1039,10 +1247,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const distanceField = options.distanceField
       ? toField(options.distanceField)
       : undefined;
-
-    this._validateUserData('findNearest', field);
-
-    this._validateUserData('findNearest', vectorValue);
 
     const internalOptions: InternalFindNearestStageOptions = {
       ...options,
@@ -1177,7 +1381,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
         ? valueOrOptions
         : valueOrOptions.map;
     const mapExpr = fieldOrExpression(fieldNameOrExpr);
-    this._validateUserData('replaceWith', mapExpr);
 
     const internalOptions: InternalReplaceWithStageOptions = {
       ...options,
@@ -1490,7 +1693,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       ? [orderingOrOptions, ...additionalOrderings]
       : orderingOrOptions.orderings;
     const normalizedOrderings = orderings as Array<Ordering>;
-    this._validateUserData('sort', normalizedOrderings);
 
     const internalOptions: InternalSortStageOptions = {
       ...options,
@@ -1545,11 +1747,6 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
       }
     });
 
-    expressionParams.forEach(param => {
-      if (hasUserData(param)) {
-        param._validateUserData(!!this.db._settings.ignoreUndefinedProperties);
-      }
-    });
     return this._addStage(new RawStage(name, expressionParams, options ?? {}));
   }
 
@@ -1602,7 +1799,19 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     transactionOrReadTime?: Uint8Array | Timestamp | api.ITransactionOptions,
     pipelineExecuteOptions?: firestore.Pipelines.PipelineExecuteOptions,
   ): Promise<PipelineResponse> {
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
+
+    // Validates user data in the entire pipeline
+    this._validateUserData(
+      this.db._settings.ignoreUndefinedProperties ?? false,
+    );
+
     const util = new ExecutionUtil(this.db, this.db._serializer!);
+
     const structuredPipeline = this._toStructuredPipeline(
       pipelineExecuteOptions,
     );
@@ -1641,42 +1850,35 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
    * ```
    */
   stream(): NodeJS.ReadableStream {
+    if (!this.db) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
     const util = new ExecutionUtil(this.db, this.db._serializer!);
     // TODO(pipelines) support options
     const structuredPipeline = this._toStructuredPipeline();
     return util.stream(structuredPipeline, undefined);
   }
 
-  _toProto(): api.IPipeline {
+  _toProto(serializer?: Serializer): api.IPipeline {
+    const resolvedSerializer = serializer || this.db?._serializer;
+    if (!resolvedSerializer) {
+      throw new Error(
+        'This pipeline was created without a database (e.g., as a subcollection pipeline) and cannot be executed directly. It can only be used as part of another pipeline.',
+      );
+    }
+
     const stages: IStage[] = this.stages.map(stage =>
-      stage._toProto(this.db._serializer!),
+      stage._toProto(resolvedSerializer),
     );
     return {stages};
   }
 
-  /**
-   * @beta
-   * Validates user data for each expression in the expressionMap.
-   * @param name Name of the calling function. Used for error messages when invalid user data is encountered.
-   * @param val
-   * @returns the expressionMap argument.
-   * @private
-   */
-  _validateUserData<
-    T extends Map<string, HasUserData> | HasUserData[] | HasUserData,
-  >(_: string, val: T): T {
-    const ignoreUndefinedProperties =
-      !!this.db._settings.ignoreUndefinedProperties;
-    if (hasUserData(val)) {
-      val._validateUserData(ignoreUndefinedProperties);
-    } else if (Array.isArray(val)) {
-      val.forEach(readableData => {
-        readableData._validateUserData(ignoreUndefinedProperties);
-      });
-    } else {
-      val.forEach(expr => expr._validateUserData(ignoreUndefinedProperties));
-    }
-    return val;
+  _validateUserData(ignoreUndefinedProperties: boolean): void {
+    this.stages.forEach(stage => {
+      stage._validateUserData(ignoreUndefinedProperties);
+    });
   }
 }
 
@@ -2069,4 +2271,36 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
         deepEqual(this._fieldsProto, other._fieldsProto))
     );
   }
+}
+
+/**
+ * @public
+ * Creates a new Pipeline targeted at a subcollection relative to the current document context.
+ * This creates a pipeline without a database instance, suitable for embedding as a subquery.
+ * If executed directly, this pipeline will fail.
+ *
+ * @param path - The relative path to the subcollection.
+ */
+export function subcollection(path: string): Pipeline;
+/**
+ * @public
+ * Creates a new Pipeline targeted at a subcollection relative to the current document context.
+ *
+ * @param options - Options defining how this SubcollectionStage is evaluated.
+ */
+export function subcollection(
+  options: firestore.Pipelines.SubcollectionStageOptions,
+): Pipeline;
+export function subcollection(
+  pathOrOptions: string | firestore.Pipelines.SubcollectionStageOptions,
+): Pipeline {
+  const options = isString(pathOrOptions) ? {} : pathOrOptions;
+  const path = isString(pathOrOptions) ? pathOrOptions : pathOrOptions.path;
+
+  const internalOptions: InternalSubcollectionStageOptions = {
+    ...options,
+    path,
+  };
+
+  return new Pipeline(undefined, [new SubcollectionSource(internalOptions)]);
 }
