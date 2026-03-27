@@ -5648,7 +5648,7 @@ declare namespace FirebaseFirestore {
        *
        * @remarks This Expression can only be used within a `Search` stage.
        *
-       * @param rquery Define the search query using the search DTS (TODO(search) link).
+       * @param rquery Define the search query using the search DSL.
        */
       snippet(rquery: string): Expression;
 
@@ -11460,7 +11460,7 @@ declare namespace FirebaseFirestore {
      * @remarks This Expression can only be used within a `Search` stage.
      *
      * @param searchField Search the specified field.
-     * @param rquery Define the search query using the search DTS.
+     * @param rquery Define the search query using the search DSL.
      */
     export function matches(
       searchField: string | Field,
@@ -11468,11 +11468,18 @@ declare namespace FirebaseFirestore {
     ): BooleanExpression;
 
     /**
-     * Perform a full-text search on the document.
+     * Perform a full-text search on all indexed search fields in the document.
      *
      * @remarks This Expression can only be used within a `Search` stage.
      *
-     * @param rquery Define the search query using the rquery DTS.
+     * @example
+     * ```typescript
+     * db.pipeline().collection('restaurants').search({
+     *   query: documentMatches('waffles OR pancakes')
+     * })
+     * ```
+     *
+     * @param rquery Define the search query using the search DSL.
      */
     export function documentMatches(
       rquery: string | Expression,
@@ -11480,9 +11487,17 @@ declare namespace FirebaseFirestore {
 
     /**
      * Evaluates to the search score that reflects the topicality of the document
-     * to all of the text predicates (`queryMatch`)
+     * to all of the text predicates (for example: `documentMatches`)
      * in the search query. If `SearchOptions.query` is not set or does not contain
      * any text predicates, then this topicality score will always be `0`.
+     *
+     * @example
+     * ```typescript
+     * db.pipeline().collection('restaurants').search({
+     *   query: 'waffles',
+     *   sort: score().descending()
+     * })
+     * ```
      *
      * @remarks This Expression can only be used within a `Search` stage.
      */
@@ -11492,10 +11507,18 @@ declare namespace FirebaseFirestore {
      * Evaluates to an HTML-formatted text snippet that highlights terms matching
      * the search query in `<b>bold</b>`.
      *
+     * @example
+     * ```typescript
+     * db.pipeline().collection('restaurants').search({
+     *   query: 'waffles',
+     *   addFields: { snippet: snippet('menu', 'waffles') }
+     * })
+     * ```
+     *
      * @remarks This Expression can only be used within a `Search` stage.
      *
      * @param searchField Search the specified field for matching terms.
-     * @param rquery Define the search query using the search DTS (TODO(search) link).
+     * @param rquery Define the search query using the search DSL.
      */
     export function snippet(
       searchField: string | Field,
@@ -11509,7 +11532,7 @@ declare namespace FirebaseFirestore {
      * @remarks This Expression can only be used within a `Search` stage.
      *
      * @param searchField Search the specified field for matching terms.
-     * @param options Define the search query using the search DTS (TODO(search) link).
+     * @param options Define the search query using the search DSL.
      */
     export function snippet(
       searchField: string | Field,
@@ -11519,6 +11542,14 @@ declare namespace FirebaseFirestore {
     /**
      * Evaluates to the distance in meters between the location in the specified
      * field and the query location.
+     *
+     * @example
+     * ```typescript
+     * db.pipeline().collection('restaurants').search({
+     *   query: 'waffles',
+     *   sort: geoDistance('location', new GeoPoint(37.0, -122.0)).ascending()
+     * })
+     * ```
      *
      * @remarks This Expression can only be used within a `Search` stage.
      *
@@ -13118,11 +13149,11 @@ declare namespace FirebaseFirestore {
        * are supported in the Search query.
        *
        * @example
-       * ```
+       * ```typescript
        * db.pipeline().collection('restaurants').search({
        *   query: or(
-       *     documentContainsText("breakfast"),
-       *     field('menu').containsText('waffle AND coffee')
+       *     documentMatches("breakfast"),
+       *     matches('menu', 'waffle AND coffee')
        *   )
        * })
        * ```
@@ -13146,8 +13177,8 @@ declare namespace FirebaseFirestore {
       // TODO(search) add indexPartition after languageCode
 
       /**
-       * The maximum number of documents for the search stage to score. Documents
-       * will be processed in the pre-sort order specified by the search index.
+       * The maximum number of documents to retrieve. Documents will be retrieved in the
+       * pre-sort order specified by the search index.
        */
       retrievalDepth?: number;
 
@@ -13190,7 +13221,7 @@ declare namespace FirebaseFirestore {
      */
     export type SnippetOptions = {
       /**
-       * Define the search query using the search DTS.
+       * Define the search query using the search DSL.
        */
       rquery: string;
 
