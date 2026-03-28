@@ -3646,6 +3646,46 @@ declare namespace FirebaseFirestore {
 
       /**
        * @beta
+       * Creates an expression that applies a provided transformation to each element in an array.
+       *
+       * @example
+       * ```typescript
+       * // Transform the 'scores' array by multiplying each score by 10
+       * field("scores").arrayTransform("score", multiply(variable("score"), 10));
+       * ```
+       *
+       * @param elementAlias The variable name to use for each element.
+       * @param transform The lambda expression used to transform the elements.
+       * @returns A new `Expression` representing the arrayTransform operation.
+       */
+      arrayTransform(
+        elementAlias: string,
+        transform: Expression,
+      ): FunctionExpression;
+
+      /**
+       * @beta
+       * Creates an expression that applies a provided transformation to each element in an array, providing the element's index to the transformation expression.
+       *
+       * @example
+       * ```typescript
+       * // Transform the 'scores' array by adding the index to each score
+       * field("scores").arrayTransformWithIndex("score", "i", add(variable("score"), variable("i")));
+       * ```
+       *
+       * @param elementAlias The variable name to use for each element.
+       * @param indexAlias The variable name to use for the current index.
+       * @param transform The lambda expression used to transform the elements.
+       * @returns A new `Expression` representing the arrayTransform operation.
+       */
+      arrayTransformWithIndex(
+        elementAlias: string,
+        indexAlias: string,
+        transform: Expression,
+      ): FunctionExpression;
+
+      /**
+       * @beta
        * Returns a subset of the array.
        *
        * @example
@@ -8684,6 +8724,90 @@ declare namespace FirebaseFirestore {
       arrayExpression: Expression,
       alias: string,
       filter: BooleanExpression,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that transforms an array field using a provided alias and lambda expression.
+     *
+     * ```typescript
+     * // Transform "scores" array by adding 10 to each score
+     * arrayTransform("scores", "score", add(variable("score"), 10));
+     * ```
+     *
+     * @param fieldName The name of the field containing the array.
+     * @param elementAlias The variable name to use for each element.
+     * @param transform The lambda expression used to transform the elements.
+     * @returns A new `Expression` representing the transformed array.
+     */
+    export function arrayTransform(
+      fieldName: string,
+      elementAlias: string,
+      transform: Expression,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that transforms an array using a provided alias and lambda expression.
+     *
+     * ```typescript
+     * // Transform "scores" array by adding 10 to each score
+     * arrayTransform(field("scores"), "score", add(variable("score"), 10));
+     * ```
+     *
+     * @param arrayExpression The expression representing the array.
+     * @param elementAlias The variable name to use for each element.
+     * @param transform The lambda expression used to transform the elements.
+     * @returns A new `Expression` representing the transformed array.
+     */
+    export function arrayTransform(
+      arrayExpression: Expression,
+      elementAlias: string,
+      transform: Expression,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that transforms an array field using provided aliases and lambda expression with an index.
+     *
+     * ```typescript
+     * // Transform "scores" array by adding the index to each score
+     * arrayTransformWithIndex("scores", "score", "i", add(variable("score"), variable("i")));
+     * ```
+     *
+     * @param fieldName The name of the field containing the array.
+     * @param elementAlias The variable name to use for each element.
+     * @param indexAlias The variable name to use for the current index.
+     * @param transform The lambda expression used to transform the elements.
+     * @returns A new `Expression` representing the transformed array.
+     */
+    export function arrayTransformWithIndex(
+      fieldName: string,
+      elementAlias: string,
+      indexAlias: string,
+      transform: Expression,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that transforms an array using provided aliases and lambda expression with an index.
+     *
+     * ```typescript
+     * // Transform "scores" array by adding the index to each score
+     * arrayTransformWithIndex(field("scores"), "score", "i", add(variable("score"), variable("i")));
+     * ```
+     *
+     * @param arrayExpression The expression representing the array.
+     * @param elementAlias The variable name to use for each element.
+     * @param indexAlias The variable name to use for the current index.
+     * @param transform The expression used to transform the elements.
+     * @returns A new `Expression` representing the transformed array.
+     */
+    export function arrayTransformWithIndex(
+      arrayExpression: Expression,
+      elementAlias: string,
+      indexAlias: string,
+      transform: Expression,
     ): FunctionExpression;
 
     /**

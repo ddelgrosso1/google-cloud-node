@@ -356,6 +356,18 @@ function arraySum(fieldName: string): FunctionExpression;
 function arraySum(expression: Expression): FunctionExpression;
 
 // @beta
+function arrayTransform(fieldName: string, elementAlias: string, transform: Expression): FunctionExpression;
+
+// @beta
+function arrayTransform(arrayExpression: Expression, elementAlias: string, transform: Expression): FunctionExpression;
+
+// @beta
+function arrayTransformWithIndex(fieldName: string, elementAlias: string, indexAlias: string, transform: Expression): FunctionExpression;
+
+// @beta
+function arrayTransformWithIndex(arrayExpression: Expression, elementAlias: string, indexAlias: string, transform: Expression): FunctionExpression;
+
+// @beta
 function ascending(expr: Expression): Ordering;
 
 // @beta
@@ -678,6 +690,12 @@ function countDistinct(expr: Expression | string): AggregateFunction;
 
 // @beta
 function countIf(booleanExpr: BooleanExpression): AggregateFunction;
+
+// Warning: (ae-incompatible-release-tags) The symbol "currentDocument" is marked as @public, but its signature references "Expression" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "currentDocument" is marked as @public, but its signature references "Expression" which is marked as @beta
+//
+// @public
+function currentDocument(): Expression;
 
 // @beta
 function currentTimestamp(): FunctionExpression;
@@ -1106,6 +1124,8 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     arrayReverse(): FunctionExpression;
     arraySlice(offset: number | Expression, length?: number | Expression): FunctionExpression;
     arraySum(): FunctionExpression;
+    arrayTransform(elementAlias: string, transform: Expression): FunctionExpression;
+    arrayTransformWithIndex(elementAlias: string, indexAlias: string, transform: Expression): FunctionExpression;
     as(name: string): AliasedExpression;
     asBoolean(): BooleanExpression;
     ascending(): Ordering;
@@ -1141,6 +1161,8 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     abstract expressionType: firestore.Pipelines.ExpressionType;
     first(): AggregateFunction;
     floor(): FunctionExpression;
+    // @public
+    getField(key: string | Expression): Expression;
     greaterThan(expression: Expression): BooleanExpression;
     greaterThan(value: unknown): BooleanExpression;
     greaterThanOrEqual(expression: Expression): BooleanExpression;
@@ -1151,7 +1173,7 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     ifError(catchValue: unknown): FunctionExpression;
     isAbsent(): BooleanExpression;
     isError(): BooleanExpression;
-    isType(type: Type): BooleanExpression;
+    isType(type: string): BooleanExpression;
     join(delimiterExpression: Expression): Expression;
     join(delimiter: string): Expression;
     last(): AggregateFunction;
@@ -1428,6 +1450,8 @@ class Firestore implements firestore.Firestore {
     // Warning: (tsdoc-param-tag-with-invalid-name) The @param block should be followed by a valid parameter name: The identifier cannot non-word characters
     // Warning: (tsdoc-param-tag-with-invalid-type) The @param block should not include a JSDoc-style '{type}'
     constructor(settings?: firestore.Settings);
+    // @internal
+    get alwaysUseImplicitOrderBy(): boolean;
     // Warning: (tsdoc-escape-right-brace) The "}" character should be escaped using a backslash to avoid confusion with a TSDoc inline tag
     // Warning: (tsdoc-malformed-inline-tag) Expecting a TSDoc tag starting with "{@"
     batch(): WriteBatch;
@@ -1605,6 +1629,30 @@ export class GeoPoint implements Serializable, firestore.GeoPoint {
     toProto(): api.IValue;
 }
 
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+//
+// @public
+function getField(expression: Expression, key: string): Expression;
+
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+//
+// @public
+function getField(expression: Expression, keyExpr: Expression): Expression;
+
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+//
+// @public
+function getField(fieldName: string, key: string): Expression;
+
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "getField" is marked as @public, but its signature references "Expression" which is marked as @beta
+//
+// @public
+function getField(fieldName: string, keyExpr: Expression): Expression;
+
 // @beta
 function greaterThan(left: Expression, right: Expression): BooleanExpression;
 
@@ -1660,10 +1708,10 @@ function isAbsent(field: string): BooleanExpression;
 function isError(value: Expression): BooleanExpression;
 
 // @beta
-function isType(fieldName: string, type: Type): BooleanExpression;
+function isType(fieldName: string, type: string): BooleanExpression;
 
 // @beta
-function isType(expression: Expression, type: Type): BooleanExpression;
+function isType(expression: Expression, type: string): BooleanExpression;
 
 // @beta
 function join(arrayFieldName: string, delimiter: string): Expression;
@@ -1898,12 +1946,16 @@ class Ordering implements HasUserData {
 // @beta
 class Pipeline implements firestore.Pipelines.Pipeline {
     // Warning: (ae-forgotten-export) The symbol "Stage" needs to be exported by the entry point index.d.ts
-    constructor(db: Firestore, stages: Stage[]);
+    constructor(db: Firestore | undefined, stages: Stage[]);
     addFields(field: firestore.Pipelines.Selectable, ...additionalFields: firestore.Pipelines.Selectable[]): Pipeline;
     // Warning: (tsdoc-escape-right-brace) The "}" character should be escaped using a backslash to avoid confusion with a TSDoc inline tag
     addFields(options: firestore.Pipelines.AddFieldsStageOptions): Pipeline;
     aggregate(accumulator: firestore.Pipelines.AliasedAggregate, ...additionalAccumulators: firestore.Pipelines.AliasedAggregate[]): Pipeline;
     aggregate(options: firestore.Pipelines.AggregateStageOptions): Pipeline;
+    // @public
+    define(aliasedExpression: firestore.Pipelines.AliasedExpression, ...additionalExpressions: firestore.Pipelines.AliasedExpression[]): Pipeline;
+    // @public
+    define(options: firestore.Pipelines.DefineStageOptions): Pipeline;
     distinct(group: string | firestore.Pipelines.Selectable, ...additionalGroups: Array<string | firestore.Pipelines.Selectable>): Pipeline;
     distinct(options: firestore.Pipelines.DistinctStageOptions): Pipeline;
     execute(pipelineExecuteOptions?: firestore.Pipelines.PipelineExecuteOptions): Promise<PipelineSnapshot>;
@@ -1937,8 +1989,12 @@ class Pipeline implements firestore.Pipelines.Pipeline {
     // Warning: (tsdoc-escape-right-brace) The "}" character should be escaped using a backslash to avoid confusion with a TSDoc inline tag
     // Warning: (tsdoc-malformed-inline-tag) Expecting a TSDoc tag starting with "{@"
     stream(): NodeJS.ReadableStream;
+    // @public
+    toArrayExpression(): firestore.Pipelines.Expression;
     // (undocumented)
-    _toProto(): api.IPipeline;
+    _toProto(serializer?: Serializer): api.IPipeline;
+    // @public
+    toScalarExpression(): firestore.Pipelines.Expression;
     // Warning: (ae-forgotten-export) The symbol "StructuredPipeline" needs to be exported by the entry point index.d.ts
     //
     // (undocumented)
@@ -1947,8 +2003,8 @@ class Pipeline implements firestore.Pipelines.Pipeline {
     union(options: firestore.Pipelines.UnionStageOptions): Pipeline;
     unnest(selectable: firestore.Pipelines.Selectable, indexField?: string): Pipeline;
     unnest(options: firestore.Pipelines.UnnestStageOptions): Pipeline;
-    // Warning: (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
-    _validateUserData<T extends Map<string, HasUserData> | HasUserData[] | HasUserData>(_: string, val: T): T;
+    // (undocumented)
+    _validateUserData(ignoreUndefinedProperties: boolean): void;
     where(condition: firestore.Pipelines.BooleanExpression): Pipeline;
     where(options: firestore.Pipelines.WhereStageOptions): Pipeline;
 }
@@ -2002,6 +2058,7 @@ declare namespace Pipelines {
         PipelineResult,
         PipelineSnapshot,
         PipelineSource,
+        subcollection,
         and,
         arrayContains,
         arrayContainsAny,
@@ -2050,6 +2107,8 @@ declare namespace Pipelines {
         arrayMaximumN,
         arrayMinimumN,
         arrayFilter,
+        arrayTransform,
+        arrayTransformWithIndex,
         arraySlice,
         field,
         xor,
@@ -2130,7 +2189,6 @@ declare namespace Pipelines {
         arrayConcat,
         type,
         isType,
-        Type,
         timestampTruncate,
         split,
         ltrim,
@@ -2140,7 +2198,10 @@ declare namespace Pipelines {
         stringReplaceAll,
         stringReplaceOne,
         nor,
-        switchOn
+        switchOn,
+        getField,
+        variable,
+        currentDocument
     }
 }
 export { Pipelines }
@@ -2370,7 +2431,7 @@ export class Query<AppModelType = firestore.DocumentData, DbModelType extends fi
     // Warning: (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
     //
     // @internal
-    toProto(transactionOrReadTime?: Uint8Array | Timestamp | api.ITransactionOptions, explainOptions?: firestore.ExplainOptions): api.IRunQueryRequest;
+    toProto(transactionOrReadTime?: Uint8Array | Timestamp | api.ITransactionOptions, explainOptions?: firestore.ExplainOptions, forceImplicitOrderBy?: boolean): api.IRunQueryRequest;
     // Warning: (tsdoc-param-tag-with-invalid-type) The @param block should not include a JSDoc-style '{type}'
     // Warning: (tsdoc-param-tag-with-invalid-type) The @param block should not include a JSDoc-style '{type}'
     // Warning: (tsdoc-param-tag-with-invalid-type) The @param block should not include a JSDoc-style '{type}'
@@ -2633,6 +2694,18 @@ function stringReverse(stringExpression: Expression): FunctionExpression;
 // @beta
 function stringReverse(field: string): FunctionExpression;
 
+// Warning: (ae-incompatible-release-tags) The symbol "subcollection" is marked as @public, but its signature references "Pipeline" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "subcollection" is marked as @public, but its signature references "Pipeline" which is marked as @beta
+//
+// @public
+function subcollection(path: string): Pipeline;
+
+// Warning: (ae-incompatible-release-tags) The symbol "subcollection" is marked as @public, but its signature references "Pipeline" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "subcollection" is marked as @public, but its signature references "Pipeline" which is marked as @beta
+//
+// @public
+function subcollection(options: firestore.Pipelines.SubcollectionStageOptions): Pipeline;
+
 // @beta
 function substring(field: string, position: number, length?: number): FunctionExpression;
 
@@ -2892,9 +2965,6 @@ function trunc(fieldName: string, decimalPlaces: number | Expression): FunctionE
 // @beta
 function trunc(expression: Expression, decimalPlaces: number | Expression): FunctionExpression;
 
-// @beta
-type Type = 'null' | 'array' | 'boolean' | 'bytes' | 'timestamp' | 'geo_point' | 'number' | 'int32' | 'int64' | 'float64' | 'decimal128' | 'map' | 'reference' | 'string' | 'vector' | 'max_key' | 'min_key' | 'object_id' | 'regex' | 'request_timestamp';
-
 // Warning: (tsdoc-escape-right-brace) The "}" character should be escaped using a backslash to avoid confusion with a TSDoc inline tag
 // Warning: (tsdoc-malformed-inline-tag) Expecting a TSDoc tag starting with "{@"
 //
@@ -2924,6 +2994,12 @@ function unixSecondsToTimestamp(expr: Expression): FunctionExpression;
 
 // @beta
 function unixSecondsToTimestamp(fieldName: string): FunctionExpression;
+
+// Warning: (ae-incompatible-release-tags) The symbol "variable" is marked as @public, but its signature references "Expression" which is marked as @beta
+// Warning: (ae-incompatible-release-tags) The symbol "variable" is marked as @public, but its signature references "Expression" which is marked as @beta
+//
+// @public
+function variable(name: string): Expression;
 
 // @beta
 function vectorLength(vectorExpression: Expression): FunctionExpression;
@@ -3134,9 +3210,9 @@ function xor(first: BooleanExpression, second: BooleanExpression, ...additionalC
 // build/types/src/index.d.ts:371:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
 // build/types/src/index.d.ts:378:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
 // build/types/src/index.d.ts:387:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
-// build/types/src/index.d.ts:881:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
-// build/types/src/index.d.ts:900:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
-// build/types/src/index.d.ts:915:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
+// build/types/src/index.d.ts:886:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
+// build/types/src/index.d.ts:905:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
+// build/types/src/index.d.ts:920:8 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
 // build/types/src/path.d.ts:29:4 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
 // build/types/src/path.d.ts:31:4 - (tsdoc-undefined-tag) The TSDoc tag "@class" is not defined in this configuration
 // build/types/src/path.d.ts:146:4 - (tsdoc-undefined-tag) The TSDoc tag "@private" is not defined in this configuration
