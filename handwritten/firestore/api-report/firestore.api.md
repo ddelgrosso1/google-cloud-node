@@ -498,6 +498,12 @@ function charLength(fieldName: string): FunctionExpression;
 // @beta
 function charLength(stringExpression: Expression): FunctionExpression;
 
+// @beta
+function coalesce(expression: Expression, replacement: Expression | unknown, ...others: Array<Expression | unknown>): FunctionExpression;
+
+// @beta
+function coalesce(fieldName: string, replacement: Expression | unknown, ...others: Array<Expression | unknown>): FunctionExpression;
+
 // Warning: (tsdoc-undefined-tag) The TSDoc tag "@class" is not defined in this configuration
 //
 // @public
@@ -1099,6 +1105,7 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     byteLength(): FunctionExpression;
     ceil(): FunctionExpression;
     charLength(): FunctionExpression;
+    coalesce(replacement: Expression | unknown, ...others: Array<Expression | unknown>): FunctionExpression;
     collectionId(): FunctionExpression;
     concat(second: Expression | unknown, ...others: Array<Expression | unknown>): FunctionExpression;
     cosineDistance(vectorExpression: Expression): FunctionExpression;
@@ -1135,6 +1142,8 @@ abstract class Expression implements firestore.Pipelines.Expression, HasUserData
     ifAbsent(elseExpression: unknown): Expression;
     ifError(catchExpr: Expression): FunctionExpression;
     ifError(catchValue: unknown): FunctionExpression;
+    ifNull(elseExpression: Expression): FunctionExpression;
+    ifNull(elseValue: unknown): FunctionExpression;
     isAbsent(): BooleanExpression;
     isError(): BooleanExpression;
     isType(type: string): BooleanExpression;
@@ -1644,6 +1653,18 @@ function ifError(tryExpr: Expression, catchExpr: Expression): FunctionExpression
 function ifError(tryExpr: Expression, catchValue: unknown): FunctionExpression;
 
 // @beta
+function ifNull(ifExpr: Expression, elseExpr: Expression): FunctionExpression;
+
+// @beta
+function ifNull(ifExpr: Expression, elseValue: unknown): FunctionExpression;
+
+// @beta
+function ifNull(ifFieldName: string, elseExpr: Expression): FunctionExpression;
+
+// @beta
+function ifNull(ifFieldName: string, elseValue: unknown): FunctionExpression;
+
+// @beta
 function isAbsent(value: Expression): BooleanExpression;
 
 // @beta
@@ -2139,7 +2160,9 @@ declare namespace Pipelines {
         stringReplaceAll,
         stringReplaceOne,
         nor,
-        switchOn
+        switchOn,
+        ifNull,
+        coalesce
     }
 }
 export { Pipelines }

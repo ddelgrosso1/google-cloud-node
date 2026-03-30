@@ -5452,6 +5452,67 @@ declare namespace FirebaseFirestore {
 
       /**
        * @beta
+       * Creates an expression that returns the `elseValue` argument if this expression evaluates to null, else
+       * return the result of this expression evaluation.
+       *
+       * @remarks
+       * This function provides a fallback for both absent and explicit null values. In contrast, {@link ifAbsent}
+       * only triggers for missing fields.
+       *
+       * @example
+       * ```typescript
+       * // Returns the user's display name, or returns "Anonymous" if the field is null.
+       * field("displayName").ifNull("Anonymous")
+       * ```
+       *
+       * @param elseValue The value that will be returned if this Expression evaluates to null.
+       * @returns A new `Expression` representing the ifNull operation.
+       */
+      ifNull(elseValue: unknown): FunctionExpression;
+
+      /**
+       * @beta
+       * Creates an expression that returns the `elseValue` argument if this expression evaluates to null, else
+       * return the result of this expression evaluation.
+       *
+       * @remarks
+       * This function provides a fallback for both absent and explicit null values. In contrast, {@link ifAbsent}
+       * only triggers for missing fields.
+       *
+       * @example
+       * ```typescript
+       * // Returns the user's preferred name, or if that is null, returns their full name.
+       * field("preferredName").ifNull(field("fullName"))
+       * ```
+       *
+       * @param elseExpression The Expression that will be evaluated if this Expression evaluates to null.
+       * @returns A new `Expression` representing the ifNull operation.
+       */
+      ifNull(elseExpression: Expression): FunctionExpression;
+
+      /**
+       * @beta
+       * Creates an expression that returns the first non-null, non-absent argument, without evaluating
+       * the rest of the arguments. When all arguments are null or absent, returns the last argument.
+       *
+       * @example
+       * ```typescript
+       * // Returns the value of the first non-null, non-absent field among 'preferredName', 'fullName',
+       * // or the last argument if all previous fields are null.
+       * field("preferredName").coalesce(field("fullName"), "Anonymous");
+       * ```
+       *
+       * @param replacement The next expression or literal to evaluate.
+       * @param others Additional expressions or literals to evaluate.
+       * @returns A new [Expression] representing the coalesce operation.
+       */
+      coalesce(
+        replacement: Expression | unknown,
+        ...others: Array<Expression | unknown>
+      ): FunctionExpression;
+
+      /**
+       * @beta
        * Creates an expression that joins the elements of an array into a string.
        *
        * @example
@@ -10982,6 +11043,149 @@ declare namespace FirebaseFirestore {
       ifFieldName: string,
       elseExpr: Expression,
     ): Expression;
+
+    /**
+     * @beta
+     * Creates an expression that returns the `elseExpr` argument if `ifExpr` is null, else
+     * return the result of the `ifExpr` argument evaluation.
+     *
+     * @remarks
+     * This function provides a fallback for both absent and explicit null values. In contrast,
+     * {@link ifAbsent} only triggers for missing fields.
+     *
+     * @example
+     * ```typescript
+     * // Returns the user's preferred name, or if that is null, returns their full name.
+     * ifNull(field("preferredName"), field("fullName"))
+     * ```
+     *
+     * @param ifExpr The expression to check for null.
+     * @param elseExpr The value that will be returned if `ifExpr` evaluates to null.
+     * @returns A new {@code Expression} representing the ifNull operation.
+     */
+    export function ifNull(
+      ifExpr: Expression,
+      elseExpr: Expression,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that returns the `elseValue` argument if `ifExpr` is null, else
+     * return the result of the `ifExpr` argument evaluation.
+     *
+     * @remarks
+     * This function provides a fallback for both absent and explicit null values. In contrast,
+     * {@link ifAbsent} only triggers for missing fields.
+     *
+     * @example
+     * ```typescript
+     * // Returns the user's display name, or returns "Anonymous" if the field is null.
+     * ifNull(field("displayName"), "Anonymous")
+     * ```
+     *
+     * @param ifExpr The expression to check for null.
+     * @param elseValue The value that will be returned if `ifExpr` evaluates to null.
+     * @returns A new {@code Expression} representing the ifNull operation.
+     */
+    export function ifNull(
+      ifExpr: Expression,
+      elseValue: unknown,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that returns the `elseExpr` argument if `ifFieldName` is null, else
+     * return the value of the field.
+     *
+     * @remarks
+     * This function provides a fallback for both absent and explicit null values. In contrast,
+     * {@link ifAbsent} only triggers for missing fields.
+     *
+     * @example
+     * ```typescript
+     * // Returns the user's preferred name, or if that is null, returns their full name.
+     * ifNull("preferredName", field("fullName"))
+     * ```
+     *
+     * @param ifFieldName The field to check for null.
+     * @param elseExpr The expression that will be evaluated and returned if `ifFieldName` is
+     * null.
+     * @returns A new {@code Expression} representing the ifNull operation.
+     */
+    export function ifNull(
+      ifFieldName: string,
+      elseExpr: Expression,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that returns the `elseValue` argument if `ifFieldName` is null, else
+     * return the value of the field.
+     *
+     * @remarks
+     * This function provides a fallback for both absent and explicit null values. In contrast,
+     * {@link ifAbsent} only triggers for missing fields.
+     *
+     * @example
+     * ```typescript
+     * // Returns the user's display name, or returns "Anonymous" if the field is null.
+     * ifNull("displayName", "Anonymous")
+     * ```
+     *
+     * @param ifFieldName The field to check for null.
+     * @param elseValue The value that will be returned if `ifFieldName` is null.
+     * @returns A new {@code Expression} representing the ifNull operation.
+     */
+    export function ifNull(
+      ifFieldName: string,
+      elseValue: unknown,
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that returns the first non-null, non-absent argument, without evaluating
+     * the rest of the arguments. When all arguments are null or absent, returns the last argument.
+     *
+     * @example
+     * ```typescript
+     * // Returns the value of the first non-null, non-absent field among 'preferredName', 'fullName',
+     * // or the last argument if all previous fields are null.
+     * coalesce(field("preferredName"), field("fullName"), constant("Anonymous"))
+     * ```
+     *
+     * @param expression The first expression to evaluate.
+     * @param replacement The next expression or literal to evaluate.
+     * @param others Additional expressions or literals to evaluate.
+     * @returns A new [Expression] representing the coalesce operation.
+     */
+    export function coalesce(
+      expression: Expression,
+      replacement: Expression | unknown,
+      ...others: Array<Expression | unknown>
+    ): FunctionExpression;
+
+    /**
+     * @beta
+     * Creates an expression that returns the first non-null, non-absent argument, without evaluating
+     * the rest of the arguments. When all arguments are null or absent, returns the last argument.
+     *
+     * @example
+     * ```typescript
+     * // Returns the value of the first non-null, non-absent field among 'preferredName', 'fullName',
+     * // or the last argument if all previous fields are null.
+     * coalesce("preferredName", field("fullName"), constant("Anonymous"))
+     * ```
+     *
+     * @param fieldName The first field name to evaluate.
+     * @param replacement The next expression or literal to evaluate.
+     * @param others Additional expressions or literals to evaluate.
+     * @returns A new [Expression] representing the coalesce operation.
+     */
+    export function coalesce(
+      fieldName: string,
+      replacement: Expression | unknown,
+      ...others: Array<Expression | unknown>
+    ): FunctionExpression;
 
     /**
      * @beta
