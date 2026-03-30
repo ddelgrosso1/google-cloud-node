@@ -99,6 +99,7 @@ export {
   isError,
   substring,
   documentId,
+  parent,
   arrayContainsAll,
   constant,
   Field,
@@ -152,6 +153,8 @@ export {
   type,
   isType,
   timestampTruncate,
+  timestampExtract,
+  timestampDiff,
   split,
   ltrim,
   rtrim,
@@ -164,5 +167,7 @@ export {
   getField,
   variable,
   currentDocument,
+  ifNull,
+  coalesce,
   // TODO(new-expression): Add new expression exports above this line
 } from './expression';

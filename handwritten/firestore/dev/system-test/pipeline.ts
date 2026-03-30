@@ -69,6 +69,7 @@ import {
   isError,
   substring,
   documentId,
+  parent,
   arrayContainsAll,
   mapRemove,
   mapMerge,
@@ -140,6 +141,8 @@ import {
   log10,
   concat,
   ifAbsent,
+  ifNull,
+  coalesce,
   join,
   arraySum,
   currentTimestamp,
@@ -151,6 +154,8 @@ import {
   type,
   isType,
   timestampTruncate,
+  timestampExtract,
+  timestampDiff,
   split,
   switchOn,
   nor,
@@ -4757,6 +4762,29 @@ describe.skipClassic('Pipeline class', () => {
       });
     });
 
+    it('supports parent', async () => {
+      const snapshot = await firestore
+        .pipeline()
+        .collection(randomCol.path)
+        .limit(1)
+        .select(
+          parent(randomCol.doc('book4/reviews/review1')).as('parentRefStatic'),
+          constant(randomCol.doc('book4/reviews/review1'))
+            .parent()
+            .as('parentRefInstance'),
+        )
+        .select(
+          field('parentRefStatic').documentId().as('parentIdStatic'),
+          field('parentRefInstance').documentId().as('parentIdInstance'),
+        )
+        .execute();
+
+      expectResults(snapshot, {
+        parentIdStatic: 'book4',
+        parentIdInstance: 'book4',
+      });
+    });
+
     it('supports substring', async () => {
       let snapshot = await firestore
         .pipeline()
@@ -5166,6 +5194,87 @@ describe.skipClassic('Pipeline class', () => {
       });
     });
 
+    it('supports ifNull', async () => {
+      const snapshot = await firestore
+        .pipeline()
+        .collection(randomCol.path)
+        .limit(1)
+        .replaceWith(
+          map({
+            title: 'foo',
+            name: null,
+          }),
+        )
+        .select(
+          ifNull('title', 'default title').as('staticMethod'),
+          field('title').ifNull('default title').as('instanceMethod'),
+          field('name').ifNull(field('title')).as('nameOrTitle'),
+          field('name').ifNull('default name').as('fieldIsNull'),
+          field('absent').ifNull('default name').as('fieldIsAbsent'),
+        )
+        .execute();
+
+      expectResults(snapshot, {
+        staticMethod: 'foo',
+        instanceMethod: 'foo',
+        nameOrTitle: 'foo',
+        fieldIsNull: 'default name',
+        fieldIsAbsent: 'default name',
+      });
+    });
+
+    it('supports coalesce', async () => {
+      const snapshot = await firestore
+        .pipeline()
+        .collection(randomCol.path)
+        .limit(1)
+        .replaceWith(
+          map({
+            numberValue: 1,
+            stringValue: 'hello',
+            booleanValue: false,
+            nullValue: null,
+            nullValue2: null,
+          }),
+        )
+        .select(
+          coalesce(field('numberValue'), field('stringValue')).as(
+            'staticMethod',
+          ),
+          field('numberValue')
+            .coalesce(field('stringValue'))
+            .as('instanceMethod'),
+          coalesce(field('nullValue'), field('stringValue')).as('firstIsNull'),
+          coalesce(
+            field('nullValue'),
+            field('nullValue2'),
+            field('booleanValue'),
+          ).as('lastIsNotNull'),
+          coalesce(field('nullValue'), field('nullValue2')).as('allFieldsNull'),
+          coalesce(
+            field('nullValue'),
+            field('nullValue2'),
+            constant('default'),
+          ).as('allFieldsNullWithDefault'),
+          coalesce(
+            field('absentField'),
+            field('numberValue'),
+            constant('default'),
+          ).as('withAbsentField'),
+        )
+        .execute();
+
+      expectResults(snapshot, {
+        staticMethod: 1,
+        instanceMethod: 1,
+        firstIsNull: 'hello',
+        lastIsNotNull: false,
+        allFieldsNull: null,
+        allFieldsNullWithDefault: 'default',
+        withAbsentField: 1,
+      });
+    });
+
     it('supports join', async () => {
       const snapshot = await firestore
         .pipeline()
@@ -5254,6 +5363,73 @@ describe.skipClassic('Pipeline class', () => {
         trunc_hour: new Timestamp(Date.UTC(2025, 10, 30, 1) / 1000, 0),
         trunc_minute: new Timestamp(Date.UTC(2025, 10, 30, 1, 2) / 1000, 0),
         trunc_second: new Timestamp(Date.UTC(2025, 10, 30, 1, 2, 3) / 1000, 0),
+      });
+    });
+
+    it('supports timestamp difference', async () => {
+      const results = await firestore
+        .pipeline()
+        .collection(randomCol.path)
+        .limit(1)
+        .replaceWith(
+          map({
+            end: new Timestamp(1741437296, 123456789),
+            start: new Timestamp(1741428000, 0),
+          }),
+        )
+        .select(
+          timestampDiff(field('end'), field('start'), 'hour').as('diffHour'),
+          field('end').timestampDiff(field('start'), 'minute').as('diffMinute'),
+          field('end').timestampDiff(field('start'), 'second').as('diffSecond'),
+          field('start').timestampDiff(field('end'), 'hour').as('diffHourNeg'),
+        )
+        .execute();
+
+      expectResults(results, {
+        diffHour: 2,
+        diffMinute: 154,
+        diffSecond: 9296,
+        diffHourNeg: -2,
+      });
+    });
+
+    it('supports timestamp extraction', async () => {
+      const results = await firestore
+        .pipeline()
+        .collection(randomCol.path)
+        .limit(1)
+        .replaceWith(
+          map({
+            ts: new Timestamp(1741437296, 123456789),
+          }),
+        )
+        .select(
+          timestampExtract(field('ts'), 'year').as('year'),
+          field('ts').timestampExtract('month').as('month'),
+          timestampExtract(field('ts'), 'day').as('day'),
+          field('ts').timestampExtract('hour').as('hour'),
+          timestampExtract(field('ts'), 'minute').as('minute'),
+          field('ts').timestampExtract('second').as('second'),
+          timestampExtract(field('ts'), 'millisecond').as('millis'),
+          field('ts').timestampExtract('microsecond').as('micros'),
+          timestampExtract(field('ts'), 'dayofyear').as('dayOfYear'),
+          field('ts')
+            .timestampExtract('hour', 'America/Los_Angeles')
+            .as('hourLa'),
+        )
+        .execute();
+
+      expectResults(results, {
+        year: 2025,
+        month: 3,
+        day: 8,
+        hour: 12,
+        minute: 34,
+        second: 56,
+        millis: 123,
+        micros: 123456,
+        dayOfYear: 67,
+        hourLa: 4,
       });
     });
 
