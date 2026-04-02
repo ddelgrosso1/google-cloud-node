@@ -3635,7 +3635,7 @@ declare namespace FirebaseFirestore {
        * @example
        * ```typescript
        * // Filter "scores" to include only values greater than 50
-       * field("scores").arrayFilter("score", variable("score").greaterThan(50));
+       * field("scores").arrayFilter("score", greaterThan(variable("score"), 50));
        * ```
        *
        * @param alias The variable name to use for each element.
@@ -3676,7 +3676,7 @@ declare namespace FirebaseFirestore {
        * @param elementAlias The variable name to use for each element.
        * @param indexAlias The variable name to use for the current index.
        * @param transform The lambda expression used to transform the elements.
-       * @returns A new `Expression` representing the arrayTransform operation.
+       * @returns A new `Expression` representing the arrayTransformWithIndex operation.
        */
       arrayTransformWithIndex(
         elementAlias: string,

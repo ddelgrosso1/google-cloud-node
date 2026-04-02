@@ -2236,7 +2236,7 @@ declare namespace Pipelines {
         switchOn,
         getField,
         variable,
-        currentDocument
+        currentDocument,
         ifNull,
         coalesce
     }
