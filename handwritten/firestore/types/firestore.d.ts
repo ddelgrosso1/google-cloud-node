@@ -750,7 +750,7 @@ declare namespace FirebaseFirestore {
      * starting with a source stage.
      *
      * @example
-     * ```
+     * ```typescript
      * let goodBooksPipeline: Pipeline =
      *     myFirestore.pipeline()
      *         .collection('books')
@@ -1930,7 +1930,7 @@ declare namespace FirebaseFirestore {
      * executing the query (if any).
      *
      * @example
-     * ```
+     * ```typescript
      * let query = firestore.collection('col').where('foo', '==', 'bar');
      * let count = 0;
      *
@@ -2034,7 +2034,7 @@ declare namespace FirebaseFirestore {
      * participate in the query, all other documents are ignored.
      *
      * @example
-     * ```
+     * ```typescript
      * // Returns the closest 10 documents whose Euclidean distance from their 'embedding' fields are closed to [41, 42].
      * const vectorQuery = col.findNearest('embedding', [41, 42], {limit: 10, distanceMeasure: 'EUCLIDEAN'});
      *
@@ -2070,7 +2070,7 @@ declare namespace FirebaseFirestore {
      * participate in the query, all other documents are ignored.
      *
      * @example
-     * ```
+     * ```typescript
      * // Returns the closest 10 documents whose Euclidean distance from their 'embedding' fields are closed to [41, 42].
      * const vectorQuery = col.findNearest({
      *     vectorField: 'embedding',
@@ -2101,7 +2101,7 @@ declare namespace FirebaseFirestore {
      * participate in the query, all other documents are ignored.
      *
      * @example
-     * ```
+     * ```typescript
      * // Returns the closest 10 documents whose Euclidean distance from their 'embedding' fields are closed to [41, 42].
      * const vectorQuery = col.findNearest({
      *     vectorField: 'embedding',
@@ -2980,7 +2980,7 @@ declare namespace FirebaseFirestore {
      * @returns {Filter} The created Filter.
      *
      * @example
-     * ```
+     * ```typescript
      * let collectionRef = firestore.collection('col');
      *
      * collectionRef.where(Filter.where('foo', '==', 'bar')).get().then(querySnapshot => {
@@ -3011,7 +3011,7 @@ declare namespace FirebaseFirestore {
      * @returns {Filter} The created {@link Filter}.
      *
      * @example
-     * ```
+     * ```typescript
      * let collectionRef = firestore.collection('col');
      *
      * // doc.foo == 'bar' || doc.baz > 0
@@ -3041,7 +3041,7 @@ declare namespace FirebaseFirestore {
      * @returns {Filter} The created {@link Filter}.
      *
      * @example
-     * ```
+     * ```typescript
      * let collectionRef = firestore.collection('col');
      *
      * // doc.foo == 'bar' && doc.baz > 0
@@ -5609,7 +5609,7 @@ declare namespace FirebaseFirestore {
       //  * the `lowerBound` (inclusive) and `upperBound` (inclusive).
       //  *
       //  * @example
-      //  * ```
+      //  * ```typescript
       //  * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
       //  * field('tireWidth').between(constant(2.2), constant(2.4))
       //  *
@@ -5619,6 +5619,7 @@ declare namespace FirebaseFirestore {
       //  *
       //  * @param lowerBound - Lower bound (inclusive) of the range.
       //  * @param upperBound - Upper bound (inclusive) of the range.
+      //  * @returns A `BooleanExpression` representing the specified between comparion.
       //  */
       // between(
       //   lowerBound: Expression,
@@ -5630,7 +5631,7 @@ declare namespace FirebaseFirestore {
       //  * the `lowerBound` (inclusive) and `upperBound` (inclusive).
       //  *
       //  * @example
-      //  * ```
+      //  * ```typescript
       //  * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
       //  * field('tireWidth').between(2.2, 2.4)
       //  *
@@ -5640,6 +5641,7 @@ declare namespace FirebaseFirestore {
       //  *
       //  * @param lowerBound - Lower bound (inclusive) of the range.
       //  * @param upperBound - Upper bound (inclusive) of the range.
+      //  * @returns A `BooleanExpression` representing the specified between comparion.
       //  */
       // between(lowerBound: unknown, upperBound: unknown): BooleanExpression;
 
@@ -5650,7 +5652,8 @@ declare namespace FirebaseFirestore {
       //  *
       //  * @remarks This Expression can only be used within a `Search` stage.
       //  *
-      //  * @param rquery Define the search query using the search DSL.
+      //  * @param rquery Define the search query using the search domain-specific language (DSL).
+      //  * @returns An `Expression` representing the snippet function.
       //  */
       // snippet(rquery: string): Expression;
       //
@@ -5661,6 +5664,7 @@ declare namespace FirebaseFirestore {
       //  * @remarks This Expression can only be used within a `Search` stage.
       //  *
       //  * @param options Define how snippeting behaves.
+      //  * @returns An `Expression` representing the snippet function.
       //  */
       // snippet(options: SnippetOptions): Expression;
 
@@ -5899,7 +5903,8 @@ declare namespace FirebaseFirestore {
       //  *
       //  * @remarks This Expression can only be used within a `Search` stage.
       //  *
-      //  * @param rquery Define the search query using the rquery DTS.
+      //  * @param rquery Define the search query using the search domain-specific language (DSL).
+      //  * @returns A `BooleanExpression` representing the matches function.
       //  */
       // matches(rquery: string | Expression): BooleanExpression;
 
@@ -11522,7 +11527,8 @@ declare namespace FirebaseFirestore {
     //  * @remarks This Expression can only be used within a `Search` stage.
     //  *
     //  * @param searchField Search the specified field.
-    //  * @param rquery Define the search query using the search DSL.
+    //  * @param rquery Define the search query using the search domain-specific language (DSL).
+    //  * @returns A `BooleanExpression` representing the matches function.
     //  */
     // export function matches(
     //   searchField: string | Field,
@@ -11541,7 +11547,8 @@ declare namespace FirebaseFirestore {
      * })
      * ```
      *
-     * @param rquery Define the search query using the search DSL.
+     * @param rquery Define the search query using the search domain-specific language (DSL).
+     * @returns A `BooleanExpression` representing the documentMatches function.
      */
     export function documentMatches(
       rquery: string | Expression,
@@ -11564,6 +11571,7 @@ declare namespace FirebaseFirestore {
      * ```
      *
      * @remarks This Expression can only be used within a `Search` stage.
+     * @returns An `Expression` representing the score function.
      */
     export function score(): Expression;
 
@@ -11583,7 +11591,8 @@ declare namespace FirebaseFirestore {
     //  * @remarks This Expression can only be used within a `Search` stage.
     //  *
     //  * @param searchField Search the specified field for matching terms.
-    //  * @param rquery Define the search query using the search DSL.
+    //  * @param rquery Define the search query using the search domain-specific language (DSL).
+    //  * @returns An `Expression` representing the snippet function.
     //  */
     // export function snippet(
     //   searchField: string | Field,
@@ -11597,7 +11606,8 @@ declare namespace FirebaseFirestore {
     //  * @remarks This Expression can only be used within a `Search` stage.
     //  *
     //  * @param searchField Search the specified field for matching terms.
-    //  * @param options Define the search query using the search DSL.
+    //  * @param options Define the search query using the search domain-specific language (DSL).
+    //  * @returns An `Expression` representing the snippet function.
     //  */
     // export function snippet(
     //   searchField: string | Field,
@@ -11623,6 +11633,7 @@ declare namespace FirebaseFirestore {
      * @param fieldName - Specifies the field in the document which contains
      * the first GeoPoint for distance computation.
      * @param location - Compute distance to this GeoPoint.
+     * @returns An `Expression` representing the geoDistance function.
      */
     export function geoDistance(
       fieldName: string | Field,
@@ -11635,7 +11646,7 @@ declare namespace FirebaseFirestore {
     //  * the evaluated values for `lowerBound` (inclusive) and `upperBound` (inclusive).
     //  *
     //  * @example
-    //  * ```
+    //  * ```typescript
     //  * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
     //  * between('tireWidth', constant(2.2), constant(2.4))
     //  *
@@ -11644,8 +11655,9 @@ declare namespace FirebaseFirestore {
     //  * ```
     //  *
     //  * @param fieldName - Evaluate if the value stored in this field is between the lower and upper bounds.
-    //  * @param lowerBound - Lower bound (inclusive) of the range.
-    //  * @param upperBound - Upper bound (inclusive) of the range.
+    //  * @param lowerBound - An `Expression` that evaluates to the lower bound (inclusive) of the range.
+    //  * @param upperBound - An `Expression` that evaluates to the upper bound (inclusive) of the range.
+    //  * @returns A `BooleanExpression` representing the specified between comparion.
     //  */
     // export function between(
     //   fieldName: string,
@@ -11658,7 +11670,7 @@ declare namespace FirebaseFirestore {
     //  * the values for `lowerBound` (inclusive) and `upperBound` (inclusive).
     //  *
     //  * @example
-    //  * ```
+    //  * ```typescript
     //  * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
     //  * between('tireWidth', 2.2, 2.4)
     //  *
@@ -11669,6 +11681,7 @@ declare namespace FirebaseFirestore {
     //  * @param fieldName - Evaluate if the value stored in this field is between the lower and upper bounds.
     //  * @param lowerBound - Lower bound (inclusive) of the range.
     //  * @param upperBound - Upper bound (inclusive) of the range.
+    //  * @returns A `BooleanExpression` representing the specified between comparion.
     //  */
     // export function between(
     //   fieldName: string,
@@ -11681,7 +11694,7 @@ declare namespace FirebaseFirestore {
     //  * the results of `lowerBound` (inclusive) and `upperBound` (inclusive).
     //  *
     //  * @example
-    //  * ```
+    //  * ```typescript
     //  * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
     //  * between(field('tireWidth'), constant(2.2), constant(2.4))
     //  *
@@ -11689,9 +11702,10 @@ declare namespace FirebaseFirestore {
     //  * and(greaterThanOrEqual(field('tireWidth'), constant(2.2)), lessThanOrEqual(field('tireWidth'), constant(2.4)))
     //  * ```
     //  *
-    //  * @param expression - Evaluate if the result of this expression is between the lower and upper bounds.
-    //  * @param lowerBound - Lower bound (inclusive) of the range.
-    //  * @param upperBound - Upper bound (inclusive) of the range.
+    //  * @param expression - Evaluate if the result of this expression is between the lower and upper bounds
+    //  * @param lowerBound - An `Expression` that evaluates to the lower bound (inclusive) of the range.
+    //  * @param upperBound - An `Expression` that evaluates to the upper bound (inclusive) of the range.
+    //  * @returns A `BooleanExpression` representing the specified between comparion.
     //  */
     // export function between(
     //   expression: Expression,
@@ -11704,7 +11718,7 @@ declare namespace FirebaseFirestore {
     //  * the `lowerBound` (inclusive) and `upperBound` (inclusive).
     //  *
     //  * @example
-    //  * ```
+    //  * ```typescript
     //  * // Evaluate if the 'tireWidth' is between 2.2 and 2.4
     //  * between(field('tireWidth'), 2.2, 2.4)
     //  *
@@ -11715,6 +11729,7 @@ declare namespace FirebaseFirestore {
     //  * @param expression - Evaluate if the result of this expression is between the lower and upper bounds.
     //  * @param lowerBound - Lower bound (inclusive) of the range.
     //  * @param upperBound - Upper bound (inclusive) of the range.
+    //  * @returns A `BooleanExpression` representing the specified between comparion.
     //  */
     // export function between(
     //   expression: Expression,
@@ -13227,10 +13242,10 @@ declare namespace FirebaseFirestore {
        * })
        * ```
        *
-       * The query can also be expressed as a string in the Search DSL:
+       * The query can also be expressed as a string in the search domain-specific language (DSL):
        *
        * @example
-       * ```
+       * ```typescript
        * db.pipeline().collection('restaurants').search({
        *   query: 'breakfast'
        * })
@@ -13298,7 +13313,7 @@ declare namespace FirebaseFirestore {
     //  */
     // export type SnippetOptions = {
     //   /**
-    //    * Define the search query using the search DSL.
+    //    * Define the search query using the search domain-specific language (DSL).
     //    */
     //   rquery: string;
     //
@@ -13442,7 +13457,7 @@ declare namespace FirebaseFirestore {
        * @returns {DocumentData} An object containing all fields in the document.
        *
        * @example
-       * ```
+       * ```typescript
        * let p = firestore.pipeline().collection('col');
        *
        * p.execute().then(results => {
@@ -13462,7 +13477,7 @@ declare namespace FirebaseFirestore {
        * such field exists.
        *
        * @example
-       * ```
+       * ```typescript
        * let p = firestore.pipeline().collection('col');
        *
        * p.execute().then(results => {

@@ -2010,7 +2010,7 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
    * @returns {T} An object containing all fields in the document.
    *
    * @example
-   * ```
+   * ```typescript
    * let p = firestore.pipeline().collection('col');
    *
    * p.execute().then(results => {
@@ -2039,7 +2039,7 @@ export class PipelineResult implements firestore.Pipelines.PipelineResult {
    * such field exists.
    *
    * @example
-   * ```
+   * ```typescript
    * let p = firestore.pipeline().collection('col');
    *
    * p.execute().then(results => {
