@@ -186,19 +186,19 @@ const timestampDeltaMS = 3000;
 let beginDocCreation = 0;
 let endDocCreation = 0;
 
-  async function testCollectionWithDocs(
-    targetCol: CollectionReference,
-    docs: {
-      [id: string]: DocumentData;
+async function testCollectionWithDocs(
+  targetCol: CollectionReference,
+  docs: {
+    [id: string]: DocumentData;
   },
 ): Promise<CollectionReference<DocumentData>> {
   beginDocCreation = new Date().valueOf();
   for (const id in docs) {
-      const ref = targetCol.doc(id);
+    const ref = targetCol.doc(id);
     await ref.set(docs[id]);
   }
   endDocCreation = new Date().valueOf();
-    return targetCol;
+  return targetCol;
 }
 
 function expectResults(result: PipelineSnapshot, ...docs: string[]): void;
@@ -226,7 +226,7 @@ describe.skipClassic('Pipeline class', () => {
   let randomCol: CollectionReference;
 
   async function setupBookDocs(
-      targetCol: CollectionReference,
+    targetCol: CollectionReference,
   ): Promise<CollectionReference<DocumentData>> {
     const bookDocs: {[id: string]: DocumentData} = {
       book1: {
