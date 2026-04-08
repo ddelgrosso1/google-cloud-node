@@ -6073,6 +6073,16 @@ declare namespace FirebaseFirestore {
        *
        * @remarks This Expression can only be used within a `Search` stage.
        *
+       * @example
+       * ```typescript
+       * const geoDistanceToUser = field('location').geoDistance(new GeoPoint(39.7541, -105.0002));
+       *
+       * db.pipeline().collection('restaurants').search({
+       *   query: geoDistanceToUser.lessThanOrEqual(2000),
+       *   sort: geoDistanceToUser.ascending()
+       * })
+       * ```
+       *
        * @param location - Compute distance to this GeoPoint.
        */
       geoDistance(location: GeoPoint | Expression): Expression;
@@ -13209,6 +13219,26 @@ declare namespace FirebaseFirestore {
       unnest(options: UnnestStageOptions): Pipeline;
       /**
        * @beta
+       *
+       * Add a search stage to the Pipeline.
+       *
+       * @remarks This must be the first stage of the pipeline.
+       * @remarks A limited set of expressions are supported in the search stage.
+       *
+       * @example
+       * ```typescript
+       * db.pipeline().collection('restaurants').search({
+       *   query: documentMatches('breakfast')
+       * })
+       * ```
+       *
+       * @param options - An object that specifies required and optional parameters
+       *                  for the stage.
+       * @return A new `Pipeline` object with this stage appended to the stage list.
+       */
+      search(options: SearchStageOptions): Pipeline;
+      /**
+       * @beta
        * Sorts the documents from previous stages based on one or more `Ordering` criteria.
        *
        * <p>This stage allows you to order the results of your pipeline. You can specify multiple {@link
@@ -13758,7 +13788,7 @@ declare namespace FirebaseFirestore {
        * @example
        * ```typescript
        * db.pipeline().collection('restaurants').search({
-       *   query: documentMatches("breakfast")
+       *   query: documentMatches('breakfast')
        * })
        * ```
        *

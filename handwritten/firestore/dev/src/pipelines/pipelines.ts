@@ -1422,6 +1422,13 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
    * @remarks This must be the first stage of the pipeline.
    * @remarks A limited set of expressions are supported in the search stage.
    *
+   * @example
+   * ```typescript
+   * db.pipeline().collection('restaurants').search({
+   *   query: documentMatches('breakfast')
+   * })
+   * ```
+   *
    * @param options - An object that specifies required and optional parameters
    *                  for the stage.
    * @return A new `Pipeline` object with this stage appended to the stage list.
@@ -1431,6 +1438,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const normalizedQuery: BooleanExpression = isExpr(options.query)
       ? (options.query as BooleanExpression)
       : documentMatches(options.query);
+    // TODO(search) - re-enable select normalization when select is supported in the API
     // const normalizedSelect: Record<string, Expression> | undefined =
     //   options.select ? selectablesToObject(options.select) : undefined;
     const normalizedAddFields: Record<string, Expression> | undefined =
@@ -1442,6 +1450,7 @@ export class Pipeline implements firestore.Pipelines.Pipeline {
     const internalOptions: InternalSearchStageOptions = {
       ...options,
       query: normalizedQuery,
+      // TODO(search) - re-enable select normalization when select is supported in the API
       // select: normalizedSelect,
       addFields: normalizedAddFields,
       sort: normalizedSort,
