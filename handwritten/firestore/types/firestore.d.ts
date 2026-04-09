@@ -3599,7 +3599,6 @@ declare namespace FirebaseFirestore {
       arrayContainsAny(arrayExpression: Expression): BooleanExpression;
 
       /**
-       * @beta
        * Creates an expression that filters an array using a provided alias and predicate expression.
        *
        * @example
@@ -3615,7 +3614,6 @@ declare namespace FirebaseFirestore {
       arrayFilter(alias: string, filter: BooleanExpression): FunctionExpression;
 
       /**
-       * @beta
        * Creates an expression that applies a provided transformation to each element in an array.
        *
        * @example
@@ -3634,7 +3632,6 @@ declare namespace FirebaseFirestore {
       ): FunctionExpression;
 
       /**
-       * @beta
        * Creates an expression that applies a provided transformation to each element in an array, providing the element's index to the transformation expression.
        *
        * @example
@@ -3655,8 +3652,7 @@ declare namespace FirebaseFirestore {
       ): FunctionExpression;
 
       /**
-       * @beta
-       * Returns a subset of the array.
+       * Creates an expression that returns a slice of an array from `offset` with `length` elements.
        *
        * @example
        * ```typescript
@@ -8637,7 +8633,7 @@ declare namespace FirebaseFirestore {
     ): FunctionExpression;
 
     /**
-     * Creates an expression that returns a subset of an array.
+     * Creates an expression that returns a slice of an array from `offset` with `length` elements.
      *
      * ```typescript
      * // Get 5 elements from the 'items' array field starting from index 2
@@ -8659,7 +8655,7 @@ declare namespace FirebaseFirestore {
     ): FunctionExpression;
 
     /**
-     * Creates an expression that returns a subset of an array.
+     * Creates an expression that returns a slice of an array from `offset` with `length` elements.
      *
      * ```typescript
      * // Get 5 elements from an array expression starting from index 2

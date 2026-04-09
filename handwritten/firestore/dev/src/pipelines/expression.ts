@@ -651,7 +651,7 @@ export abstract class Expression
   }
 
   /**
-   * Returns a subset of the array.
+   * Creates an expression that returns a slice of an array from `offset` with `length` elements.
    *
    * @example
    * ```typescript
@@ -6137,7 +6137,7 @@ export function arrayTransformWithIndex(
 }
 
 /**
- * Creates an expression that returns a subset of an array.
+ * Creates an expression that returns a slice of an array from `offset` with `length` elements.
  *
  * ```typescript
  * // Get 5 elements from the 'items' array field starting from index 2
@@ -6159,7 +6159,7 @@ export function arraySlice(
 ): FunctionExpression;
 
 /**
- * Creates an expression that returns a subset of an array.
+ * Creates an expression that returns a slice of an array from `offset` with `length` elements.
  *
  * ```typescript
  * // Get 5 elements from an array expression starting from index 2
